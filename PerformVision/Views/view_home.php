@@ -1,4 +1,7 @@
-<?php require "view_begin.php"; ?>
+$titledef = (explode('/', $_SERVER['SCRIPT_NAME']));
+$title = $titledef[2];
+<?php require "view_begin.php";
+
 
 <div id="top" class="div1"></div>
 
