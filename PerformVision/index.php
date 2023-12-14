@@ -3,7 +3,6 @@
 session_start();
 
 // Pour avoir le nombre de résultats par page
-require_once "Utils/constant.php";
 //Pour avoir la fonction e()
 require_once "Utils/functions.php";
 //Inclusion du modèle
