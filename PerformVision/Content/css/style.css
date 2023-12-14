@@ -3,7 +3,7 @@
 }
 
 p {
-    font-family: Roboto;
+    font-family: Roboto, system-ui;
     font-weight: normal;
     font-size: 30px;
     opacity: 1;
