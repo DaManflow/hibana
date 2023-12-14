@@ -1,11 +1,8 @@
-$titledef = (explode('/', $_SERVER['SCRIPT_NAME']));
-$title = $titledef[2];
-php require "view_begin.php";>
 
+<?php
+require_once "view_begin.php";?>
 
-<div id="top" class="div1"></div>
-
-<div class="Framenav">
+    <div class="Framenav">
 
     <a class="AccButton" href="#top" title="Retour à l'accueil">
         <p class="Accueil">PerformVision Training & Consulting
@@ -13,12 +10,11 @@ php require "view_begin.php";>
     </a>
 
     <div class="navi">
-        <div><a href="#Formations" title="Formations" class="link">Formations</a></div>
-        <div><a href="#Conseils" title="Conseils" class="link">Conseils</a></div>
-        <div><a href="#Autres ▽" title="Autres" class="link mecontacter">Autres ▽</a></div>
-        <div><a href="#se connecter" title="Se connecter" class="link">Se connecter</a></div>
+        <div><a class="link" href="#Formations" title="Formations">Formations</a></div>
+        <div><a class="link" href="#Conseils" title="Conseils">Conseils</a></div>
+        <div><a class="naviautres" href="#Autres ▽" title="Autres">Autres ▽</a></div>
+
+        <div><a class="naviconnexion" href="#se connecter" title="Se connecter">Se connecter</a></div>
     </div>
 
 </div>
-
-<?php require "view_end.php"; ?>

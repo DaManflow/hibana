@@ -1,8 +1,12 @@
 <!DOCTYPE html>
 <html lang="fr">
 	<head>
-		<meta charset="utf-8"/>
-		<title><?php echo $title; ?></title>
-		<link rel="stylesheet" href="Content/css/nobel.css"/>
+		<title>
+            Titre
+        </title>
+        <meta charset="utf-8"/>
+		<link rel="stylesheet" href="../Content/css/style.css"/>
+        <link rel="pp" href="" />
+        <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet" />
 	</head>
 	<body>
