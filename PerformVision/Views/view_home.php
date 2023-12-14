@@ -1,6 +1,6 @@
 $titledef = (explode('/', $_SERVER['SCRIPT_NAME']));
 $title = $titledef[2];
-<?php require "view_begin.php";
+php require "view_begin.php";>
 
 
 <div id="top" class="div1"></div>
@@ -8,7 +8,6 @@ $title = $titledef[2];
 <div class="Framenav">
 
     <a class="AccButton" href="#top" title="Retour à l'accueil">
-
         <p class="Accueil">PerformVision Training & Consulting
         </p>
     </a>
