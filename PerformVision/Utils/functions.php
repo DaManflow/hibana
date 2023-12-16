@@ -11,6 +11,60 @@ function e($message)
     return htmlspecialchars($message, ENT_QUOTES);
 }
 
+function check_data_customer() {
+
+    $infos = [];
+    
+    if (isset($_POST['name'])) {
+        if (! empty(trim($_POST['name']))) {
+            
+            $infos['name'] = $_POST['name'];
+        }
+        else {
+            return false;
+        }
+    }
+
+    if (isset($_POST['surname'])) {
+        if (! empty(trim($_POST['surname']))) {
+            
+            $infos['surname'] = $_POST['surname'];
+        }
+        else {
+            return false;
+        }
+    }
+    
+    if (isset($_POST['email'])) {
+        if (! empty(trim($_POST['email']))) {
+            
+            $infos['email'] = $_POST['email'];
+        }
+        else {
+            return false;
+        }
+    }
+
+    $infos['role'] = "client";
+
+    if (isset($_POST['password'])) {
+        if (! empty(trim($_POST['password']))) {
+            
+            $infos['password'] = $_POST['password'];
+        }
+        else {
+            return false;
+        }
+    }
+
+    $infos['estaffranchi'] = "false";
+    
+    
+    
+    return $infos;
+    
+    }
+
 
 /**
  * Récupère sous forme de tableau les numéros de pages à afficher dans un affichage avec pagination

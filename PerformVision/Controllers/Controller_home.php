@@ -3,7 +3,10 @@ require_once "Controller.php";
 class Controller_home extends Controller{
     public function action_home(){
         $m = Model::getModel();
-        $m->createUser();
+        $data = [
+            
+        ];
+        $this->render("home", $data);
 
     }
     public function action_default(){

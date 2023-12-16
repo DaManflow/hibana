@@ -31,16 +31,31 @@ class Model
         return self::$instance;
     }
 
-    public function createUser() {
-        
-        $req = $this->bd->prepare('INSERT INTO UTILISATEUR(nom,prenom,mail,role,motdepasse, estaffranchi) VALUES (:nom,:prenom,:mail,:role,:motdepasse,:estaffranchi)');
-        $req->bindValue(":nom",$_POST['name']);
-        $req->bindValue(":prenom",$_POST['surname']);
-        $req->bindValue(":mail",$_POST['email']);
-        $req->bindValue(":role","client");
-        $req->bindValue(":motdepasse",$_POST['password']);
-        $req->bindValue(":estaffranchi",'false');
+    public function createCustomer($infos) {
+        if (! $infos) {return false;}
+
+        $req1 = $this->bd->prepare('SELECT COUNT(*) AS count FROM UTILISATEUR WHERE mail = :email');
+        $req1->bindValue(":email", $infos['email']);
+        $req1->execute();
+        $row = $req1->fetch(PDO::FETCH_ASSOC);
+
+        if ($row['count'] == 0) {
+            $req = $this->bd->prepare('INSERT INTO UTILISATEUR(nom,prenom,mail,role,motdepasse, estaffranchi) VALUES (:name,:surname,:email,:role,:password,:estaffranchi)');
+        $marqueurs = ['name', 'surname', 'email', "role", 'password', "estaffranchi"];
+        foreach ($marqueurs as $value) {
+            
+            $req->bindValue(':' . $value, $infos[$value]);
+        }
         $req->execute();
+
+        return true;
+
+        }
+        else {
+            return false;
+        }
+        
+        
 
 
     }
