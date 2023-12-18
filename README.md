@@ -1,4 +1,12 @@
 # Hibana
+SAE 301 développement d'application 
+Nom du groupe : Hibana
+Membres de groupe : 
+Kenza Hatem
+Djibryl Guillauby
+Manon Glaude 
+Nathan Boulangeot 
+Alexandre Meunier
 
 
 
