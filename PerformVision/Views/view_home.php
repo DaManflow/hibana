@@ -23,10 +23,13 @@ require_once "view_begin.php";?>
         <div><a class="naviconnexion" href="?controller=register&action=form_register_customer" title="Se connecter">Se connecter</a></div>
     </div>
 </div>
-    <div class="div1">
-        <h2>Bienvenue chez</h2>
-        <h1>PerformVision Formations</h1>
-    </div>
+
+<div class="color"></div>
+<div class="div1"></div>
+
+<h2 class="d1">Bienvenue chez</h2>
+<h1 class="d1">PerformVision Training & Consulting</h1>
+
 
 
 

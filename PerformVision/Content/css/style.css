@@ -69,7 +69,7 @@ span {
     position: fixed;
     width: 100%;
     height: 75px;
-    background: rgba(35, 139, 214, 20%);
+    background: rgba(13, 71, 112, 0.3);
     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
     z-index:8;
 }
@@ -84,7 +84,7 @@ span {
     background-size: cover;
     opacity: 1;
     top: 12px;
-    left: 50%;
+    left: 60%;
     overflow: hidden;
     font-size: 20px;
     z-index: 12;
@@ -144,7 +144,7 @@ span {
     align-items: center;
     display: inline-flex;
     color: white;
-    left: 100px;
+    left: 12%;
     padding-left: 10px;
     padding-right: 10px;
     z-index: 11;
@@ -224,17 +224,57 @@ span {
 }
 
 .div1 {
+    position: absolute;
     width: 100%;
     height: 512px;
-
-
     background-size: cover;
-    opacity: 0.1;
-    background: #dc00ff url("../images/FondDiv1.png") center;
-    position: absolute;
+    opacity: 1;
+    background: url("../images/FondDiv1.png");
     top: 0px;
     left: 0px;
     overflow: hidden;
-    box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.9);
+    font-weight: bold;
+    box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
     z-index:1;
 }
+
+.color {
+    position: absolute;
+    width: 100%;
+    height: 512px;
+    background-size: cover;
+    opacity: 1;
+    background: rgb(0, 4, 17, 0.6);
+    top: 0px;
+    left: 0px;
+    overflow: hidden;
+    z-index:2;
+}
+
+.d1 {
+    position: absolute;
+    color: #ffffff;
+    font-family: Roboto, serif;
+    font-weight: bold;
+    text-align: center;
+    text-shadow: 5px 5px 50px rgba(0, 0, 0, 1);
+    opacity: 1;
+    z-index:5;
+    top: 500px;
+    margin: 0;
+}
+.d1 h2 {
+    position: absolute;
+    color: #ff0000;
+    font-family: Roboto;
+    font-weight: Bold;
+    text-align: center;
+    text-shadow: 5px 5px 50px rgba(0, 0, 0, 1);
+    width: 100%;
+    height: 100%;
+    opacity: 1;
+    z-index:5;
+    top: 500px;
+    margin: 0;
+}
+
