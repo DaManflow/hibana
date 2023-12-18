@@ -66,6 +66,81 @@ function check_data_customer() {
     }
 
 
+    function check_data_former() {
+
+        $infos = [];
+        
+        if (isset($_POST['name'])) {
+            if (! empty(trim($_POST['name']))) {
+                
+                $infos['name'] = $_POST['name'];
+            }
+            else {
+                return false;
+            }
+        }
+    
+        if (isset($_POST['surname'])) {
+            if (! empty(trim($_POST['surname']))) {
+                
+                $infos['surname'] = $_POST['surname'];
+            }
+            else {
+                return false;
+            }
+        }
+        
+        if (isset($_POST['email'])) {
+            if (! empty(trim($_POST['email']))) {
+                
+                $infos['email'] = $_POST['email'];
+            }
+            else {
+                return false;
+            }
+        }
+    
+        $infos['role'] = "formateur";
+    
+        if (isset($_POST['password'])) {
+            if (! empty(trim($_POST['password']))) {
+                
+                $infos['password'] = $_POST['password'];
+            }
+            else {
+                return false;
+            }
+        }
+    
+        $infos['estaffranchi'] = "false";
+
+        if (isset($_POST['linkedin'])) {
+            if (! empty(trim($_POST['linkedin']))) {
+                
+                $infos['linkedin'] = $_POST['linkedin'];
+            }
+            else {
+                return false;
+            }
+        }
+
+        if (isset($_POST['cv'])) {
+            if (! empty(trim($_POST['cv']))) {
+                
+                $infos['cv'] = $_POST['cv'];
+            }
+            else {
+                return false;
+            }
+        }
+        
+        
+        
+        return $infos;
+        
+        }
+
+
 /**
  * Récupère sous forme de tableau les numéros de pages à afficher dans un affichage avec pagination
  * @param int $page_active page qui va être affichée
