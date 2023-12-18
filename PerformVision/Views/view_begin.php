@@ -1,12 +1,8 @@
 <!DOCTYPE html>
 <html lang="fr">
-	<head>
-		<title>
-            Titre
-        </title>
-        <meta charset="utf-8"/>
-		<link rel="stylesheet" href="../Content/css/style.css"/>
-        <link rel="pp" href="" />
-        <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet" />
-	</head>
-	<body>
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    
