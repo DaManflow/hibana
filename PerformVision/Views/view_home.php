@@ -1,7 +1,7 @@
 <?php
 require_once "view_begin.php";?>
 
-<div class="framenav"></div>
+<div class="framenav">
 
     <a class="AccButton" href="?" title="Retour à l'accueil">
         <p class="Accueil">PerformVision Training & Consulting</p>
@@ -21,6 +21,7 @@ require_once "view_begin.php";?>
         </div>
         <div><a class="naviconnexion" href="?controller=register&action=form_register_customer" title="Se connecter">Se connecter</a></div>
     </div>
+</div>
     <div class="div1">
         <h2>Bienvenue chez</h2>
         <h1>PerformVision Formations</h1>
