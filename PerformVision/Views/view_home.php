@@ -1,6 +1,7 @@
 <?php
 require_once "view_begin.php";?>
 
+<div class="framenavbg"></div>
 <div class="framenav">
 
     <a class="AccButton" href="?" title="Retour à l'accueil">
