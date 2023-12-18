@@ -1,6 +1,9 @@
 ::selection {
     background-color: #4CB5FF;
 }
+.html{
+    background-color: #333;
+}
 
 .link::after {
     content: '';
@@ -33,7 +36,7 @@ a {
     color: #66BCFF;
     z-index: 9;
 }
-a:hover, .Accueil:hover {
+a:hover, .Accueil:hover, .autres .btn:hover {
     color: #A8D0FF;
 }
 
@@ -52,7 +55,7 @@ span {
     align-items: center;
     justify-content: center;
     width: 100%;
-    height: 250px;
+    height: 70px;
     background: rgba(53, 56, 82,0.8);
     opacity: 1;
     border-top-width: 4px;
@@ -60,7 +63,7 @@ span {
     border-top-color: #4CB5FF;
     overflow: hidden;
     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
-    z-index:10;
+    z-index:8;
 }
 
 .navi a {
@@ -79,7 +82,6 @@ span {
     margin-right: 40px;
     opacity: 1;
     z-index: 9;
-
 }
 
 .navi {
@@ -90,7 +92,7 @@ span {
     background-position: center center;
     background-size: cover;
     opacity: 1;
-    top: 7px;
+    top: 13px;
     left: 50%;
     overflow: hidden;
     font-size: 20px;
@@ -135,6 +137,7 @@ span {
     left: 100px;
     padding-left: 10px;
     padding-right: 10px;
+    z-index: 11;
 }
 
 .naviconnexion:hover {
@@ -153,6 +156,7 @@ span {
     display: inline-flex;
     color: white;
     left: 100px;
+    z-index: 12;
 }
 
 .autres {
@@ -168,11 +172,9 @@ span {
     font-size: 20px;
     text-decoration: none;
     color: #66BCFF;
-    left: -15px;
-    top: -60px;
     border: none;
     outline: none;
-    padding: 14px 0px;
+    padding: 10px 0px;
     background-color: inherit;
     margin: 0;
 }
@@ -180,14 +182,15 @@ span {
     border-radius: 10px;
     display: none;
     position: absolute;
-    background-color: #333;
-    min-width: 160px;
+    background-color: #2f3140;
+    min-width: 100px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 11;
 }
 .menuautres a {
     float: none;
-    padding: 10px;
+    margin-right: 15px;
+    padding: 0px 10px 5px 8px;
     text-decoration: none;
     text-align: left;
     z-index: 11;
@@ -200,4 +203,21 @@ span {
 }
 .autres:hover .menuautres {
     display: block;
+}
+
+.div1 {
+    width: 100%;
+    height: 512px;
+    background: url("");
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    opacity: 0.5;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    overflow: hidden;
+
+    box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.9);
+    z-index:1;
 }

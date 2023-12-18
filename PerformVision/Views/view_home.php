@@ -1,25 +1,31 @@
 <?php
+require_once "view_begin.php";?>
 
-// Récupérer le nombre de prix nobels dans la base de données pour l'afficher à la place de TO FILL.
+<div class="framenav"></div>
+
+    <a class="AccButton" href="?" title="Retour à l'accueil">
+        <p class="Accueil">PerformVision Training & Consulting</p>
+    </a>
+
+    <div class="navi">
+        <div><a class="link" href="#Formations" title="Formations">Formations</a></div>
+        <div><a class="link" href="#Conseils" title="Conseils">Conseils</a></div>
+
+        <div class="autres">
+            <button class="btn">Autres ▽</button>
+            <div class="menuautres">
+                <a class="link" href="un">jesaispas</a>
+                <a class="link" href="de">jesaispas</a>
+                <a class="link" href="tr">jesaispas</a>
+            </div>
+        </div>
+        <div><a class="naviconnexion" href="?controller=register&action=form_register_customer" title="Se connecter">Se connecter</a></div>
+    </div>
+    <div class="div1">
+        <h2>Bienvenue chez</h2>
+        <h1>PerformVision Formations</h1>
+    </div>
 
 
-require "view_begin.php";
 
-
-
-
-
-
-
-
-?>
-<h1> List of the nobel prizes </h1>
-
-<p> Welcome to the website listing the different nobel prizes
-     given until 2010. It references
-     nobel prizes. You can modify this list by adding new Nobel
-      Prizes, and removing or updating the information contained
-       in this database. You can also search among the nobel prizes on the name, the year and the different categories. </p>
-
-
-<?php require "view_end.php"; ?>
+<?php require_once "view_end.php"; ?>
