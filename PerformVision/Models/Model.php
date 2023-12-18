@@ -75,13 +75,12 @@ class Model
             return false;
         }
         
-        
-
-
     }
 
     public function createFormer($infos) {
         if (! $infos) {return false;}
+
+        var_dump($infos);
 
         $req_verif = $this->bd->prepare('SELECT COUNT(*) AS count FROM UTILISATEUR WHERE mail = :email');
         $req_verif->bindValue(":email", $infos['email']);
@@ -108,19 +107,35 @@ class Model
                 // Récupérer l'idUtilisateur généré
                 $idUtilisateur = $this->bd->lastInsertId();
             
-                // Deuxième partie : insertion dans la table Formateur
                 $req2 = $this->bd->prepare('
-                    INSERT INTO Formateur (idutilisateur_1, page_linkedin, cv)
-                    VALUES (:idUtilisateur, :linkedin, :cv)
+                INSERT INTO CV (idcv, nom_cv, taille, type, bin)
+                VALUES (:idcv, :nom_cv, :taille, :type, :bin)
                 ');
-                $req2->bindValue(':idUtilisateur', $idUtilisateur);
-                $marqueurs2 = ['linkedin', 'cv'];
-                foreach ($marqueurs2 as $value) {
-                    // Utiliser l'idUtilisateur récupéré
-                    $req2->bindValue(':' . $value, $infos[$value]);
-                }
-            
+
+                $req2->bindValue(':idcv', $idUtilisateur);
+                $req2->bindValue(':nom_cv', $infos['cv']['name']);
+                $req2->bindValue(':taille', $infos['cv']['size']);
+                $req2->bindValue(':type', $infos['cv']['type']);
+                $imageData = file_get_contents($infos['cv']['tmp_name']);
+                $req2->bindParam(5, $imageData, PDO::PARAM_LOB);
+                
+
                 $req2->execute();
+
+
+                // Deuxième partie : insertion dans la table Formateur
+                $req3 = $this->bd->prepare('
+                    INSERT INTO Formateur (idutilisateur_1, page_linkedin, idcv)
+                    VALUES (:idUtilisateur, :linkedin, :idcv)
+                ');
+                $req3->bindValue(':idUtilisateur', $idUtilisateur);
+                $req3->bindValue(':linkedin', $infos['linkedin']);
+                $req3->bindValue(':idcv', $idUtilisateur);
+            
+                $req3->execute();
+
+
+                
             
                 // Valider la transaction
                 $this->bd->commit();
@@ -142,6 +157,28 @@ class Model
 
 
     }
+
+
+    public function test() {
+        $req = $this->bd->prepare('SELECT nom_cv, bin FROM CV WHERE idcv = :idcv');
+        $req->bindValue(':idcv', 60);
+        $req->execute();
+        $row = $req->fetch(PDO::FETCH_ASSOC);
+    
+        $nom = $row['nom_cv'];
+        $cvContent = $row['bin'];
+        
+    
+        // Envoyer les en-têtes pour le fichier PDF
+        header("Content-type: application/pdf");
+        header("Content-Disposition: inline; filename=$nom");
+    
+        // Afficher le contenu du fichier
+        echo $cvContent;
+        exit; // Assurez-vous de terminer l'exécution du script après avoir affiché le fichier
+    }
+    
+
 
 
 

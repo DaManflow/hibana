@@ -27,8 +27,8 @@ class Controller_register_former extends Controller{
             }
             
             if ($m->createFormer($tab)) {
-                header("Location: ?");
-                $this->render("home");
+                header("Location: ?controller=test&action=test");
+                
             }
             else {
                 $data = [
@@ -43,6 +43,8 @@ class Controller_register_former extends Controller{
         
 
     }
+
+    
     
 }
 ?>

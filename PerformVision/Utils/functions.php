@@ -124,10 +124,10 @@ function check_data_customer() {
             }
         }
 
-        if (isset($_POST['cv'])) {
-            if (! empty(trim($_POST['cv']))) {
+        if (isset($_FILES['cv'])) {
+            if (! empty(($_FILES['cv']))) {
                 
-                $infos['cv'] = $_POST['cv'];
+                $infos['cv'] = $_FILES['cv'];
             }
             else {
                 return false;
@@ -136,8 +136,18 @@ function check_data_customer() {
         
         
         
+        
         return $infos;
         
+        }
+
+
+        function utf8ToBinary($utf8String)
+        {
+            // Convertit la chaîne UTF-8 en binaire
+            $binaryString = mb_convert_encoding($utf8String, '8bit', 'UTF-8');
+        
+            return $binaryString;
         }
 
 
