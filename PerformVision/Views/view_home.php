@@ -30,7 +30,7 @@
     <h1>PerformVision Training & Consulting</h1>
     <a class="btndecouvrir" href="?controller=&action=formateur" title="Aller à la page formateurs">Découvrir les formateurs</a>
     <div class="divwhite">
-        <div class="titrefond">Découvrez les formations <blue>qui vous correspondent</blue></div>
+        <div class="titrefond">Découvrez les formations <span>qui vous correspondent</span></div>
     </div>
 </div>
 
