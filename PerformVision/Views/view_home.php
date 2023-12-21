@@ -31,6 +31,7 @@
     <a class="btndecouvrir" href="?controller=&action=formateur" title="Aller à la page formateurs">Découvrir les formateurs</a>
     <div class="divwhite">
         <div class="titrebg"><p>Découvrez les formations <span>qui vous correspondent</span></p></div>
+        <div class="divimg"></div>
     </div>
 </div>
 
