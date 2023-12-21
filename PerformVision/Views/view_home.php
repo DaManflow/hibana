@@ -1,5 +1,4 @@
-<?php
-require_once "view_begin.php";?>
+<?php require_once "view_begin.php";?>
 
 <div class="framenavbg"></div>
 <div class="framenav">
@@ -26,11 +25,15 @@ require_once "view_begin.php";?>
 
 <div class="color"></div>
 <div class="div1"></div>
+<div class="divmain">
+    <h2>Bienvenue chez</h2>
+    <h1>PerformVision Training & Consulting</h1>
+    <a class="btndecouvrir" href="?controller=&action=formateur" title="Aller à la page formateurs">Découvrir les formateurs</a>
+    <div class="divwhite">
+        <div class="titrebg"><p>Découvrez les formations <span>qui vous correspondent</span></p></div>
+        <div class="divimg"></div>
+    </div>
+</div>
 
-<h2 class="d1">Bienvenue chez</h2>
-<h1 class="d1">PerformVision Training & Consulting</h1>
-
-
-
-
+<div class="footer"></div>
 <?php require_once "view_end.php"; ?>
