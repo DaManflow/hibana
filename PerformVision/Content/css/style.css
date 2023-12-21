@@ -1,8 +1,8 @@
 ::selection {
     background-color: rgba(0, 58, 124, 0.9);
 }
-html{
-    background-color: #333;
+html {
+    background-color: #333333;
 }
 
 .link::after {
@@ -57,7 +57,7 @@ span {
     align-items: center;
     justify-content: center;
     width: 100%;
-    height: 250px;
+    height: 230px;
     opacity: 1;
     border-top-width: 4px;
     border-top-style: solid;
@@ -228,9 +228,10 @@ span {
     position: absolute;
     width: 100%;
     height: 512px;
-    background-size: cover;
+    background-size: auto;
     opacity: 1;
     background: url("../images/FondDiv1.png");
+    /*clip:rect(0, 0, 10px, 20px);*/
     top: 0;
     left: 0;
     overflow: hidden;
@@ -258,8 +259,10 @@ span {
     font-family: Roboto, serif;
     text-align: center;
     top: 20%;
-    left: 50%;
-    background-color: yellowgreen;
+    left: 0;
+    width: 100%;
+    height: 1500px;
+    background: linear-gradient(#433027, #1f3a4c);
 }
 
 .divmain h1 {
@@ -273,7 +276,7 @@ span {
     opacity: 1;
     z-index:5;
     margin: 0;
-    left: -340px;
+    left: 11em;
     top: 80px;
 }
 .divmain h2 {
@@ -288,7 +291,7 @@ span {
     margin: 0;
     font-size: 40px;
     text-align: center;
-    left: -149px;
+    left: 40%;
 }
 
 .btndecouvrir {
@@ -303,13 +306,50 @@ span {
     display: inline-flex;
     color: white;
     top: 180px;
-    left: -128px;
+    left: 32em;
     width: 240px;
     padding: 10px;
     z-index: 5;
 }
 
+.divwhite {
+    position: absolute;
+    background-color: #333333;
+    box-shadow: 0 0 2000px rgb(0, 0, 0);
+    border-radius: 15px;
+    justify-content: center;
+    text-decoration: none;
+    align-items: center;
+    display: inline-flex;
+    color: white;
+    top: 360px;
+    left: 72px;
+    width: 1400px;
+    height: 30em;
+    padding: 0;
+    z-index: 6;
+    opacity: 1;
+}
 
+.titrebg {
+    position: absolute;
+    width: 100%;
+    height: 80px;
+    background-color: rgba(0,0,0,0.3);
+    text-align: center;
+    opacity: 1;
+    top: 20px;
+    left: 0;
+    overflow: hidden;
+    z-index:2;
+}
+.titrebg p {
+    position: relative;
+    top: -4px;
+    z-index: 8;
+    color: white;
+    opacity: initial;
+}
 
 
 .footer {
@@ -321,11 +361,11 @@ span {
     text-align: left;
     background: #193e58;
     left: 0;
-    top: 4000px;
+    top: 1620px;
     opacity: 1;
     position: absolute;
     overflow: hidden;
-    z-index:4;
+    z-index: 20;
     filter: none;
     box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.6);
     border-top-width: 4px;
@@ -334,4 +374,19 @@ span {
     border-bottom-width: 4px;
     border-bottom-style: solid;
     border-bottom-color: #595959;
+}
+
+.divimg {
+    position: absolute;
+    width: 100%;
+    height: 512px;
+    background-size: auto;
+    opacity: 1;
+    background: url("../images/ProgrammeurQuiFaitDuC.png");
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    font-weight: bold;
+    box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+    z-index:1;
 }
