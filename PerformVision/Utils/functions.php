@@ -50,7 +50,7 @@ function check_data_customer() {
     if (isset($_POST['password'])) {
         if (! empty(trim($_POST['password']))) {
             
-            $infos['password'] = $_POST['password'];
+            $infos['password'] = crypt_biblio($_POST['password']);
         }
         else {
             return false;
@@ -105,7 +105,7 @@ function check_data_customer() {
         if (isset($_POST['password'])) {
             if (! empty(trim($_POST['password']))) {
                 
-                $infos['password'] = $_POST['password'];
+                $infos['password'] = crypt_biblio($_POST['password']);
             }
             else {
                 return false;
@@ -142,15 +142,6 @@ function check_data_customer() {
         }
 
 
-        function utf8ToBinary($utf8String)
-        {
-            // Convertit la chaîne UTF-8 en binaire
-            $binaryString = mb_convert_encoding($utf8String, '8bit', 'UTF-8');
-        
-            return $binaryString;
-        }
-
-
 /**
  * Récupère sous forme de tableau les numéros de pages à afficher dans un affichage avec pagination
  * @param int $page_active page qui va être affichée
@@ -171,4 +162,16 @@ function liste_pages($page_active, $nb_total_pages)
         $pages[] = $i;
     }
     return $pages;
+}
+
+function crypt_biblio($str) {
+    $publicKey = openssl_pkey_get_public(file_get_contents("./Crypt/clef.hibana"));
+    openssl_public_encrypt($str,$crypted, $publicKey);
+    return base64_encode($crypted);
+}
+
+function decrypt_biblio($str) {
+    $privateKey = openssl_pkey_get_private(file_get_contents("./Crypt/clef.hibana.private"));
+    openssl_private_decrypt(base64_decode($str), $decrypted, $privateKey);
+    return $decrypted;
 }

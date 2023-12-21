@@ -278,3 +278,13 @@ span {
     margin: 0;
 }
 
+.listePages { width : 400px; margin : auto; padding-top : 20px; text-align: center; }
+.listePages p { color : blue; padding: 0px; margin:0px;}
+a.lienStart { text-decoration: none; display: inline-block; width : 25px; font-size: smaller; color : blue;}
+a.active { color : red;}
+
+.icone {
+    position: absolute;
+    width: 16px;
+    height: 16px;
+}

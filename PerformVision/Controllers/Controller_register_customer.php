@@ -26,8 +26,7 @@ class Controller_register_customer extends Controller{
             }
             
             if ($m->createCustomer($tab)) {
-                header("Location: ?");
-                $this->render("home");
+                
             }
             else {
                 $data = [

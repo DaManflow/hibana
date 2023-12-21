@@ -9,7 +9,7 @@ require_once "view_begin.php";?>
     </a>
 
     <div class="navi">
-        <div><a class="link" href="#Formations" title="Formations">Formations</a></div>
+        <div><a class="link" href="?controller=former_list&action=former_pagination" title="Formateurs">Formateurs</a></div>
         <div><a class="link" href="#Conseils" title="Conseils">Conseils</a></div>
 
         <div class="autres">
@@ -20,7 +20,7 @@ require_once "view_begin.php";?>
                 <a class="link" href="tr">jesaispas</a>
             </div>
         </div>
-        <div><a class="naviconnexion" href="?controller=register&action=form_register_customer" title="Se connecter">Se connecter</a></div>
+        <div><a class="naviconnexion" href="?controller=choice&action=register_choice" title="Se connecter">Se connecter</a></div>
     </div>
 </div>
 

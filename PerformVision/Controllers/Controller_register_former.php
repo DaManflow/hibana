@@ -27,7 +27,7 @@ class Controller_register_former extends Controller{
             }
             
             if ($m->createFormer($tab)) {
-                header("Location: ?controller=test&action=test");
+                
                 
             }
             else {
