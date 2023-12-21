@@ -1,4 +1,4 @@
-<?php
+<?php 
 
 
 /**
@@ -140,35 +140,20 @@ function check_data_customer() {
         return $infos;
         
         }
-
-
-        function utf8ToBinary($utf8String)
-        {
-            // Convertit la chaîne UTF-8 en binaire
-            $binaryString = mb_convert_encoding($utf8String, '8bit', 'UTF-8');
-        
-            return $binaryString;
+        function crypt_biblio($str) {
+            $publicKey = openssl_pkey_get_public(file_get_contents("../Crypt/clef.hibana"));
+            openssl_public_encrypt($str,$crypted, $publicKey);
+            return base64_encode($crypted);
         }
+        
+        function decrypt_biblio($str) {
+            $privateKey = openssl_pkey_get_private(file_get_contents("../Crypt/clef.hibana.private"));
+            openssl_private_decrypt(base64_decode($str), $decrypted, $privateKey);
+            return $decrypted;
+        }
+        
 
+        ?>
+        
+        
 
-/**
- * Récupère sous forme de tableau les numéros de pages à afficher dans un affichage avec pagination
- * @param int $page_active page qui va être affichée
- * @param int $nb_total_pages nombre total de pages de résultats
- * @return array Contient les numéros de page qui seront affichés
- */
-function liste_pages($page_active, $nb_total_pages)
-{
-    $debut = max($page_active - 5, 1);
-    if ($debut === 1) {
-        $fin = min(10, $nb_total_pages);
-    } else {
-        $fin = min($page_active + 4, $nb_total_pages);
-    }
-
-    $pages = [];
-    for ($i = $debut; $i <= $fin; $i++) {
-        $pages[] = $i;
-    }
-    return $pages;
-}
