@@ -140,7 +140,6 @@ function check_data_customer() {
         return $infos;
         
         }
-<<<<<<< HEAD
 
 
 /**
@@ -176,22 +175,8 @@ function decrypt_biblio($str) {
     openssl_private_decrypt(base64_decode($str), $decrypted, $privateKey);
     return $decrypted;
 }
-=======
-        function crypt_biblio($str) {
-            $publicKey = openssl_pkey_get_public(file_get_contents("../Crypt/clef.hibana"));
-            openssl_public_encrypt($str,$crypted, $publicKey);
-            return base64_encode($crypted);
-        }
-        
-        function decrypt_biblio($str) {
-            $privateKey = openssl_pkey_get_private(file_get_contents("../Crypt/clef.hibana.private"));
-            openssl_private_decrypt(base64_decode($str), $decrypted, $privateKey);
-            return $decrypted;
-        }
-        
 
         ?>
         
         
 
->>>>>>> 05cf055715e0c4da439cfef9f5a4aba38d524911
