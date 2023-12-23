@@ -18,10 +18,10 @@ class Controller_register_former extends Controller{
             $m = Model::getModel();
             $tab = check_data_former();
 
-            if (! $tab) {
+            if (count($tab)<3) {
                 $data = [
-                    'title' => 'Message Page',
-                    'message' => 'Un champ a mal été rempli !'
+                    'title' => 'Message d\'erreur',
+                    'message' => strval($tab[1])
                 ];
                 $this->render("message", $data);
             }

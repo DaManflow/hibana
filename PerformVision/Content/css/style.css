@@ -267,7 +267,6 @@ span {
     background: linear-gradient(#433027, #1f3a4c);
 }
 
-<<<<<<< HEAD
 .listePages { width : 400px; margin : auto; padding-top : 20px; text-align: center; }
 .listePages p { color : blue; padding: 0px; margin:0px;}
 a.lienStart { text-decoration: none; display: inline-block; width : 25px; font-size: smaller; color : blue;}
@@ -278,7 +277,6 @@ a.active { color : red;}
     width: 16px;
     height: 16px;
 }
-=======
 .divmain h1 {
     position: absolute;
     color: #44B0FF;
@@ -412,4 +410,3 @@ a.active { color : red;}
     border-bottom-style: solid;
     border-bottom-color: #595959;
 }
->>>>>>> 05cf055715e0c4da439cfef9f5a4aba38d524911

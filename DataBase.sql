@@ -5,7 +5,7 @@ CREATE TABLE Utilisateur(
    Prenom VARCHAR(255) NOT NULL,
    Mail VARCHAR(255) NOT NULL,
    Role VARCHAR(50) NOT NULL,
-   MotDePasse VARCHAR(255) NOT NULL,
+   MotDePasse TEXT NOT NULL,
    EstAffranchi BOOLEAN NOT NULL,
    PRIMARY KEY(idUtilisateur)
 );

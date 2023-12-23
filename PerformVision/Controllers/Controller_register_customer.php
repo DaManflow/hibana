@@ -17,10 +17,10 @@ class Controller_register_customer extends Controller{
             $m = Model::getModel();
             $tab = check_data_customer();
 
-            if (! $tab) {
+            if (count($tab)<3) {
                 $data = [
-                    'title' => 'Message Page',
-                    'message' => 'Un champ a mal été rempli !'
+                    'title' => 'Message d\'erreur',
+                    'message' => strval($tab[1])
                 ];
                 $this->render("message", $data);
             }
@@ -30,7 +30,7 @@ class Controller_register_customer extends Controller{
             }
             else {
                 $data = [
-                    'title' => 'Message Page',
+                    'title' => 'Erreur',
                     'message' => 'Identifiant déjà pris !'
                 ];
                 $this->render("message", $data);

@@ -14,9 +14,9 @@
         <div class="autres">
             <button class="btn">Autres ▽</button>
             <div class="menuautres">
-                <a class="link" href="un">jesaispas</a>
-                <a class="link" href="de">jesaispas</a>
-                <a class="link" href="tr">jesaispas</a>
+                <a class="link" href="un">Activité 1</a>
+                <a class="link" href="de">Activité 2</a>
+                <a class="link" href="tr">Activité 3</a>
             </div>
         </div>
         <div><a class="naviconnexion" href="?controller=choice&action=register_choice" title="Se connecter">Se connecter</a></div>
