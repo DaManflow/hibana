@@ -166,6 +166,80 @@ function decrypt_biblio($str) {
     openssl_private_decrypt(base64_decode($str), $decrypted, $privateKey);
     return $decrypted;
 }
+//troisieme essai pour le coup 
+function generateRSAKeys($bitLength) {
+    $p = generatePrime($bitLength);
+    $q = generatePrime($bitLength);
+
+    $n = gmp_mul($p, $q);
+    $phi = gmp_mul(gmp_sub($p, 1), gmp_sub($q, 1));
+
+    $e = findCoprime($phi);
+    $d = modInverse($e, $phi);
+
+    return [
+        'publicKey' => compact('e', 'n'),
+        'privateKey' => compact('d', 'n'),
+        'autres'=> compact('p' , 'q' , 'phi')
+    ];
+}
+function generatePrime($bitLength) {
+    do {
+        $randomNumber = gmp_random_bits($bitLength);
+    } while (!gmp_prob_prime($randomNumber, 50));
+
+    return gmp_strval($randomNumber);
+}
+
+function findCoprime($phi) {
+    $e = gmp_init(65537); // Une valeur couramment utilisée pour e (peut être modifié)
+    $phi = gmp_intval($phi);
+    
+    while (gmp_cmp(gmp_gcd($e, gmp_init($phi)), 1) != 0) {
+        $e = gmp_add($e, 1);
+    }
+
+    return gmp_strval($e);
+}
+
+function modInverse($a, $m) {
+    return gmp_intval(gmp_invert($a, $m));
+}
+function encryptRSA($message, $publicKey) {
+    return base64_encode(numberToString(modPow(stringToNumber($message), $publicKey['e'], $publicKey['n'])));
+}
+
+function decryptRSA($encryptedMessage, $privateKey) {
+    return numberToString(modPow(stringToNumber(base64_decode($encryptedMessage)), $privateKey['d'], $privateKey['n']));
+}
+function stringToNumber($string) {
+    $result = '0';
+    $length = strlen($string);
+
+    for ($i = 0; $i < $length; $i++) {
+        $result = bcmul($result, '256');
+        $result = bcadd($result, sprintf('%03d', ord($string[$i])));
+    }
+
+    return $result;
+}
+function modPow($base, $exponent, $modulus) {
+    $result = gmp_powm($base, $exponent, $modulus);
+    return gmp_intval($result);
+}
+function numberToString($number) {
+    $result = '';
+
+    while (strlen($number) > 0) {
+        $byte = substr($number, -3);
+        $result = chr((int)$byte) . $result;
+        $number = substr($number, 0, -3);
+    }
+
+    return $result;
+}
+
+/*
 //deuxieme essai :(
     //en premier generer la cle rsa 
     function generateRSAKeys($bitLength){
@@ -173,8 +247,8 @@ function decrypt_biblio($str) {
         $p= generatePrime($bitLength) ;
         $q= generatePrime($bitLength) ;
         // le n et le fi , calcul basique
-        $n= $p*$q ;
-        $fi = ($p-1)*($q-1) ;
+        $n = gmp_mul($p, $q);
+        $phi = gmp_mul(gmp_sub($p, 1), gmp_sub($q, 1));
         //le fonction findCoprime trouve un nombre premier avec fi avec la méthode Euler
         $e= findCoprime($fi) ;
         //calculer l'inverse de $e modulo fi
@@ -185,14 +259,18 @@ function decrypt_biblio($str) {
             'privateKey' => compact('d', 'n')
         ];
     }
+    function saveKeysToFile($filename, $keys) {
+        $data = json_encode($keys);
+        file_put_contents($filename, $data);
+    }
     //en deux le chiffrement 
     function encryptRSA($str , $publicKey){
         //convertir le message en entier , 
-        return numberToString(modPow(stringToNumber($str),$publicKey['e'] , $publicKey['n'])) ;
+        return base64_encode(numberToString(modPow(stringToNumber($str),$publicKey['e'] , $publicKey['n'])));
     }
     //en trois dechiffrement 
     function decryptRSA($encryptedMessage, $privateKey) {
-        return numberToString(modPow(stringToNumber($encryptedMessage), $privateKey['d'], $privateKey['n']));
+        return numberToString(modPow(stringToNumber(base64_decode($encryptedMessage)), $privateKey['d'], $privateKey['n']));
     }
 
     //ensuite c'et le code des fonctions de math qui sont pas disponibles sur php qui sont pas nécessaires daprès moi a comprendre a part si vous voulez vous casser la tête
@@ -225,15 +303,21 @@ function decrypt_biblio($str) {
     
     function numberToString($number) {
         $result = '';
-    
+        
         while (strlen($number) > 0) {
             $byte = substr($number, -3);  // Récupère les trois derniers chiffres
-            $result = chr((int)$byte) . $result;  // Convertit en caractère ASCII et ajoute au résultat
+    
+            // Ajoute le caractère seulement si le byte n'est pas composé de zéros
+            if ($byte !== '000') {
+                $result = chr((int)$byte) . $result;  // Convertit en caractère ASCII et ajoute au résultat
+            }
+    
             $number = substr($number, 0, -3);  // Retire les trois derniers chiffres
         }
     
-        return $result;
+        return $result !== '' ? $result : '0';
     }
+    
     function findCoprime($phi) {
         $e = gmp_init(65537); // Une valeur couramment utilisée pour e (peut être modifié)
         $phi = intval($phi);
@@ -243,7 +327,7 @@ function decrypt_biblio($str) {
     
         return gmp_strval($e);
     }
-
+*/
 /*
 // Fonction pour générer une paire de clés RSA
 function generateRSAKeys($bitLength) {
