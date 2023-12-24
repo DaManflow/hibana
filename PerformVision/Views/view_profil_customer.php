@@ -6,7 +6,7 @@ if (!isset($_SESSION['idutilisateur'])) {
 
 ?>
 
-<a href="?controller=logout&action=logout"><button>deconexion</button></a>
+<a href="?controller=logout&action=logout"><button>deconnexion</button></a>
 
 
 

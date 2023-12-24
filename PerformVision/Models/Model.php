@@ -72,9 +72,6 @@ class Model
 
                 $req2->execute();
 
-
-                echo decrypt_biblio($infos['password']);
-
                 $_SESSION['idutilisateur'] = $idUtilisateur;
                 $_SESSION['name'] = $infos['name'];
                 $_SESSION['surname'] = $infos['surname'];

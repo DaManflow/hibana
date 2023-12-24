@@ -202,19 +202,20 @@ function decrypt_biblio($str) {
 function generateRSAKeys($bitLength) {
     $p = generatePrime($bitLength);
     $q = generatePrime($bitLength);
-
+//multiplication , substraction
     $n = gmp_mul($p, $q);
     $phi = gmp_mul(gmp_sub($p, 1), gmp_sub($q, 1));
 
     $e = findCoprime($phi);
     $d = modInverse($e, $phi);
-
+//renvoyer les valeurs 
     return [
         'publicKey' => compact('e', 'n'),
         'privateKey' => compact('d', 'n'),
         'autres'=> compact('p' , 'q' , 'phi')
     ];
 }
+//générer des nombres premiers 
 function generatePrime($bitLength) {
     do {
         $randomNumber = gmp_random_bits($bitLength);
@@ -222,9 +223,9 @@ function generatePrime($bitLength) {
 
     return gmp_strval($randomNumber);
 }
-
+//trouver un nombre premier $e avec $phi 
 function findCoprime($phi) {
-    $e = gmp_init(65537); // Une valeur couramment utilisée pour e (peut être modifié)
+    $e = gmp_init(65537); //valeur par défaut 
     $phi = gmp_intval($phi);
     
     while (gmp_cmp(gmp_gcd($e, gmp_init($phi)), 1) != 0) {
@@ -233,10 +234,12 @@ function findCoprime($phi) {
 
     return gmp_strval($e);
 }
-
+//inverse modulaire
 function modInverse($a, $m) {
     return gmp_intval(gmp_invert($a, $m));
 }
+/*
+//chiffrer et déchiffrer
 function encryptRSA($message, $publicKey) {
     return base64_encode(numberToString(modPow(stringToNumber($message), $publicKey['e'], $publicKey['n'])));
 }
