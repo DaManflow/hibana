@@ -34,7 +34,16 @@ class Model
     public function createCustomer($infos) {
         if (! $infos) {return false;}
 
-        var_dump($infos);
+        if (session_status() == PHP_SESSION_NONE) {
+            // Si la session n'est pas démarrée, alors on la démarre
+            session_start();
+        }
+        else {
+            session_destroy();
+            session_start();
+        }
+
+        
 
         $req_verif = $this->bd->prepare('SELECT COUNT(*) AS count FROM UTILISATEUR WHERE mail = :email');
         $req_verif->bindValue(":email", $infos['email']);
@@ -66,6 +75,14 @@ class Model
 
                 echo decrypt_biblio($infos['password']);
 
+                $_SESSION['idutilisateur'] = $idUtilisateur;
+                $_SESSION['name'] = $infos['name'];
+                $_SESSION['surname'] = $infos['surname'];
+                $_SESSION['email'] = $infos['email'];
+                $_SESSION['role'] = $infos['role'];
+                $_SESSION['password'] = $infos['password'];
+                $_SESSION['estaffranchi'] = $infos['estaffranchi'];
+
                 $this->bd->commit();
             } catch (PDOException $e) {
                 // En cas d'erreur, annuler la transaction
@@ -85,7 +102,16 @@ class Model
     public function createFormer($infos) {
         if (! $infos) {return false;}
 
-        var_dump($infos);
+        
+
+        if (session_status() == PHP_SESSION_NONE) {
+            // Si la session n'est pas démarrée, alors on la démarre
+            session_start();
+        }
+        else {
+            session_destroy();
+            session_start();
+        }
 
         $req_verif = $this->bd->prepare('SELECT COUNT(*) AS count FROM UTILISATEUR WHERE mail = :email');
         $req_verif->bindValue(":email", $infos['email']);
@@ -155,7 +181,20 @@ class Model
                 $req4->execute();
 
 
-                echo decrypt_biblio($infos['password']);
+
+                $_SESSION['idutilisateur'] = $idUtilisateur;
+                $_SESSION['name'] = $infos['name'];
+                $_SESSION['surname'] = $infos['surname'];
+                $_SESSION['email'] = $infos['email'];
+                $_SESSION['role'] = $infos['role'];
+                $_SESSION['password'] = $infos['password'];
+                $_SESSION['estaffranchi'] = $infos['estaffranchi'];
+                $_SESSION['linkedin'] = $infos['linkedin'];
+                $_SESSION['cv'] = $infos['cv'];
+
+
+                
+
             
                 // Valider la transaction
                 $this->bd->commit();
@@ -204,7 +243,81 @@ class Model
         return $tab[0];
     }
 
+    public function VerifConnectUser($infos) {
+
+        if (! $infos) {return false;}
+
+        
+
+        // Vérifie si la session est déjà démarrée
+        if (session_status() == PHP_SESSION_NONE) {
+            // Si la session n'est pas démarrée, alors on la démarre
+            session_start();
+        }
+        else {
+            session_destroy();
+            session_start();
+        }
+
+        $req = $this->bd->prepare('SELECT idutilisateur, nom, prenom, mail, role, motdepasse, estaffranchi FROM utilisateur WHERE mail = :mail');
+        $req->bindValue(':mail', $infos['email']);
+        $req->execute();
+
+        
+
+        if ($req->rowCount() > 0) {
+
+                $req_tab = $req->fetch();
+   
+                if ($infos['email'] == $req_tab['mail'] && decrypt_biblio($infos['password']) == decrypt_biblio($req_tab['motdepasse'])) {
+
+                    try {
+
+                        $this->bd->beginTransaction();
+
+                        $_SESSION['idutilisateur'] = $req_tab['idutilisateur'];
+                        $_SESSION['nom'] = $req_tab['nom'];
+                        $_SESSION['prenom'] = $req_tab['prenom'];
+                        $_SESSION['mail'] = $req_tab['mail'];
+                        $_SESSION['role'] = $req_tab['role'];
+                        $_SESSION['motdepasse'] = $req_tab['motdepasse'];
+                        $_SESSION['estaffranchi'] = $req_tab['estaffranchi'];
+                    
+                    if ($req_tab['role'] == "formateur") {
+
+                        $req2 = $this->bd->prepare('SELECT page_linkedin FROM formateur WHERE idutilisateur_1 = :idutilisateur');
+                        $req2->bindValue('idutilisateur', $req_tab['idutilisateur']);
+                        $req2->execute();
 
 
+                        $req3 = $this->bd->prepare('SELECT chemin_acces FROM CV WHERE idcv = :idformateur');
+                        $req3->bindValue(':idformateur', $req_tab['idutilisateur']);
+                        $req3->execute();
+
+                        
+                        $_SESSION['linkedin'] = $req2->fetch()['page_linkedin'];
+                        $_SESSION['chemin_acces'] = $req3->fetch()['chemin_acces'];
+                        
+                    }
+                    
+                    
+                        $this->bd->commit();
+
+                    }catch (PDOException $e) {
+                        // En cas d'erreur, annuler la transaction
+                        $this->bd->rollBack();
+                        echo "Erreur : " . $e->getMessage();
+                    }
+                    
+                    return true;
+
+                }
+                
+                return false ;
+        }
+        
+        return false;
+        
+    }
 
 }

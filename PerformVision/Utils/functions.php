@@ -18,9 +18,9 @@ function check_data_customer() {
     if (isset($_POST['name'])) {
         $name = trim($_POST['name']);
         if (!empty($name) && ctype_alpha($name)) {
-            $infos['name'] = $name;
+            $infos['name'] = e($name);
         } else {
-            return [false, "Le nom n'est pas valide. Assurez-vous d'entrer uniquement des caractères alphabétiques."];
+            $infos['name'] = "false";
         }
     }
 
@@ -28,9 +28,9 @@ function check_data_customer() {
     if (isset($_POST['surname'])) {
         $surname = trim($_POST['surname']);
         if (!empty($surname) && ctype_alpha($surname)) {
-            $infos['surname'] = $surname;
+            $infos['surname'] = e($surname);
         } else {
-            return [false, "Le prénom n'est pas valide. Assurez-vous d'entrer uniquement des caractères alphabétiques."];
+            $infos['surname'] = "false";
         }
     }
 
@@ -38,9 +38,9 @@ function check_data_customer() {
     if (isset($_POST['email'])) {
         $email = trim($_POST['email']);
         if (!empty($email) && filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            $infos['email'] = $email;
+            $infos['email'] = e($email);
         } else {
-            return [false, 'Adresse email non conforme !!'];
+            $infos['email'] = "false";
         }
     }
 
@@ -50,9 +50,9 @@ function check_data_customer() {
     if (isset($_POST['password'])) {
         $password = trim($_POST['password']);
         if (!empty($password) && preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/', $password)) {
-            $infos['password'] = crypt_biblio($password);
+            $infos['password'] = e(crypt_biblio($password));
         } else {
-            return [false, 'Mot de passe non conforme !!'];
+            $infos['password'] = "false";
         }
     }
 // le client est non affranchi par défaut 
@@ -68,9 +68,9 @@ function check_data_former() {
     if (isset($_POST['name'])) {
         $name = trim($_POST['name']);
         if (!empty($name) && ctype_alpha($name)) {
-            $infos['name'] = $name;
+            $infos['name'] = e($name);
         } else {
-            return [false, "Le nom n'est pas valide. Assurez-vous d'entrer uniquement des caractères alphabétiques."];
+            $infos['name'] = "false";
         }
     }
 
@@ -78,9 +78,9 @@ function check_data_former() {
     if (isset($_POST['surname'])) {
         $surname = trim($_POST['surname']);
         if (!empty($surname) && ctype_alpha($surname)) {
-            $infos['surname'] = $surname;
+            $infos['surname'] = e($surname);
         } else {
-            return [false, "Le prénom n'est pas valide. Assurez-vous d'entrer uniquement des caractères alphabétiques."];
+            $infos['surname'] = "false";
         }
     }
 
@@ -88,9 +88,9 @@ function check_data_former() {
     if (isset($_POST['email'])) {
         $email = trim($_POST['email']);
         if (!empty($email) && filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            $infos['email'] = $email;
+            $infos['email'] = e($email);
         } else {
-            return [false, 'Adresse email non conforme !!'];
+            $infos['email'] = "false";
         }
     }
 
@@ -100,11 +100,11 @@ function check_data_former() {
     if (isset($_POST['password'])) {
         $password = trim($_POST['password']);
         if (!empty($password) && preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/', $password)) {
-            $infos['password'] = crypt_biblio($password);
+            $infos['password'] = e(crypt_biblio($password));
         } else {
-            return [false, 'Mot de passe non conforme !!'];
+            $infos['password'] = "false";
         }
-        }
+    }
 
     $infos['estaffranchi'] = "false";
 
@@ -112,9 +112,9 @@ function check_data_former() {
     if (isset($_POST['linkedin'])) {
         $linkedin = trim($_POST['linkedin']);
         if (!empty($linkedin)) {
-            $infos['linkedin'] = $linkedin;
+            $infos['linkedin'] = e($linkedin);
         } else {
-            return [false, ''];
+            $infos['linkedin'] = "false";
         }
     }
 
@@ -123,12 +123,44 @@ function check_data_former() {
         $cv = $_FILES['cv'];
         if (!empty($cv)) {
             $infos['cv'] = $cv;
+            $cv['name'] = e($cv['name']);
         } else {
-            return [false, ''];
+            $infos['cv'] = "false";
         }
     }
 
     return $infos;
+}
+
+
+function check_data_user() {
+
+    $infos = [];
+
+    // Vérification de l'e-mail
+    if (isset($_POST['email'])) {
+        $email = trim($_POST['email']);
+        if (!empty($email) && filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            $infos['email'] = e($email);
+        } else {
+            $infos['email'] = "false";
+        }
+    }
+
+    // Vérification du mot de passe
+    if (isset($_POST['password'])) {
+        $password = trim($_POST['password']);
+        if (!empty($password) && preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/', $password)) {
+            $infos['password'] = e(crypt_biblio($password));
+        } else {
+            $infos['password'] = "false";
+        }
+    }
+
+    return $infos;
+
+
+
 }
 
 

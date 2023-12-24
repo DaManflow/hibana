@@ -1,9 +1,15 @@
-<?php require_once "view_begin.php";?>
+<?php require_once "view_begin.php";
+
+if (!isset($_SESSION['idutilisateur'])) {
+    header("Location: ?controller=home&action=home");
+}
+
+?>
 
 <div class="framenavbg"></div>
 <div class="framenav">
 
-    <a class="AccButton" href="?" title="Retour à l'accueil">
+    <a class="AccButton" href="?controller=home_former&action=home_former" title="Retour à l'accueil">
         <p class="Accueil">PerformVision Training & Consulting</p>
     </a>
 
@@ -19,7 +25,7 @@
                 <a class="link" href="tr">Activité 3</a>
             </div>
         </div>
-        <div><a class="naviconnexion" href="?controller=login&action=login" title="Se connecter">Se connecter</a></div>
+        <div><a class="naviconnexion" href="?controller=profil_former&action=profil_former" title="Mon profil">Mon profil</a></div>
     </div>
 </div>
 
@@ -28,7 +34,7 @@
 <div class="divmain">
     <h2>Bienvenue chez</h2>
     <h1>PerformVision Training & Consulting</h1>
-    <a class="btndecouvrir" href="?controller=&action=formateur" title="Aller à la page formateurs">Découvrir les formateurs</a>
+    <a class="btndecouvrir" href="#decouvrir" title="Aller à la page formateurs">Découvrir les formateurs</a>
     <div class="divwhite">
         <div class="titrebg"><p>Découvrez les formations <span>qui vous correspondent</span></p></div>
         <div class="divimg"></div>

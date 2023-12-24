@@ -2,6 +2,8 @@
 
 session_start();
 
+
+
 // Pour avoir le nombre de résultats par page
 //Pour avoir la fonction e()
 require_once "Utils/functions.php";
@@ -11,7 +13,7 @@ require_once "Models/Model.php";
 require_once "Controllers/Controller.php";
 
 //Liste des contrôleurs
-$controllers = ["home", "register_customer","register_former","choice","test", "former_list"];
+$controllers = ["home", "register_customer","register_former","choice","test", "former_list", "home_former", "home_customer", "profil_customer", "profil_former", "login", "logout"];
 //Nom du contrôleur par défaut
 $controller_default = "home";
 
@@ -38,3 +40,4 @@ if (is_readable($nom_fichier)) {
 } else {
     die("Error 404: not found!");
 }
+

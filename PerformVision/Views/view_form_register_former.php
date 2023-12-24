@@ -1,4 +1,10 @@
-<?php   require "view_begin.php";?>
+<?php   require "view_begin.php";
+
+if (isset($_SESSION['idutilisateur'])) {
+    header("Location: ?controller=home_former&action=home_former");
+}
+
+?>
 
 <h1> S'incrire </h1>
 
