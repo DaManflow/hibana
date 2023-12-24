@@ -8,11 +8,6 @@
     <link rel="stylesheet" href="./Content/css/style.css"/>
     <link rel="icon" href="./Content/images/logo.png" />
 
-    <link rel="stylesheet" href="./Content/css/style.css"/>
-    <link rel="pp" href="" />
-    <link rel="stylesheet" href="../Content/css/style.css"/>
-    <link rel="pp" href="../Content/images/logo.png" />
-
     <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet" />
 </head>
 <body>

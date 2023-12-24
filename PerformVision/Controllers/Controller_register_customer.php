@@ -17,23 +17,39 @@ class Controller_register_customer extends Controller{
             $m = Model::getModel();
             $tab = check_data_customer();
 
-            if (count($tab)<3) {
-                $data = [
-                    'title' => 'Message d\'erreur',
-                    'message' => strval($tab[1])
-                ];
-                $this->render("message", $data);
-            }
-            
-            if ($m->createCustomer($tab)) {
+            if ($tab['name'] == 'false') {
+                echo "Le nom n'est pas valide. Assurez-vous d'entrer uniquement des caractères alphabétiques.";
+                $this->render("form_register_customer");
                 
             }
+                    
+            elseif ($tab['surname'] == 'false') {
+                echo "Le prénom n'est pas valide. Assurez-vous d'entrer uniquement des caractères alphabétiques.";
+                $this->render("form_register_customer");
+                
+            }
+
+            elseif ($tab['email'] == 'false') {
+                echo "Adresse email non conforme !!";
+                $this->render("form_register_customer");
+                
+            }
+
+            elseif ($tab['password'] == 'false') {
+                echo "Mot de passe non conforme !!";
+                $this->render("form_register_customer");
+                
+            }
+
+            
+            if ($m->createCustomer($tab)) {
+
+                header("Location: ?controller=home_customer&action=home_customer");
+                exit;
+            }
             else {
-                $data = [
-                    'title' => 'Erreur',
-                    'message' => 'Identifiant déjà pris !'
-                ];
-                $this->render("message", $data);
+                echo "Identifiant déjà pris !";
+                $this->render("form_register_customer");
             }
             
         }
