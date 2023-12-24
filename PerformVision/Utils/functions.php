@@ -198,7 +198,85 @@ function decrypt_biblio($str) {
     openssl_private_decrypt(base64_decode($str), $decrypted, $privateKey);
     return $decrypted;
 }
+//deuxieme essai :(
+    //en premier generer la cle rsa 
+    function generateRSAKeys($bitLength){
+        //generer cdeux nombres premiers aléatoirements 
+        $p= generatePrime($bitLength) ;
+        $q= generatePrime($bitLength) ;
+        // le n et le fi , calcul basique
+        $n= $p*$q ;
+        $fi = ($p-1)*($q-1) ;
+        //le fonction findCoprime trouve un nombre premier avec fi avec la méthode Euler
+        $e= findCoprime($fi) ;
+        //calculer l'inverse de $e modulo fi
+        $d=modInverse($e,$fi) ;
+        //retourner les valeurs tableau composé
+        return [
+            'publicKey' => compact('e', 'n'),
+            'privateKey' => compact('d', 'n')
+        ];
+    }
+    //en deux le chiffrement 
+    function encryptRSA($str , $publicKey){
+        //convertir le message en entier , 
+        return numberToString(modPow(stringToNumber($str),$publicKey['e'] , $publicKey['n'])) ;
+    }
+    //en trois dechiffrement 
+    function decryptRSA($encryptedMessage, $privateKey) {
+        return numberToString(modPow(stringToNumber($encryptedMessage), $privateKey['d'], $privateKey['n']));
+    }
 
+    //ensuite c'et le code des fonctions de math qui sont pas disponibles sur php qui sont pas nécessaires daprès moi a comprendre a part si vous voulez vous casser la tête
+    //gmp bibliothèque maths
+    function generatePrime($bitLength) {
+        do {
+            $randomNumber = gmp_random_bits($bitLength);
+        } while (!gmp_prob_prime($randomNumber, 50));
+    
+        return gmp_strval($randomNumber);
+    }
+    function modPow($base, $exponent, $modulus) {
+        $result = gmp_powm($base, $exponent, $modulus);
+        return gmp_intval($result);
+    }
+    function modInverse($a, $m) {
+        return gmp_intval(gmp_invert($a, $m));
+    }
+    function stringToNumber($string) {
+        $result = '0';
+        $length = strlen($string);
+    
+        for ($i = 0; $i < $length; $i++) {
+            $result = bcmul($result, '256');
+            $result = bcadd($result, sprintf('%03d', ord($string[$i])));
+        }
+    
+        return $result;
+    }
+    
+    function numberToString($number) {
+        $result = '';
+    
+        while (strlen($number) > 0) {
+            $byte = substr($number, -3);  // Récupère les trois derniers chiffres
+            $result = chr((int)$byte) . $result;  // Convertit en caractère ASCII et ajoute au résultat
+            $number = substr($number, 0, -3);  // Retire les trois derniers chiffres
+        }
+    
+        return $result;
+    }
+    function findCoprime($phi) {
+        $e = gmp_init(65537); // Une valeur couramment utilisée pour e (peut être modifié)
+        $phi = intval($phi);
+        while (gmp_cmp(gmp_gcd($e, gmp_init($phi)), 1) != 0) {
+            $e = gmp_add($e, 1);
+        }
+    
+        return gmp_strval($e);
+    }
+
+/*
 // Fonction pour générer une paire de clés RSA
 function generateRSAKeys($bitLength) {
     $p = generatePrime($bitLength);
@@ -234,13 +312,13 @@ function generatePrime($bitLength) {
 }
 
 function findCoprime($phi) {
-    $e = gmp_init(65537); // Une valeur couramment utilisée pour e (peut être modifié)
-    $phi = intval($phi);
+    $e = gmp_init(65537);
+
     while (gmp_cmp(gmp_gcd($e, gmp_init($phi)), 1) != 0) {
         $e = gmp_add($e, 1);
     }
 
-    return gmp_strval($e);
+    return intval(gmp_strval($e));
 }
 
 function gcd($a, $b) {
@@ -278,19 +356,22 @@ function modInverse($a, $m) {
 }
 
 function modPow($base, $exponent, $modulus) {
-    $result = 1;
-    $base = $base % $modulus;
+    $result = '1';
 
-    while ($exponent > 0) {
-        if ($exponent % 2 == 1) {
-            $result = ($result * $base) % $modulus;
+    $base = bcmod($base, $modulus);
+
+    while (bccomp($exponent, '0') > 0) {
+        if (bcmod($exponent, '2') == '1') {
+            $result = bcmul($result, $base);
+            $result = bcmod($result, $modulus);
         }
 
-        $exponent = $exponent >> 1;
-        $base = ($base * $base) % $modulus;
+        $exponent = bcdiv($exponent, '2');
+        $base = bcmul($base, $base);
+        $base = bcmod($base, $modulus);
     }
 
-    return $result;
+    return intval($result);
 }
 
 function stringToNumber($string) {
@@ -315,7 +396,7 @@ function numberToString($number) {
     }
 
     return $result;
-}
+}*/
 /*
 $keys = generateRSAKeys(256);
 $publicKey = $keys['publicKey'];
