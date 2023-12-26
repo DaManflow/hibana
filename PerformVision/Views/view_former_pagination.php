@@ -6,19 +6,19 @@
         <?php
         if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "client") {
             foreach($printab as $cle => $val) {
-                echo "<tr><td> <a href=/SAES301/hibana/PerformVision/?controller=former_list&action=former_information_customer&id=" . $val['id_utilisateur'] . ">" . $val['nom'] . "</a>" . "</td><td>" . $val['prenom'] . "</td></tr>";
+                echo "<tr><td> <a href=?controller=former_list&action=former_information_customer&id=" . $val['id_utilisateur'] . ">" . $val['nom'] . "</a>" . "</td><td>" . $val['prenom'] . "</td></tr>";
             }
         }
 
         if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "formateur") {
             foreach($printab as $cle => $val) {
-                echo "<tr><td> <a href=/SAES301/hibana/PerformVision/?controller=former_list&action=former_information_former&id=" . $val['id_utilisateur'] . ">" . $val['nom'] . "</a>" . "</td><td>" . $val['prenom'] . "</td></tr>";
+                echo "<tr><td> <a href=?controller=former_list&action=former_information_former&id=" . $val['id_utilisateur'] . ">" . $val['nom'] . "</a>" . "</td><td>" . $val['prenom'] . "</td></tr>";
             }
         }
 
         if (!isset($_SESSION['idutilisateur'])) {
             foreach($printab as $cle => $val) {
-                echo "<tr><td> <a href=/SAES301/hibana/PerformVision/?controller=former_list&action=former_information_no_login&id=" . $val['id_utilisateur'] . ">" . $val['nom'] . "</a>" . "</td><td>" . $val['prenom'] . "</td></tr>";
+                echo "<tr><td> <a href=?controller=former_list&action=former_information_no_login&id=" . $val['id_utilisateur'] . ">" . $val['nom'] . "</a>" . "</td><td>" . $val['prenom'] . "</td></tr>";
             }
         }
            
