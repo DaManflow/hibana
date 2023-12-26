@@ -17,7 +17,7 @@ $p=gmp_strval(gmp_init($var_p), 16);
 $q=gmp_strval(gmp_init($var_q), 16);
 $phi=gmp_strval(gmp_init($var_phi), 16);
 
-
+/*
 //test
 echo $e ;
 echo '<br/>' ;
@@ -31,5 +31,5 @@ echo $p ;
 echo '<br/>' ; 
 echo $q ;
 echo '<br/>' ;
-echo $phi ;
+echo $phi ;*/
 ?>
