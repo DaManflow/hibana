@@ -1,11 +1,11 @@
 <?php require_once "view_begin.php";
 
 if (!isset($_SESSION['idutilisateur'])) {
-    header("Location: ?controller=home&action=home");
+    header("Location: /SAES301/hibana/PerformVision/?controller=home&action=home");
 }
 
 if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "formateur") {
-    header("Location: ?controller=home_former&action=home_former");
+    header("Location: /SAES301/hibana/PerformVision/?controller=home_former&action=home_former");
 }
 
 ?>
@@ -13,12 +13,12 @@ if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "formateur") {
 <div class="framenavbg"></div>
 <div class="framenav">
 
-    <a class="AccButton" href="?controller=home_customer&action=home_customer" title="Retour à l'accueil">
+    <a class="AccButton" href="/SAES301/hibana/PerformVision/?controller=home_customer&action=home_customer" title="Retour à l'accueil">
         <p class="Accueil">PerformVision Training & Consulting</p>
     </a>
 
     <div class="navi">
-        <div><a class="link" href="?controller=former_list&action=former_pagination" title="Formateurs">Formateurs</a></div>
+        <div><a class="link" href="/SAES301/hibana/PerformVision/?controller=former_list&action=former_pagination" title="Formateurs">Formateurs</a></div>
         <div><a class="link" href="#Conseils" title="Conseils">Conseils</a></div>
 
         <div class="autres">
@@ -29,7 +29,7 @@ if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "formateur") {
                 <a class="link" href="tr">Activité 3</a>
             </div>
         </div>
-        <div><a class="naviconnexion" href="?controller=profil_customer&action=profil_customer" title="Mon profil">Mon profil</a></div>
+        <div><a class="naviconnexion" href="/SAES301/hibana/PerformVision/?controller=profil_customer&action=profil_customer" title="Mon profil">Mon profil</a></div>
     </div>
 </div>
 

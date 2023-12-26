@@ -1,18 +1,18 @@
 <?php   require "view_begin.php";
 
 if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "client") {
-    header("Location: ?controller=home_customer&action=home_customer");
+    header("Location: /SAES301/hibana/PerformVision/?controller=home_customer&action=home_customer");
 }
 
 if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "formateur") {
-    header("Location: ?controller=home_former&action=home_former");
+    header("Location: /SAES301/hibana/PerformVision/?controller=home_former&action=home_former");
 }
 
 ?>
 
 <h1> S'incrire </h1>
 
-<form action="?controller=register_former&action=register_former" method="POST" enctype="multipart/form-data">
+<form action="/SAES301/hibana/PerformVision/?controller=register_former&action=register_former" method="POST" enctype="multipart/form-data">
     <p> <label> <input required="" type="text" name="name" placeholder="Nom"/> </label> </p>
     <p> <label> <input required="" type="text" name="surname" placeholder="Prénom"/> </label> </p>
     <p> <label> <input required="" type="text" name="email" placeholder="Email"/> </label> </p>

@@ -5,11 +5,11 @@ class Controller_home_customer extends Controller{
 
 
         if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "formateur") {
-            header("Location: ?controller=home_former&action=home_former");
+            header("Location: /SAES301/hibana/PerformVision/?controller=home_former&action=home_former");
         }
 
         if (!isset($_SESSION['idutilisateur'])) {
-            header("Location: ?controller=home&action=home");
+            header("Location: /SAES301/hibana/PerformVision/?controller=home&action=home");
         }
 
         $this->render("home_customer");
