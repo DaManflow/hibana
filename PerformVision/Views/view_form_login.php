@@ -1,4 +1,16 @@
-<?php   require "view_begin.php";?>
+<?php require "view_begin.php";
+
+
+if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "client") {
+    header("Location: ?controller=home_customer&action=home_customer");
+}
+
+if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "formateur") {
+    header("Location: ?controller=home_former&action=home_former");
+}
+
+
+?>
 
 <h1> Se connecter </h1>
 

@@ -2,11 +2,17 @@
 require_once "Controller.php";
 class Controller_home extends Controller{
     public function action_home(){
-        $m = Model::getModel();
-        $data = [
-            
-        ];
-        $this->render("home", $data);
+
+        if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "formateur") {
+            header("Location: ?controller=home_former&action=home_former");
+        }
+        
+        if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "client") {
+            header("Location: ?controller=home_customer&action=home_customer");
+        }
+
+
+        $this->render("home");
 
     }
     public function action_default(){

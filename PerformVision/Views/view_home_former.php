@@ -4,6 +4,11 @@ if (!isset($_SESSION['idutilisateur'])) {
     header("Location: ?controller=home&action=home");
 }
 
+if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "client") {
+    header("Location: ?controller=home_customer&action=home_customer");
+}
+
+
 ?>
 
 <div class="framenavbg"></div>
