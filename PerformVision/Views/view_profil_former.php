@@ -14,7 +14,7 @@ if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "client") {
 
 
 
-<a href="?controller=logout&action=logout"><button>deconexion</button></a>
+<a href="?controller=logout&action=logout"><button>deconnexion</button></a>
 
 
 

@@ -10,7 +10,7 @@ if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "formateur") {
 
 ?>
 
-<a href="?controller=logout&action=logout"><button>deconexion</button></a>
+<a href="?controller=logout&action=logout"><button>deconnexion</button></a>
 
 
 
