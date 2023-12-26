@@ -11,6 +11,14 @@ function e($message)
     return htmlspecialchars($message, ENT_QUOTES);
 }
 
+function currentTime() {
+    // Récupérer l'heure actuelle
+    $heureActuelle = date('Y-m-d H:i:s');
+
+    // Retourner l'heure actuelle
+    return $heureActuelle;
+}
+
 function check_data_customer() {
     $infos = [];
 
@@ -44,6 +52,24 @@ function check_data_customer() {
         }
     }
 
+    if (isset($_POST['phone'])) {
+        $phone = trim($_POST['phone']);
+        if (!empty($phone)) {
+            $infos['phone'] = e($phone);
+        } else {
+            $infos['phone'] = "false";
+        }
+    }
+
+    if (isset($_POST['company'])) {
+        $company = trim($_POST['company']);
+        if (!empty($company)) {
+            $infos['company'] = e($company);
+        } else {
+            $infos['company'] = "false";
+        }
+    }
+
     $infos['role'] = "client";
  
     // Vérification du mot de passe au moins une majuscule une minuscule un caractère spécial et au moins huit caractères
@@ -58,6 +84,7 @@ function check_data_customer() {
 // le client est non affranchi par défaut 
     $infos['estaffranchi'] = 'false';
 
+    
     return $infos;
 }
 
@@ -94,6 +121,15 @@ function check_data_former() {
         }
     }
 
+    if (isset($_POST['phone'])) {
+        $phone = trim($_POST['phone']);
+        if (!empty($phone) && preg_match('/^[0-9]{10}$/', $phone)) {
+            $infos['phone'] = e($phone);
+        } else {
+            $infos['phone'] = "false";
+        }
+    }
+
     $infos['role'] = "formateur";
 
     // Vérification du mot de passe
@@ -122,12 +158,30 @@ function check_data_former() {
     if (isset($_FILES['cv'])) {
         $cv = $_FILES['cv'];
         if (!empty($cv)) {
+
+            if ($cv['type'] != "application/pdf") {
+                $cv['type'] = "false";
+                
+            }
+
             $infos['cv'] = $cv;
             $cv['name'] = e($cv['name']);
         } else {
+
             $infos['cv'] = "false";
         }
     }
+
+    if (isset($_POST['date_signature'])) {
+        $date_signature = trim($_POST['date_signature']);
+        if (!empty($date_signature)) {
+            $infos['date_signature'] = e($date_signature);
+        } else {
+            $infos['date_signature'] = "false";
+        }
+    }
+
+    
 
     return $infos;
 }

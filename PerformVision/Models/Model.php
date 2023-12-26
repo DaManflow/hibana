@@ -34,64 +34,87 @@ class Model
     public function createCustomer($infos) {
         if (! $infos) {return false;}
 
-        if (session_status() == PHP_SESSION_NONE) {
-            // Si la session n'est pas démarrée, alors on la démarre
-            session_start();
-        }
-        else {
-            session_destroy();
-            session_start();
-        }
+        $erreur_type = [];
+
+        
+        
 
         
 
-        $req_verif = $this->bd->prepare('SELECT COUNT(*) AS count FROM UTILISATEUR WHERE mail = :email');
+        $req_verif = $this->bd->prepare('SELECT COUNT(*) AS count FROM UTILISATEUR WHERE mail = :email OR telephone = :phone');
         $req_verif->bindValue(":email", $infos['email']);
+        $req_verif->bindValue(":phone", $infos['phone']);
         $req_verif->execute();
         $row = $req_verif->fetch(PDO::FETCH_ASSOC);
 
         if ($row['count'] == 0) {
             try {
+
+
+
                 $this->bd->beginTransaction();
-                $req1 = $this->bd->prepare('INSERT INTO UTILISATEUR(nom,prenom,mail,role,motdepasse, estaffranchi) VALUES (:name,:surname,:email,:role,:password,:estaffranchi)');
-                $marqueurs = ['name', 'surname', 'email', "role", 'password', "estaffranchi"];
+                $req1 = $this->bd->prepare('INSERT INTO UTILISATEUR(nom,prenom,mail,password, telephone, role, est_affranchi) VALUES (:name,:surname,:email,:password,:phone,:role,:estaffranchi)');
+                $marqueurs = ['name', 'surname', 'email', 'password', 'phone', "role", "estaffranchi"];
                 foreach ($marqueurs as $value) {
             
                     $req1->bindValue(':' . $value, $infos[$value]);
                 }
                 $req1->execute();
 
-                $idUtilisateur = $this->bd->lastInsertId();
+                $id_client = $this->bd->lastInsertId();
 
                 $req2 = $this->bd->prepare('
-                    INSERT INTO Client (idutilisateur)
-                    VALUES (:idUtilisateur)
+                    INSERT INTO Client (id_client, societe)
+                    VALUES (:id_client,:company)
                 ');
 
-                $req2->bindValue(':idUtilisateur', $idUtilisateur);
+                $req2->bindValue(':id_client', $id_client);
+                $req2->bindValue(':company', $infos['company']);
 
                 $req2->execute();
 
-                $_SESSION['idutilisateur'] = $idUtilisateur;
+
+                $this->bd->commit();
+
+                if (session_status() == PHP_SESSION_NONE) {
+                    // Si la session n'est pas démarrée, alors on la démarre
+                    session_start();
+                }
+                else {
+                    session_destroy();
+                    session_start();
+                }
+
+
+                $_SESSION['idutilisateur'] = $id_client;
                 $_SESSION['name'] = $infos['name'];
                 $_SESSION['surname'] = $infos['surname'];
                 $_SESSION['email'] = $infos['email'];
                 $_SESSION['role'] = $infos['role'];
                 $_SESSION['password'] = $infos['password'];
+                $_SESSION['phone'] = $infos['phone'];
+                $_SESSION['company'] = $infos['company'];
                 $_SESSION['estaffranchi'] = $infos['estaffranchi'];
 
-                $this->bd->commit();
+
+
             } catch (PDOException $e) {
                 // En cas d'erreur, annuler la transaction
                 $this->bd->rollBack();
+                $_SESSION = array();
+                session_destroy();
                 echo "Erreur : " . $e->getMessage();
+                $erreur_type[] = "error_db";
+                return $erreur_type;
             }
 
-        return true;
+            $erreur_type[] = "none";
+            return $erreur_type;
 
         }
         else {
-            return false;
+            $erreur_type[] = "id_already_take";
+            return $erreur_type;
         }
         
     }
@@ -99,120 +122,120 @@ class Model
     public function createFormer($infos) {
         if (! $infos) {return false;}
 
+        $erreur_type = [];
+
+
         
 
-        if (session_status() == PHP_SESSION_NONE) {
-            // Si la session n'est pas démarrée, alors on la démarre
-            session_start();
-        }
-        else {
-            session_destroy();
-            session_start();
-        }
-
-        $req_verif = $this->bd->prepare('SELECT COUNT(*) AS count FROM UTILISATEUR WHERE mail = :email');
+        $req_verif = $this->bd->prepare('SELECT COUNT(*) AS count FROM UTILISATEUR WHERE mail = :email OR telephone = :phone');
         $req_verif->bindValue(":email", $infos['email']);
+        $req_verif->bindValue(":phone", $infos['phone']);
         $req_verif->execute();
         $row = $req_verif->fetch(PDO::FETCH_ASSOC);
 
         if ($row['count'] == 0) {
             try {
 
-
+                
 
 
                 $this->bd->beginTransaction();
             
                 // Première partie : insertion dans la table Utilisateur
-                $req1 = $this->bd->prepare('
-                    INSERT INTO UTILISATEUR(nom, prenom, mail, role, motdepasse, estaffranchi) 
-                    VALUES (:name, :surname, :email, :role, :password, :estaffranchi)
-                ');
+                $req1 = $this->bd->prepare('INSERT INTO UTILISATEUR(nom,prenom,mail,password, telephone, role, est_affranchi) VALUES (:name,:surname,:email,:password,:phone,:role,:estaffranchi)');
+                $marqueurs = ['name', 'surname', 'email', 'password', 'phone', "role", "estaffranchi"];
+                foreach ($marqueurs as $value) {
             
-                $marqueurs1 = ['name', 'surname', 'email', 'role', 'password', 'estaffranchi'];
-                foreach ($marqueurs1 as $value) {
                     $req1->bindValue(':' . $value, $infos[$value]);
                 }
-            
                 $req1->execute();
             
                 // Récupérer l'idUtilisateur généré
-                $idUtilisateur = $this->bd->lastInsertId();
+                $id_formateur = $this->bd->lastInsertId();
 
 
                 // Deuxième partie : insertion dans la table Formateur
                 $req3 = $this->bd->prepare('
-                    INSERT INTO Formateur (idutilisateur_1, page_linkedin, idcv)
-                    VALUES (:idUtilisateur, :linkedin, :idcv)
+                INSERT INTO Formateur (id_formateur, linkedin, date_signature, cv)
+                VALUES (:id_formateur, :linkedin, :date_signature, :cv)
                 ');
-                $req3->bindValue(':idUtilisateur', $idUtilisateur);
+                $req3->bindValue(':id_formateur', $id_formateur);
                 $req3->bindValue(':linkedin', $infos['linkedin']);
-                $req3->bindValue(':idcv', $idUtilisateur);
-            
-                $req3->execute();
+                $req3->bindValue(':date_signature', $infos['date_signature']);
 
                 $cvUploadDirectory = "./Content/CV_former/";
 
                 if (isset($_FILES["cv"]) && $_FILES["cv"]["error"] == UPLOAD_ERR_OK) {
-                    $cvFileName = rawurlencode(basename($_FILES["cv"]["name"]));
-                    $cvUploadPath = $cvUploadDirectory . $cvFileName;
-                    
-            
-                    // Déplace le fichier téléchargé vers le répertoire d'upload
-                    move_uploaded_file($_FILES["cv"]["tmp_name"], $cvUploadPath);
+                // Créer un répertoire pour chaque formateur pour éviter les fichiers de même nom
+                $formateurDirectory = $cvUploadDirectory . "cv_former_" . $id_formateur . "/";
+                if (!file_exists($formateurDirectory)) {
+                    mkdir($formateurDirectory, 0777, true);
+                }
+
+                // Nom du fichier CV dans le répertoire
+                $cvFileName = basename($_FILES["cv"]["name"]);
+                $cvUploadPath = $formateurDirectory . $cvFileName;
+
+                $req3->bindValue(':cv', $cvUploadPath);
+                
+                $req3->execute();
+
+                // Déplace le fichier téléchargé vers le répertoire d'upload
+                move_uploaded_file($_FILES["cv"]["tmp_name"], $cvUploadPath);
                 } else {
-                    // Gérez les erreurs liées au téléchargement du fichier CV
-                    echo "Erreur lors du téléchargement du fichier CV.";
-                    exit;
+                // Gérez les erreurs liées au téléchargement du fichier CV
+                echo "Erreur lors du téléchargement du fichier CV.";
+                exit;
                 }
                 
-                
-                $req4 = $this->bd->prepare('INSERT INTO CV VALUES (:idcv, :chemin_acces, :nom_cv, :taille, :type, :bin)');
-                $req4->bindValue(':idcv', $idUtilisateur);
-                $req4->bindValue(':chemin_acces', $cvUploadPath);
-                $req4->bindValue(':nom_cv', $cvFileName);
-                $req4->bindValue(':taille', $_FILES["cv"]["size"]);
-                $req4->bindValue(':type', $_FILES["cv"]["type"]);
-                $req4->bindValue(':bin', file_get_contents($cvUploadPath), PDO::PARAM_LOB);
+                // Valider la transaction
+                $this->bd->commit();
 
-                $req4->execute();
+                if (session_status() == PHP_SESSION_NONE) {
+                    // Si la session n'est pas démarrée, alors on la démarre
+                    session_start();
+                }
+                else {
+                    session_destroy();
+                    session_start();
+                }
 
-
-
-                $_SESSION['idutilisateur'] = $idUtilisateur;
+                $_SESSION['idutilisateur'] = $id_formateur;
                 $_SESSION['name'] = $infos['name'];
                 $_SESSION['surname'] = $infos['surname'];
                 $_SESSION['email'] = $infos['email'];
                 $_SESSION['role'] = $infos['role'];
                 $_SESSION['password'] = $infos['password'];
+                $_SESSION['phone'] = $infos['phone'];
                 $_SESSION['estaffranchi'] = $infos['estaffranchi'];
                 $_SESSION['linkedin'] = $infos['linkedin'];
-                $_SESSION['cv'] = $infos['cv'];
+                $_SESSION['cv'] = $cvUploadPath;
+                $_SESSION['date_signature'] = $infos['date_signature'];
 
-
-                
-
-            
-                // Valider la transaction
-                $this->bd->commit();
             } catch (PDOException $e) {
                 // En cas d'erreur, annuler la transaction
                 $this->bd->rollBack();
+                $_SESSION = array();
+                session_destroy();
                 echo "Erreur : " . $e->getMessage();
+                $erreur_type[] = "error_db";
+                return $erreur_type;
             }
             
-
-        return true;
+            $erreur_type[] = "none";
+            return $erreur_type;
+            
 
         }
         else {
-            return false;
+            $erreur_type[] = "id_already_take";
+            return $erreur_type;
         }
     }
 
     public function getFormersWithLimit($offset = 0, $limit = 25) {
 
-        $req = $this->bd->prepare('Select idutilisateur,nom, prenom from utilisateur WHERE role = :role ORDER BY idutilisateur DESC LIMIT :limit OFFSET :offset');
+        $req = $this->bd->prepare('Select id_utilisateur,nom, prenom from utilisateur WHERE role = :role ORDER BY id_utilisateur DESC LIMIT :limit OFFSET :offset');
         $req->bindValue(':role', "formateur");
         $req->bindValue(':limit', $limit, PDO::PARAM_INT);
         $req->bindValue(':offset', $offset, PDO::PARAM_INT);
@@ -225,7 +248,7 @@ class Model
 
     public function getFormerInformations($id)
     {
-        $requete = $this->bd->prepare('Select nom,prenom, mail, chemin_acces from utilisateur JOIN CV ON utilisateur.idutilisateur = cv.idcv WHERE utilisateur.idutilisateur = :id');
+        $requete = $this->bd->prepare('Select nom,prenom, mail, telephone, cv from utilisateur JOIN formateur ON utilisateur.id_utilisateur = formateur.id_formateur WHERE utilisateur.id_utilisateur = :id');
         $requete->bindValue(':id', $id);
         $requete->execute();
         return $requete->fetchAll();
@@ -244,19 +267,13 @@ class Model
 
         if (! $infos) {return false;}
 
+        $erreur_type = [];
+
         
 
-        // Vérifie si la session est déjà démarrée
-        if (session_status() == PHP_SESSION_NONE) {
-            // Si la session n'est pas démarrée, alors on la démarre
-            session_start();
-        }
-        else {
-            session_destroy();
-            session_start();
-        }
+        
 
-        $req = $this->bd->prepare('SELECT idutilisateur, nom, prenom, mail, role, motdepasse, estaffranchi FROM utilisateur WHERE mail = :mail');
+        $req = $this->bd->prepare('SELECT id_utilisateur, nom, prenom, mail, telephone, password, role, est_affranchi FROM utilisateur WHERE mail = :mail');
         $req->bindValue(':mail', $infos['email']);
         $req->execute();
 
@@ -264,38 +281,69 @@ class Model
 
         if ($req->rowCount() > 0) {
 
-                $req_tab = $req->fetch();
+                $req_tab = $req->fetch(PDO::FETCH_ASSOC);
+                
    
-                if ($infos['email'] == $req_tab['mail'] && decrypt_biblio($infos['password']) == decrypt_biblio($req_tab['motdepasse'])) {
+                if ($infos['email'] == $req_tab['mail'] && decrypt_biblio($infos['password']) == decrypt_biblio($req_tab['password'])) {
 
                     try {
 
+                        // Vérifie si la session est déjà démarrée
+                        if (session_status() == PHP_SESSION_NONE) {
+                            // Si la session n'est pas démarrée, alors on la démarre
+                            session_start();
+                        }
+                        else {
+                            session_destroy();
+                            session_start();
+                        }
+
                         $this->bd->beginTransaction();
 
-                        $_SESSION['idutilisateur'] = $req_tab['idutilisateur'];
+                        $_SESSION['idutilisateur'] = $req_tab['id_utilisateur'];
                         $_SESSION['nom'] = $req_tab['nom'];
                         $_SESSION['prenom'] = $req_tab['prenom'];
                         $_SESSION['mail'] = $req_tab['mail'];
+                        $_SESSION['password'] = $req_tab['password'];
+                        $_SESSION['telephone'] = $req_tab['telephone'];
                         $_SESSION['role'] = $req_tab['role'];
-                        $_SESSION['motdepasse'] = $req_tab['motdepasse'];
-                        $_SESSION['estaffranchi'] = $req_tab['estaffranchi'];
+                        $_SESSION['est_affranchi'] = $req_tab['est_affranchi'];
                     
                     if ($req_tab['role'] == "formateur") {
 
-                        $req2 = $this->bd->prepare('SELECT page_linkedin FROM formateur WHERE idutilisateur_1 = :idutilisateur');
-                        $req2->bindValue('idutilisateur', $req_tab['idutilisateur']);
+                        $req2 = $this->bd->prepare('SELECT linkedin, date_signature, cv FROM formateur WHERE id_formateur = :id_formateur');
+                        $req2->bindValue(':id_formateur', $req_tab['id_utilisateur']);
                         $req2->execute();
 
+                        $req2_tab = $req2->fetch(PDO::FETCH_ASSOC);
 
-                        $req3 = $this->bd->prepare('SELECT chemin_acces FROM CV WHERE idcv = :idformateur');
-                        $req3->bindValue(':idformateur', $req_tab['idutilisateur']);
-                        $req3->execute();
 
                         
-                        $_SESSION['linkedin'] = $req2->fetch()['page_linkedin'];
-                        $_SESSION['chemin_acces'] = $req3->fetch()['chemin_acces'];
+
                         
+                        $_SESSION['linkedin'] = $req2_tab['linkedin'];
+                        $_SESSION['date_signature'] = $req2_tab['date_signature'];
+                        $_SESSION['cv'] = $req2_tab['cv'];
+                        
+                        
+                       
                     }
+
+                    if ($req_tab['role'] == "client") {
+
+                        $req4 = $this->bd->prepare('SELECT societe FROM client where id_client = :id_client');
+                        $req4->bindValue(':id_client', $req_tab['id_utilisateur']);
+                        $req4->execute();
+
+                        $req4_tab = $req4->fetch(PDO::FETCH_ASSOC);
+
+                        $_SESSION['societe'] = $req4_tab['societe'];
+                        
+                    
+                    }
+
+                    
+
                     
                     
                         $this->bd->commit();
@@ -303,17 +351,24 @@ class Model
                     }catch (PDOException $e) {
                         // En cas d'erreur, annuler la transaction
                         $this->bd->rollBack();
+
+                        $_SESSION = array();
+                        session_destroy();
+
                         echo "Erreur : " . $e->getMessage();
+                        $erreur_type[] = "error_db";
+                        return $erreur_type;
                     }
-                    
-                    return true;
+
+                    $erreur_type[] = "none";
+                    return $erreur_type;
 
                 }
-                
-                return false ;
+                $erreur_type[] = "mail_mdp_error";
+                return $erreur_type;
         }
-        
-        return false;
+        $erreur_type[] = "mail_mdp_error";
+        return $erreur_type;
         
     }
 

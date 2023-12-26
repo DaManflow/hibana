@@ -4,6 +4,14 @@ require_once "./Utils/functions.php";
 class Controller_register_former extends Controller{
 
     public function action_form_register_former() {
+
+        if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "client") {
+            header("Location: /SAES301/hibana/PerformVision/?controller=home_customer&action=home_customer");
+        }
+
+        if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "formateur") {
+            header("Location: /SAES301/hibana/PerformVision/?controller=home_former&action=home_former");
+        }
  
         $this->render("form_register_former");
 
@@ -14,12 +22,22 @@ class Controller_register_former extends Controller{
     }
 
     public function action_register_former(){
+
+        if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "client") {
+            header("Location: /SAES301/hibana/PerformVision/?controller=home_customer&action=home_customer");
+        }
+
+        if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "formateur") {
+            header("Location: /SAES301/hibana/PerformVision/?controller=home_former&action=home_former");
+        }
+
+
         if (isset($_POST['submit'])) {
 
 
             $m = Model::getModel();
             $tab = check_data_former();
-            var_dump($tab);
+            
 
             
             
@@ -42,6 +60,12 @@ class Controller_register_former extends Controller{
                     $this->render("form_register_former");
                     
                 }
+
+                elseif ($tab['phone'] == 'false') {
+                    echo "Numéro de téléphone non conforme !";
+                    $this->render("form_register_former");
+                    
+                }
     
                 elseif ($tab['password'] == 'false') {
                     echo "Mot de passe non conforme !!";
@@ -54,23 +78,44 @@ class Controller_register_former extends Controller{
                     $this->render("form_register_former");
                     
                 }
-    
+
+                elseif ($tab['cv']['type'] == 'false') {
+                    echo "Le CV doit être au format pdf !";
+                    $this->render("form_register_former");
+                    
+                }
+
                 elseif ($tab['cv'] == 'false') {
                     echo "CV non conforme !!";
                     $this->render("form_register_former");
                     
                 }
+
+                elseif ($tab['date_signature'] == 'false') {
+                    echo "Veuillez signer !";
+                    $this->render("form_register_former");
+                    
+                }
             
+
+            $rep = $m->createFormer($tab);
             
-            if ($m->createFormer($tab)) {
+            if (in_array("none",$rep)) {
                 
-                header("Location: ?controller=home_former&action=home_former");
+                header("Location: /SAES301/hibana/PerformVision/?controller=home_former&action=home_former");
                 exit;
                 
             }
             else {
-                echo "Identifiant déjà pris !";
-                $this->render("form_register_former");
+
+                if (in_array("error_db",$rep)) {
+                    echo "La transaction à été annulée";
+                    $this->render("form_register_former");
+                }
+                if (in_array("id_already_take",$rep)) {
+                    echo "Identifiant déjà pris !";
+                    $this->render("form_register_former");
+                }
             }
             
         }

@@ -2,6 +2,15 @@
 require_once "Controller.php";
 class Controller_login extends Controller{
     public function action_login(){
+
+        if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "client") {
+            header("Location: /SAES301/hibana/PerformVision/?controller=home_customer&action=home_customer");
+        }
+
+        if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "formateur") {
+            header("Location: /SAES301/hibana/PerformVision/?controller=home_former&action=home_former");
+        }
+        
         $this->render("form_login");
 
     }
@@ -11,6 +20,19 @@ class Controller_login extends Controller{
     }
 
     public function action_connectUser() {
+
+        if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "client") {
+            header("Location: /SAES301/hibana/PerformVision/?controller=home_customer&action=home_customer");
+        }
+
+        if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "formateur") {
+            header("Location: /SAES301/hibana/PerformVision/?controller=home_former&action=home_former");
+        }
+
+        if (!isset($_SESSION['idutilisateur'])) {
+            header("Location: /SAES301/hibana/PerformVision/?controller=home&action=home");
+        }
+
 
         if (isset($_POST['submit'])) {
             $m = Model::getModel();
@@ -29,22 +51,34 @@ class Controller_login extends Controller{
                 
             }
 
-            if ($m->VerifConnectUser($tab)) {
+            $rep = $m->VerifConnectUser($tab);
+
+            if (in_array("none",$rep)) {
 
                 if ($_SESSION['role'] == "client") {
-                    header("Location: ?controller=home_customer&action=home_customer");
+                    header("Location: /SAES301/hibana/PerformVision/?controller=home_customer&action=home_customer");
                     exit;
                 }
 
                 if ($_SESSION['role'] == "formateur") {
-                    header("Location: ?controller=home_former&action=home_former");
+                    header("Location: /SAES301/hibana/PerformVision/?controller=home_former&action=home_former");
                     exit;
                 }
 
             }
             else {
-                echo "Mail ou mot de passe incorrect !";
-                $this->render("form_login");
+
+                if (in_array("error_db", $rep)) {
+                    echo "La transaction à été annulée";
+                    $this->render("form_login");
+                }
+
+                if (in_array("mail_mdp_error", $rep)) {
+                    echo "Mail ou mot de passe incorrect !";
+                    $this->render("form_login");
+                }
+
+                
             }
 
         }

@@ -1,47 +1,7 @@
 <?php
 require_once "Controller.php";
 class Controller_former_list extends Controller{
-    public function action_former_list(){
-        $m = Model::getModel();
-        $data = [
-            'infos' => $m->getFormersWithLimit(),
-        ];
-        
-
-        $this->render("former_list", $data);
-
-    }
-    public function action_default(){
-        $this->action_former_list();
-    }
-
-    public function action_former_information() {
-        
-
-        if (isset($_GET['id']) && preg_match("/^[1-9][0-9]*$/", $_GET['id'])) {
-            
-                
-            $m = Model::getModel();
-            $data = [
-                'infos' => $m->getFormerInformations($_GET['id']),
-            ];
-            if ($data['infos']) {
-                
-                
-                $this->render("former_information", $data);
-            }
-            else {
-                $this->action_error("L'identifiant n'existe pas !");
-            }
-            
-    }
-    else {
-        $this->action_error("Aucun identifiant renseigné !");
-    }
-
-    }
-
-
+    
     public function action_former_pagination() {
 
         $m = Model::getModel();
@@ -80,17 +40,111 @@ class Controller_former_list extends Controller{
             }
             else {
                 $_GET['start'] = 1;
-                header("Location: ?controller=former_list&action=former_pagination&start=" . $_GET['start']);
+                header("Location: /SAES301/hibana/PerformVision/?controller=former_list&action=former_pagination&start=" . $_GET['start']);
             }
 
         }
         else {
             $_GET['start'] = 1;
-            header("Location: ?controller=former_list&action=former_pagination&start=" . $_GET['start']);
+            header("Location: /SAES301/hibana/PerformVision/?controller=former_list&action=former_pagination&start=" . $_GET['start']);
         }
 
 
     }
 
-}
+
+
+
+    public function action_default(){
+        $this->action_former_pagination();
+    }
+
+    public function action_former_information_no_login() {
+    
+                
+        header("Location: /SAES301/hibana/PerformVision/?controller=login&action=login");
+        exit;
+            
+        
+            
+    }
+
+    
+
+
+    
+
+    public function action_former_information_customer() {
+
+        if (isset($_SESSION['role']) && $_SESSION['role'] == "formateur") {
+            header("Location: /SAES301/hibana/PerformVision/?controller=home_former&action=home_former");
+        }
+
+        if (!isset($_SESSION['idutilisateur'])) {
+            header("Location: /SAES301/hibana/PerformVision/?controller=former_list&action=former_information_no_login");
+        }
+
+        if (isset($_GET['id']) && preg_match("/^[1-9][0-9]*$/", $_GET['id'])) {
+            
+                
+            $m = Model::getModel();
+            $data = [
+                'infos' => $m->getFormerInformations($_GET['id']),
+            ];
+            if ($data['infos']) {
+                
+                
+                $this->render("former_information_customer", $data);
+            }
+            else {
+                $this->action_error("L'identifiant n'existe pas !");
+            }
+            
+    }
+    else {
+        $this->action_error("Aucun identifiant renseigné !");
+    }
+
+    }
+
+    public function action_former_information_former() {
+
+        if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "client") {
+            header("Location: /SAES301/hibana/PerformVision/?controller=home_customer&action=home_customer");
+        }
+
+        if (!isset($_SESSION['idutilisateur'])) {
+            header("Location: /SAES301/hibana/PerformVision/?controller=former_list&action=former_information_no_login");
+        }
+
+        if (isset($_GET['id']) && preg_match("/^[1-9][0-9]*$/", $_GET['id'])) {
+            
+                
+            $m = Model::getModel();
+            $data = [
+                'infos' => $m->getFormerInformations($_GET['id']),
+            ];
+            if ($data['infos']) {
+                
+                
+                $this->render("former_information_former", $data);
+            }
+            else {
+                $this->action_error("L'identifiant n'existe pas !");
+            }
+            
+    }
+    else {
+        $this->action_error("Aucun identifiant renseigné !");
+    }
+
+    }
+
+
+
+    }
+
+
+
+
 ?>

@@ -2,11 +2,17 @@
 require_once "Controller.php";
 class Controller_home_former extends Controller{
     public function action_home_former(){
-        $m = Model::getModel();
-        $data = [
-            
-        ];
-        $this->render("home_former", $data);
+
+        if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "client") {
+            header("Location: /SAES301/hibana/PerformVision/?controller=home_client&action=home_client");
+        }
+
+        if (!isset($_SESSION['idutilisateur'])) {
+            header("Location: /SAES301/hibana/PerformVision/?controller=home&action=home");
+        }
+
+
+        $this->render("home_former");
 
     }
     public function action_default(){
