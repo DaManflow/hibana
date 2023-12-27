@@ -9,12 +9,20 @@ if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "client") {
 }
 
 ?>
+<?php $infos=$_SESSION ; ?>
+<h1> Mon profil </h1>
+<p> Nom : <?=$infos['name'] ?> </p>
+<p> Prénom : <?=$infos['surname'] ?> </p>
+<p> Adresse mail : <?=$infos['email'] ?> </p>
+<p> Téléphone : <?=$infos['phone'] ?> </p>
+<p> Linkedin : <?=$infos['linkedin'] ?> </p>
+<p> Date de signature éléctronique : <?=$infos['date_signature'] ?> </p>
+<p> Consulter mon CV : <a href="<?=$infos['cv'] ?>" download><button>Consulter</button></p>
 
 
 
 
-
-<a href="?controller=logout&action=logout"><button>deconnexion</button></a>
+<a href="?controller=logout&action=logout"><button>Deconnexion</button></a>
 
 
 

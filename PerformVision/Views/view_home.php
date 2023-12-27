@@ -1,11 +1,11 @@
 <?php require_once "view_begin.php";
 
 if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "formateur") {
-    header("Location: /SAES301/hibana/PerformVision/?controller=home_former&action=home_former");
+    header("Location: ?controller=home_former&action=home_former");
 }
 
 if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "client") {
-    header("Location: /SAES301/hibana/PerformVision/?controller=home_customer&action=home_customer");
+    header("Location: ?controller=home_customer&action=home_customer");
 }
 
 ?>

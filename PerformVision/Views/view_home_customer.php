@@ -1,11 +1,11 @@
 <?php require_once "view_begin.php";
 
 if (!isset($_SESSION['idutilisateur'])) {
-    header("Location: /SAES301/hibana/PerformVision/?controller=home&action=home");
+    header("Location: ?controller=home&action=home");
 }
 
 if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "formateur") {
-    header("Location: /SAES301/hibana/PerformVision/?controller=home_former&action=home_former");
+    header("Location: ?controller=home_former&action=home_former");
 }
 
 ?>
@@ -13,7 +13,7 @@ if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "formateur") {
 <div class="framenavbg"></div>
 <div class="framenav">
 
-    <a class="AccButton" href="/SAES301/hibana/PerformVision/?controller=home_customer&action=home_customer" title="Retour à l'accueil">
+    <a class="AccButton" href="?controller=home_customer&action=home_customer" title="Retour à l'accueil">
         <p class="Accueil">PerformVision Training & Consulting</p>
     </a>
 

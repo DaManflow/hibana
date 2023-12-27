@@ -10,7 +10,16 @@ if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "formateur") {
 
 ?>
 
-<a href="?controller=logout&action=logout"><button>deconnexion</button></a>
+<?php $infos=$_SESSION ; ?>
+<h1> Mon profil </h1>
+<p> Nom : <?=$infos['nom'] ?> </p>
+<p> Prénom : <?=$infos['prenom'] ?> </p>
+<p> Adresse mail : <?=$infos['mail'] ?> </p>
+<p> Téléphone : <?=$infos['telephone'] ?> </p>
+<p> Société : <?=$infos['societe'] ?> </p>
+    
+
+<a href="?controller=logout&action=logout"><button>Deconnexion</button></a>
 
 
 

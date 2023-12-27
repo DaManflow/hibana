@@ -6,11 +6,11 @@ class Controller_register_former extends Controller{
     public function action_form_register_former() {
 
         if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "client") {
-            header("Location: /SAES301/hibana/PerformVision/?controller=home_customer&action=home_customer");
+            header("Location: ?controller=home_customer&action=home_customer");
         }
 
         if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "formateur") {
-            header("Location: /SAES301/hibana/PerformVision/?controller=home_former&action=home_former");
+            header("Location: ?controller=home_former&action=home_former");
         }
  
         $this->render("form_register_former");
@@ -24,11 +24,11 @@ class Controller_register_former extends Controller{
     public function action_register_former(){
 
         if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "client") {
-            header("Location: /SAES301/hibana/PerformVision/?controller=home_customer&action=home_customer");
+            header("Location: ?controller=home_customer&action=home_customer");
         }
 
         if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "formateur") {
-            header("Location: /SAES301/hibana/PerformVision/?controller=home_former&action=home_former");
+            header("Location: ?controller=home_former&action=home_former");
         }
 
 
@@ -102,7 +102,7 @@ class Controller_register_former extends Controller{
             
             if (in_array("none",$rep)) {
                 
-                header("Location: /SAES301/hibana/PerformVision/?controller=home_former&action=home_former");
+                header("Location: ?controller=home_former&action=home_former");
                 exit;
                 
             }
