@@ -4,25 +4,25 @@
 <table>
     
         <?php
+
         if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "client") {
             foreach($printab as $cle => $val) {
-                echo "<tr><td> <a href=?controller=former_list&action=former_information_customer&id=" . $val['id_utilisateur'] . ">" . $val['nom'] . "</a>" . "</td><td>" . $val['prenom'] . "</td></tr>";
+                echo "<tr><td> <a href=/hibana-main/PerformVision/?controller=former_list&action=former_information_customer&id=" . $val['id_utilisateur'] . ">" . $val['nom'] . "</a>" . "</td><td>" . $val['prenom'] . "</td></tr>";
             }
         }
 
         if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "formateur") {
             foreach($printab as $cle => $val) {
-                echo "<tr><td> <a href=?controller=former_list&action=former_information_former&id=" . $val['id_utilisateur'] . ">" . $val['nom'] . "</a>" . "</td><td>" . $val['prenom'] . "</td></tr>";
+                echo "<tr><td> <a href=/hibana-main/PerformVision/?controller=former_list&action=former_information_former&id=" . $val['id_utilisateur'] . ">" . $val['nom'] . "</a>" . "</td><td>" . $val['prenom'] . "</td></tr>";
             }
         }
 
         if (!isset($_SESSION['idutilisateur'])) {
             foreach($printab as $cle => $val) {
-                echo "<tr><td> <a href=?controller=former_list&action=former_information_no_login&id=" . $val['id_utilisateur'] . ">" . $val['nom'] . "</a>" . "</td><td>" . $val['prenom'] . "</td></tr>";
+                echo "<tr><td> <a href=/hibana-main/PerformVision/?controller=former_list&action=former_information_no_login&id=" . $val['id_utilisateur'] . ">" . $val['nom'] . "</a>" . "</td><td>" . $val['prenom'] . "</td></tr>";
             }
         }
-           
-    
+
         ?>
 </table>
 
@@ -38,18 +38,18 @@
 <?php
 
 
-echo '<a href="/SAES301/hibana/PerformVision/?controller=former_list&action=former_pagination&start='.($page - 1).'"><img src="./Content/images/previous-icon.png" class="icone" /></a>';
+echo '<a href="/hibana-main/PerformVision/?controller=former_list&action=former_pagination&start='.($page - 1).'"><img src="./Content/images/previous-icon.png" class="icone" /></a>';
 
         for($i = 1; $i <= $pages; $i++){
             if($page!=$i){
-                echo "<a class='lienStart' href='/SAES301/hibana/PerformVision/?controller=former_list&action=former_pagination&start=$i'>$i</a>&nbsp;";
+                echo "<a class='lienStart' href='/hibana-main/PerformVision/?controller=former_list&action=former_pagination&start=$i'>$i</a>&nbsp;";
             }else{
                 echo "<a class='active'>$i</a>";
             }
         
             
         }
-        echo '<a href="/SAES301/hibana/PerformVision/?controller=former_list&action=former_pagination&start='.($page + 1).'"><img src="./Content/images/next-icon.png" class="icone" /></a>';
+        echo '<a href="/hibana-main/PerformVision/?controller=former_list&action=former_pagination&start='.($page + 1).'"><img src="./Content/images/next-icon.png" class="icone" /></a>';
 
 ?>
 

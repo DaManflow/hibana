@@ -194,10 +194,12 @@ class Model
                 if (session_status() == PHP_SESSION_NONE) {
                     // Si la session n'est pas démarrée, alors on la démarre
                     session_start();
+                    
                 }
                 else {
                     session_destroy();
                     session_start();
+                    
                 }
 
                 $_SESSION['idutilisateur'] = $id_formateur;
@@ -292,10 +294,12 @@ class Model
                         if (session_status() == PHP_SESSION_NONE) {
                             // Si la session n'est pas démarrée, alors on la démarre
                             session_start();
+                            
                         }
                         else {
                             session_destroy();
                             session_start();
+                            
                         }
 
                         $this->bd->beginTransaction();
@@ -310,6 +314,7 @@ class Model
                         $_SESSION['est_affranchi'] = $req_tab['est_affranchi'];
                     
                     if ($req_tab['role'] == "formateur") {
+                        
 
                         $req2 = $this->bd->prepare('SELECT linkedin, date_signature, cv FROM formateur WHERE id_formateur = :id_formateur');
                         $req2->bindValue(':id_formateur', $req_tab['id_utilisateur']);

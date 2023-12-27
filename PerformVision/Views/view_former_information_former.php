@@ -1,15 +1,4 @@
-<?php require "view_begin.php";
-
-if (!$_SESSION['idutilisateur']) {
-    header("Location: ?controller=login&action=login");
-}
-
-if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "client") {
-    header("Location: ?controller=home_customer&action=home_customer");
-}
-
-
-?>
+<?php require "view_begin.php";?>
 
 
 <table>

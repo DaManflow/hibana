@@ -4,11 +4,11 @@ class Controller_login extends Controller{
     public function action_login(){
 
         if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "client") {
-            header("Location: /SAES301/hibana/PerformVision/?controller=home_customer&action=home_customer");
+            header("Location: /hibana-main/PerformVision/?controller=home_customer&action=home_customer");
         }
 
         if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "formateur") {
-            header("Location: /SAES301/hibana/PerformVision/?controller=home_former&action=home_former");
+            header("Location: /hibana-main/PerformVision/?controller=home_former&action=home_former");
         }
         
         $this->render("form_login");
@@ -20,19 +20,6 @@ class Controller_login extends Controller{
     }
 
     public function action_connectUser() {
-
-        if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "client") {
-            header("Location: /SAES301/hibana/PerformVision/?controller=home_customer&action=home_customer");
-        }
-
-        if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "formateur") {
-            header("Location: /SAES301/hibana/PerformVision/?controller=home_former&action=home_former");
-        }
-
-        if (!isset($_SESSION['idutilisateur'])) {
-            header("Location: /SAES301/hibana/PerformVision/?controller=home&action=home");
-        }
-
 
         if (isset($_POST['submit'])) {
             $m = Model::getModel();
@@ -56,14 +43,16 @@ class Controller_login extends Controller{
             if (in_array("none",$rep)) {
 
                 if ($_SESSION['role'] == "client") {
-                    header("Location: /SAES301/hibana/PerformVision/?controller=home_customer&action=home_customer");
+                    header("Location: /hibana-main/PerformVision/?controller=home_customer&action=home_customer");
                     exit;
                 }
 
                 if ($_SESSION['role'] == "formateur") {
-                    header("Location: /SAES301/hibana/PerformVision/?controller=home_former&action=home_former");
+                    header("Location: /hibana-main/PerformVision/?controller=home_former&action=home_former");
                     exit;
                 }
+
+                
 
             }
             else {
@@ -79,6 +68,21 @@ class Controller_login extends Controller{
                 }
 
                 
+            }
+
+        }
+        else {
+
+            if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "client") {
+                header("Location: /hibana-main/PerformVision/?controller=home_customer&action=home_customer");
+            }
+    
+            if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "formateur") {
+                header("Location: /hibana-main/PerformVision/?controller=home_former&action=home_former");
+            }
+    
+            if (!isset($_SESSION['idutilisateur'])) {
+                header("Location: /hibana-main/PerformVision/?controller=home&action=home");
             }
 
         }
