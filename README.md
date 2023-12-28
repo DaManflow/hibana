@@ -14,6 +14,11 @@ Alexandre Meunier
 
 hibana-main/PerformVision/
 
+Pour cloner le dossier : 
+```
+git clone https://gitlab.sorbonne-paris-nord.fr/12203376/hibana.git hibana-main
+```
+
 
 ## Getting started
 
