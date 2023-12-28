@@ -1,4 +1,4 @@
-<?php require_once "view_begin.php";?>
+<?php require_once "view_begin.php";
 
 if (!isset($_SESSION['idutilisateur'])) {
     header("Location: ?controller=home&action=home");

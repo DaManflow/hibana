@@ -18,7 +18,7 @@ if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "formateur") {
     </a>
 
     <div class="navi">
-        <div><a class="link" href="/hibana-main/PerformVision/?controller=former_list&action=former_pagination" title="Formateurs">Formateurs</a></div>
+        <div><a class="link" href="?controller=former_list&action=former_pagination" title="Formateurs">Formateurs</a></div>
         <div><a class="link" href="#Conseils" title="Conseils">Conseils</a></div>
 
         <div class="autres">
@@ -29,7 +29,7 @@ if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "formateur") {
                 <a class="link" href="tr">Activité 3</a>
             </div>
         </div>
-        <div><a class="naviconnexion" href="/hibana-main/PerformVision/?controller=profil_customer&action=profil_customer" title="Mon profil">Mon profil</a></div>
+        <div><a class="naviconnexion" href="?controller=profil_customer&action=profil_customer" title="Mon profil">Mon profil</a></div>
     </div>
 </div>
 

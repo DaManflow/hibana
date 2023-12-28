@@ -4,19 +4,11 @@ class Controller_login extends Controller{
     public function action_login(){
 
         if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "client") {
-<<<<<<< HEAD
             header("Location: ?controller=home_customer&action=home_customer");
         }
 
         if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "formateur") {
             header("Location: ?controller=home_former&action=home_former");
-=======
-            header("Location: /hibana-main/PerformVision/?controller=home_customer&action=home_customer");
-        }
-
-        if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "formateur") {
-            header("Location: /hibana-main/PerformVision/?controller=home_former&action=home_former");
->>>>>>> 1ba5e94d06d15513dd11e8524c6e4b6fe6e8c756
         }
         
         $this->render("form_login");
@@ -29,7 +21,6 @@ class Controller_login extends Controller{
 
     public function action_connectUser() {
 
-<<<<<<< HEAD
         if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "client") {
             header("Location: ?controller=home_customer&action=home_customer");
         }
@@ -43,8 +34,6 @@ class Controller_login extends Controller{
         }
 
 
-=======
->>>>>>> 1ba5e94d06d15513dd11e8524c6e4b6fe6e8c756
         if (isset($_POST['submit'])) {
             $m = Model::getModel();
             $tab = check_data_user();
@@ -67,20 +56,12 @@ class Controller_login extends Controller{
             if (in_array("none",$rep)) {
 
                 if ($_SESSION['role'] == "client") {
-<<<<<<< HEAD
                     header("Location: ?controller=home_customer&action=home_customer");
-=======
-                    header("Location: /hibana-main/PerformVision/?controller=home_customer&action=home_customer");
->>>>>>> 1ba5e94d06d15513dd11e8524c6e4b6fe6e8c756
                     exit;
                 }
 
                 if ($_SESSION['role'] == "formateur") {
-<<<<<<< HEAD
                     header("Location: ?controller=home_former&action=home_former");
-=======
-                    header("Location: /hibana-main/PerformVision/?controller=home_former&action=home_former");
->>>>>>> 1ba5e94d06d15513dd11e8524c6e4b6fe6e8c756
                     exit;
                 }
 
@@ -106,15 +87,15 @@ class Controller_login extends Controller{
         else {
 
             if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "client") {
-                header("Location: /hibana-main/PerformVision/?controller=home_customer&action=home_customer");
+                header("Location: ?controller=home_customer&action=home_customer");
             }
     
             if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "formateur") {
-                header("Location: /hibana-main/PerformVision/?controller=home_former&action=home_former");
+                header("Location: ?controller=home_former&action=home_former");
             }
     
             if (!isset($_SESSION['idutilisateur'])) {
-                header("Location: /hibana-main/PerformVision/?controller=home&action=home");
+                header("Location: ?controller=home&action=home");
             }
 
         }

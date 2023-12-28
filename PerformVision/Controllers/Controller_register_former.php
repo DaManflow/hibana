@@ -6,19 +6,11 @@ class Controller_register_former extends Controller{
     public function action_form_register_former() {
 
         if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "client") {
-<<<<<<< HEAD
             header("Location: ?controller=home_customer&action=home_customer");
         }
 
         if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "formateur") {
             header("Location: ?controller=home_former&action=home_former");
-=======
-            header("Location: /hibana-main/PerformVision/?controller=home_customer&action=home_customer");
-        }
-
-        if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "formateur") {
-            header("Location: /hibana-main/PerformVision/?controller=home_former&action=home_former");
->>>>>>> 1ba5e94d06d15513dd11e8524c6e4b6fe6e8c756
         }
  
         $this->render("form_register_former");
@@ -31,7 +23,6 @@ class Controller_register_former extends Controller{
 
     public function action_register_former(){
 
-<<<<<<< HEAD
         if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "client") {
             header("Location: ?controller=home_customer&action=home_customer");
         }
@@ -41,8 +32,6 @@ class Controller_register_former extends Controller{
         }
 
 
-=======
->>>>>>> 1ba5e94d06d15513dd11e8524c6e4b6fe6e8c756
         if (isset($_POST['submit'])) {
 
 
@@ -113,11 +102,7 @@ class Controller_register_former extends Controller{
             
             if (in_array("none",$rep)) {
                 
-<<<<<<< HEAD
                 header("Location: ?controller=home_former&action=home_former");
-=======
-                header("Location: /hibana-main/PerformVision/?controller=home_former&action=home_former");
->>>>>>> 1ba5e94d06d15513dd11e8524c6e4b6fe6e8c756
                 exit;
                 
             }
@@ -137,15 +122,15 @@ class Controller_register_former extends Controller{
         else {
 
             if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "client") {
-                header("Location: /hibana-main/PerformVision/?controller=home_customer&action=home_customer");
+                header("Location: ?controller=home_customer&action=home_customer");
             }
     
             if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "formateur") {
-                header("Location: /hibana-main/PerformVision/?controller=home_former&action=home_former");
+                header("Location: ?controller=home_former&action=home_former");
             }
 
             if (!isset($_SESSION['idutilisateur'])) {
-                header("Location: /hibana-main/PerformVision/?controller=home&action=home");
+                header("Location: ?controller=home&action=home");
             }
 
         }

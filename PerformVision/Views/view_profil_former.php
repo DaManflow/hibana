@@ -17,7 +17,7 @@ if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "client") {
 <p> Téléphone : <?=$infos['phone'] ?> </p>
 <p> Linkedin : <?=$infos['linkedin'] ?> </p>
 <p> Date de signature éléctronique : <?=$infos['date_signature'] ?> </p>
-<p> Consulter mon CV : <a href="<?=$infos['cv'] ?>" download><button>Consulter</button></p>
+<p> Télécharger mon CV : <a href="<?=$infos['cv'] ?>" download><button>Télécharger</button></p>
 
 
 
