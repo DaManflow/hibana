@@ -13,10 +13,10 @@ if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "client") {
 <div class="profil">
 <h1> Mon profil </h1>
 <ul>
-<li> Nom : <?=$infos['name'] ?> </li>
-<li> Prénom : <?=$infos['surname'] ?> </li>
-<li> Adresse mail : <?=$infos['email'] ?> </li>
-<li> Téléphone : <?=$infos['phone'] ?> </li>
+<li> Nom : <?=$infos['nom'] ?> </li>
+<li> Prénom : <?=$infos['prenom'] ?> </li>
+<li> Adresse mail : <?=$infos['mail'] ?> </li>
+<li> Téléphone : <?=$infos['telephone'] ?> </li>
 <li> Linkedin : <?=$infos['linkedin'] ?> </li>
 <li> Date de signature éléctronique : <?=$infos['date_signature'] ?> </li>
 <li> Télécharger mon CV : <a href="<?=$infos['cv'] ?>" download><button>Télécharger</button></li>
