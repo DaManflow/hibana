@@ -10,21 +10,23 @@ if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "client") {
 
 ?>
 <?php $infos=$_SESSION ; ?>
+<div class="profil">
 <h1> Mon profil </h1>
-<p> Nom : <?=$infos['name'] ?> </p>
-<p> Prénom : <?=$infos['surname'] ?> </p>
-<p> Adresse mail : <?=$infos['email'] ?> </p>
-<p> Téléphone : <?=$infos['phone'] ?> </p>
-<p> Linkedin : <?=$infos['linkedin'] ?> </p>
-<p> Date de signature éléctronique : <?=$infos['date_signature'] ?> </p>
-<p> Télécharger mon CV : <a href="<?=$infos['cv'] ?>" download><button>Télécharger</button></p>
+<ul>
+<li> Nom : <?=$infos['name'] ?> </li>
+<li> Prénom : <?=$infos['surname'] ?> </li>
+<li> Adresse mail : <?=$infos['email'] ?> </li>
+<li> Téléphone : <?=$infos['phone'] ?> </li>
+<li> Linkedin : <?=$infos['linkedin'] ?> </li>
+<li> Date de signature éléctronique : <?=$infos['date_signature'] ?> </li>
+<li> Télécharger mon CV : <a href="<?=$infos['cv'] ?>" download><button>Télécharger</button></li>
+
+</ul>
 
 
+<a href="?controller=logout&action=logout"><button class="button">Deconnexion</button></a>
 
-
-<a href="?controller=logout&action=logout"><button>Deconnexion</button></a>
-
-
+</div>
 
 
 

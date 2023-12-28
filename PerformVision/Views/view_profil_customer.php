@@ -11,17 +11,19 @@ if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "formateur") {
 ?>
 
 <?php $infos=$_SESSION ; ?>
+<div class="profil">
 <h1> Mon profil </h1>
-<p> Nom : <?=$infos['nom'] ?> </p>
-<p> Prénom : <?=$infos['prenom'] ?> </p>
-<p> Adresse mail : <?=$infos['mail'] ?> </p>
-<p> Téléphone : <?=$infos['telephone'] ?> </p>
-<p> Société : <?=$infos['societe'] ?> </p>
-    
+<ul>
+<li> Nom : <?=$infos['nom'] ?> </li>
+<li> Prénom : <?=$infos['prenom'] ?> </li>
+<li> Adresse mail : <?=$infos['mail'] ?> </li>
+<li> Téléphone : <?=$infos['telephone'] ?> </li>
+<li> Société : <?=$infos['societe'] ?> </li>
+</ul>
 
-<a href="?controller=logout&action=logout"><button>Deconnexion</button></a>
+<a href="?controller=logout&action=logout"><button class="button">Deconnexion</button></a>
 
-
+</div>
 
 
 
