@@ -2,7 +2,7 @@
 
 <h1> S'incrire </h1>
 
-<form action="?controller=register_customer&action=register_customer" method="POST">
+<form action="/hibana-main/PerformVision/?controller=register_customer&action=register_customer" method="POST">
     <p> <label> <input required="" type="text" name="name" placeholder="Nom"/> </label> </p>
     <p> <label> <input required="" type="text" name="surname" placeholder="Prénom"/> </label> </p>
     <p> <label> <input required="" type="text" name="email" placeholder="Email"/> </label> </p>

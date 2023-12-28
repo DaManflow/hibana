@@ -1,0 +1,9 @@
+RewriteEngine On
+
+RewriteRule Utils/ /hibana-main/PerformVision/index.php [L]
+RewriteRule Schéma_entités_associations/ /hibana-main/PerformVision/index.php [L]
+RewriteRule Models/ /hibana-main/PerformVision/index.php [L]
+RewriteRule Crypt/ /hibana-main/PerformVision/index.php [L]
+RewriteRule Controllers/ /hibana-main/PerformVision/index.php [L]
+RewriteRule Content/.gitkeep /hibana-main/PerformVision/index.php [L]
+RewriteRule archive/ /hibana-main/PerformVision/index.php [L]

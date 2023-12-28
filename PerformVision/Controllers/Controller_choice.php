@@ -4,11 +4,11 @@ class Controller_choice extends Controller{
     public function action_register_choice(){
 
         if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "client") {
-            header("Location: ?controller=home_customer&action=home_customer");
+            header("Location: /hibana-main/PerformVision/?controller=home_customer&action=home_customer");
         }
 
         if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "formateur") {
-            header("Location: ?controller=home_former&action=home_former");
+            header("Location: /hibana-main/PerformVision/?controller=home_former&action=home_former");
         }
         
         $this->render("register_choice");

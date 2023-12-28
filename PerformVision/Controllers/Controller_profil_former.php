@@ -4,11 +4,11 @@ class Controller_profil_former extends Controller{
     public function action_profil_former(){
 
         if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "client") {
-            header("Location: ?controller=home_customer&action=home_customer");
+            header("Location: /hibana-main/PerformVision/?controller=home_customer&action=home_customer");
         }
 
         if (!isset($_SESSION['idutilisateur'])) {
-            header("Location: ?controller=home&action=home");
+            header("Location: /hibana-main/PerformVision/?controller=home&action=home");
         }
 
 

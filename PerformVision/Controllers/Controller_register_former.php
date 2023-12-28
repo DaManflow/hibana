@@ -1,16 +1,17 @@
 <?php
 require_once "Controller.php";
 require_once "./Utils/functions.php";
+require_once('tcpdf/tcpdf.php');
 class Controller_register_former extends Controller{
 
     public function action_form_register_former() {
 
         if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "client") {
-            header("Location: ?controller=home_customer&action=home_customer");
+            header("Location: /hibana-main/PerformVision/?controller=home_customer&action=home_customer");
         }
 
         if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "formateur") {
-            header("Location: ?controller=home_former&action=home_former");
+            header("Location: /hibana-main/PerformVision/?controller=home_former&action=home_former");
         }
  
         $this->render("form_register_former");
@@ -24,11 +25,11 @@ class Controller_register_former extends Controller{
     public function action_register_former(){
 
         if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "client") {
-            header("Location: ?controller=home_customer&action=home_customer");
+            header("Location: /hibana-main/PerformVision/?controller=home_customer&action=home_customer");
         }
 
         if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "formateur") {
-            header("Location: ?controller=home_former&action=home_former");
+            header("Location: /hibana-main/PerformVision/?controller=home_former&action=home_former");
         }
 
 
@@ -96,13 +97,14 @@ class Controller_register_former extends Controller{
                     $this->render("form_register_former");
                     
                 }
-            
+
 
             $rep = $m->createFormer($tab);
+            //generatePDF() ;
             
             if (in_array("none",$rep)) {
                 
-                header("Location: ?controller=home_former&action=home_former");
+                header("Location: /hibana-main/PerformVision/?controller=home_former&action=home_former");
                 exit;
                 
             }
@@ -122,15 +124,15 @@ class Controller_register_former extends Controller{
         else {
 
             if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "client") {
-                header("Location: ?controller=home_customer&action=home_customer");
+                header("Location: /hibana-main/PerformVision/?controller=home_customer&action=home_customer");
             }
     
             if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "formateur") {
-                header("Location: ?controller=home_former&action=home_former");
+                header("Location: /hibana-main/PerformVision/?controller=home_former&action=home_former");
             }
 
             if (!isset($_SESSION['idutilisateur'])) {
-                header("Location: ?controller=home&action=home");
+                header("Location: /hibana-main/PerformVision/?controller=home&action=home");
             }
 
         }

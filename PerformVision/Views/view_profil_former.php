@@ -1,11 +1,11 @@
 <?php require_once "view_begin.php";
 
 if (!isset($_SESSION['idutilisateur'])) {
-    header("Location: ?controller=home&action=home");
+    header("Location: /hibana-main/PerformVision/?controller=home&action=home");
 }
 
 if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "client") {
-    header("Location: ?controller=home_customer&action=home_customer");
+    header("Location: /hibana-main/PerformVision/?controller=home_customer&action=home_customer");
 }
 
 ?>
@@ -22,9 +22,7 @@ if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "client") {
 <li> Télécharger mon CV : <a href="<?=$infos['cv'] ?>" download><button>Télécharger</button></li>
 
 </ul>
-
-
-<a href="?controller=logout&action=logout"><button class="button">Deconnexion</button></a>
+<a href="/hibana-main/PerformVision/?controller=logout&action=logout"><button class="button">Deconnexion</button></a>
 
 </div>
 
