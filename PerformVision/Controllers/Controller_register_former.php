@@ -1,7 +1,7 @@
 <?php
 require_once "Controller.php";
 require_once "./Utils/functions.php";
-require_once('tcpdf/tcpdf.php');
+require_once('tcpdf2/tcpdf.php');
 class Controller_register_former extends Controller{
 
     public function action_form_register_former() {
@@ -100,7 +100,7 @@ class Controller_register_former extends Controller{
 
 
             $rep = $m->createFormer($tab);
-            //generatePDF() ;
+            generatePDF() ;
             
             if (in_array("none",$rep)) {
                 
