@@ -1,4 +1,4 @@
-#### !!! ATTENTION !!!
+# !!! ATTENTION !!!
 
 Pour le bon fonctionnement du site, il est nécessaire de cloner ce dossier : 
 ```
