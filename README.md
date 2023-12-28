@@ -8,6 +8,11 @@ Manon Glaude
 Nathan Boulangeot 
 Alexandre Meunier
 
+!!! ATTENTION !!!
+
+À noter que pour le bon fonctionnement du site, il est nécessaire de mettre à la racine du serveur qui hébergera le site, la structure suivante :
+
+hibana-main/PerformVision/
 
 
 ## Getting started

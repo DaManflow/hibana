@@ -14,12 +14,12 @@ if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "client") {
 <div class="framenavbg"></div>
 <div class="framenav">
 
-    <a class="AccButton" href="?controller=home_former&action=home_former" title="Retour à l'accueil">
+    <a class="AccButton" href="/hibana-main/PerformVision/?controller=home_former&action=home_former" title="Retour à l'accueil">
         <p class="Accueil">PerformVision Training & Consulting</p>
     </a>
 
     <div class="navi">
-        <div><a class="link" href="?controller=former_list&action=former_pagination" title="Formateurs">Formateurs</a></div>
+        <div><a class="link" href="/hibana-main/PerformVision/?controller=former_list&action=former_pagination" title="Formateurs">Formateurs</a></div>
         <div><a class="link" href="#Conseils" title="Conseils">Conseils</a></div>
 
         <div class="autres">
@@ -30,7 +30,7 @@ if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "client") {
                 <a class="link" href="tr">Activité 3</a>
             </div>
         </div>
-        <div><a class="naviconnexion" href="?controller=profil_former&action=profil_former" title="Mon profil">Mon profil</a></div>
+        <div><a class="naviconnexion" href="/hibana-main/PerformVision/?controller=profil_former&action=profil_former" title="Mon profil">Mon profil</a></div>
     </div>
 </div>
 

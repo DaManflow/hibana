@@ -19,6 +19,7 @@ function currentTime() {
     return $heureActuelle;
 }
 
+
 function check_data_customer() {
     $infos = [];
 
