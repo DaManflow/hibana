@@ -10,11 +10,7 @@ Alexandre Meunier
 
 !!! ATTENTION !!!
 
-À noter que pour le bon fonctionnement du site, il est nécessaire de mettre à la racine du serveur qui hébergera le site, la structure suivante :
-
-hibana-main/PerformVision/
-
-Pour cloner le dossier : 
+POur le bon focntionnement du site, il est nécessaire de cloner ce dossier : 
 ```
 git clone https://gitlab.sorbonne-paris-nord.fr/12203376/hibana.git hibana-main
 ```
