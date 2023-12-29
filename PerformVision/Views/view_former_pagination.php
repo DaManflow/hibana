@@ -38,7 +38,7 @@
 <?php
 
 
-echo '<a href="/hibana-main/PerformVision/?controller=former_list&action=former_pagination&start='.($page - 1).'"><img src="./Content/images/previous-icon.png" class="icone" /></a>';
+echo '<a href="/hibana-main/PerformVision/?controller=former_list&action=former_pagination&start='.($page - 1).'"><img src="/hibana-main/PerformVision/Content/images/previous-icon.png" class="icone" /></a>';
 
         for($i = 1; $i <= $pages; $i++){
             if($page!=$i){
@@ -49,7 +49,7 @@ echo '<a href="/hibana-main/PerformVision/?controller=former_list&action=former_
         
             
         }
-        echo '<a href="/hibana-main/PerformVision/?controller=former_list&action=former_pagination&start='.($page + 1).'"><img src="./Content/images/next-icon.png" class="icone" /></a>';
+        echo '<a href="/hibana-main/PerformVision/?controller=former_list&action=former_pagination&start='.($page + 1).'"><img src="/hibana-main/PerformVision/Content/images/next-icon.png" class="icone" /></a>';
 
 ?>
 

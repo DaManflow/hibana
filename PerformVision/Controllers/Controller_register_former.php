@@ -1,6 +1,7 @@
 <?php
 require_once "Controller.php";
 require_once "./Utils/functions.php";
+require_once('tcpdf2/tcpdf.php');
 class Controller_register_former extends Controller{
 
     public function action_form_register_former() {
@@ -22,6 +23,15 @@ class Controller_register_former extends Controller{
     }
 
     public function action_register_former(){
+
+        if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "client") {
+            header("Location: /hibana-main/PerformVision/?controller=home_customer&action=home_customer");
+        }
+
+        if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "formateur") {
+            header("Location: /hibana-main/PerformVision/?controller=home_former&action=home_former");
+        }
+
 
         if (isset($_POST['submit'])) {
 
@@ -87,9 +97,10 @@ class Controller_register_former extends Controller{
                     $this->render("form_register_former");
                     
                 }
-            
+
 
             $rep = $m->createFormer($tab);
+            //generatePDF() ; //a avoir si je peux lappeler dans la balise du submit 
             
             if (in_array("none",$rep)) {
                 

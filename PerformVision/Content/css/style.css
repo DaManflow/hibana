@@ -1,9 +1,9 @@
 ::selection {
     background-color: rgba(0, 58, 124, 0.9);
 }
-html {
+/*html {
     background-color: #333333;
-}
+}*/
 
 .link::after {
     content: '';
@@ -409,4 +409,42 @@ a.active { color : red;}
     border-bottom-width: 4px;
     border-bottom-style: solid;
     border-bottom-color: #595959;
+}
+ /*profil de lutilisateur*/
+ .profil {
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif ;
+    width : 50% ;
+    margin: auto;
+    text-align: center;
+    background-color: #eeeeee ;
+    border: 3px solid black ;
+    border-radius: 10%;
+    box-shadow: #333333;
+ }
+ .profil ul {
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif ;
+    list-style: none;
+    margin : 0 ;
+    padding: 0 ; 
+    line-height: 2.5;
+ }
+ .profil .button {
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif ;
+    background-color: #000000;
+    margin : 5% ;
+    padding : 2% ;
+    color : #ffffff ; 
+    border-radius  : 15% ; 
+    cursor: pointer;
+    box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.2);
+ }
+ .profil .button:hover {
+    transition : all 2s ; 
+    background-color: #24642b;
+    transform: scale(1.05);
+ }
+ /*signature graphique */
+ #signatureCanvas {
+    border: 1px solid #000;
+    cursor: crosshair;
 }

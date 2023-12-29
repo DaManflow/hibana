@@ -21,6 +21,19 @@ class Controller_login extends Controller{
 
     public function action_connectUser() {
 
+        if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "client") {
+            header("Location: /hibana-main/PerformVision/?controller=home_customer&action=home_customer");
+        }
+
+        if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "formateur") {
+            header("Location: /hibana-main/PerformVision/?controller=home_former&action=home_former");
+        }
+
+        if (!isset($_SESSION['idutilisateur'])) {
+            header("Location: /hibana-main/PerformVision/?controller=home&action=home");
+        }
+
+
         if (isset($_POST['submit'])) {
             $m = Model::getModel();
             $tab = check_data_user();

@@ -181,8 +181,17 @@ function check_data_former() {
             $infos['date_signature'] = "false";
         }
     }
-
-    
+    //signature 
+    /*
+    if (isset($_POST['url_signature'])) {
+        $date_signature = $_POST['url_signature'];
+        if (!empty($date_signature)) {
+            $infos['url_signature'] = e($url_signature);
+        } else {
+            $infos['url_signature'] = "false";
+        }
+    }
+    */
 
     return $infos;
 }
@@ -216,6 +225,39 @@ function check_data_user() {
 
 
 
+}
+//generer le pdf 
+function generatePDF(){
+    $name = $_POST['name'];
+    $surname = $_POST['surname'];
+    $email = $_POST['email'];
+    $phone = $_POST['phone'];
+    $password = $_POST['password'];
+    $linkedin = $_POST['linkedin'];
+    $signature = $_POST['date_signature'] ; 
+
+    
+    $pdf = new TCPDF();
+    $pdf->AddPage();
+    $pdf->Cell(100, 10, 'Génération du PDF ', 0, 1);
+    $pdf->Cell(100, 10, 'Vos informations personnelles ', 0, 1);
+
+    $pdf->MultiCell(100, 20, 'Nom: ' . $name);
+    $pdf->MultiCell(100, 20, 'Prénom: ' . $surname);
+    $pdf->MultiCell(100, 20, 'Email: ' . $email);
+    $pdf->MultiCell(100, 20, 'Téléphone: ' . $phone);
+    $pdf->MultiCell(100, 20, 'Linkedin: ' . $linkedin);
+    $pdf->MultiCell(100, 20, 'Signature: ' . $signature);
+    
+    $pdf->Cell(100, 10, 'Vos Formations : ', 0, 1);
+
+    // Obtenez le contenu du PDF
+    $pdfContent = $pdf->Output($name. '_'.$surname.'_declaration.pdf', 'S');
+
+    // Envoyez le PDF au navigateur pour téléchargement
+    header('Content-Type: application/pdf');
+    header('Content-Disposition: attachment; filename="' . $name . '_' . $surname . '_declaration.pdf"');
+    echo $pdfContent ;
 }
 
 

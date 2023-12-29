@@ -2,7 +2,7 @@
 require_once "../Utils/functions.php";
 //ceci est une vue pour generer les clés privé et public !! son execution peut prendre un peu de temps 
 
-$bitLength = 64;
+$bitLength = 4096;
 
 // Générer les clés
 $keys = generateRSAKeys($bitLength);

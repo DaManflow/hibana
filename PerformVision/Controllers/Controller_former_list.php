@@ -62,7 +62,7 @@ class Controller_former_list extends Controller{
     public function action_former_information_no_login() {
     
                 
-        header("Location: /hibana-main/PerformVision/?controller=login&action=login");
+        header("Location: ?controller=login&action=login");
         exit;
             
         
