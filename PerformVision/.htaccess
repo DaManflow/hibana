@@ -11,3 +11,9 @@ RewriteRule Content/css /hibana-main/PerformVision/index.php [L]
 RewriteRule Content/.gitkeep /hibana-main/PerformVision/index.php [L]
 RewriteRule archive/ /hibana-main/PerformVision/index.php [L]
 RewriteRule .vscode/ /hibana-main/PerformVision/index.php [L]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+
+RewriteRule ^(.*)$ /hibana-main/PerformVision/index.php [L]
