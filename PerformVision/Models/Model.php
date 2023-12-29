@@ -18,7 +18,7 @@ class Model
     private function __construct()
     {
         include "credentials.php";
-        $this->bd = new PDO($dsn, $login, $mdp);
+        $this->bd = new PDO("pgsql:host=localhost;dbname=SAES301", "postgres", "1234");
         $this->bd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $this->bd->query("SET nameS 'utf8'");
     }
@@ -265,6 +265,24 @@ class Model
         return $tab[0];
     }
 
+    public function getThemes($idsc){
+        if($idsc != null){
+            $req = $this->bd->prepare('SELECT DISTINCT nomt, idc FROM THEME natural join categorie where validet = true and validec = true and theme.idc = :idscat');
+            $req->bindValue(':idscat', $idsc);
+        }else{
+            $req = $this->bd->prepare('SELECT DISTINCT nomt, idc FROM THEME natural join categorie where validet = true and validec = true');
+        }
+
+        $req->execute();
+        return $req->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function getCategories(){
+        $req = $this->bd->prepare('SELECT nomC, idc, idc_mere FROM Categorie where validec = true'); // A revoir
+        $req->execute();
+        return $req->fetchAll(PDO::FETCH_ASSOC);
+    }
+
     public function VerifConnectUser($infos) {
 
         if (! $infos) {return false;}
@@ -305,11 +323,11 @@ class Model
                         $this->bd->beginTransaction();
 
                         $_SESSION['idutilisateur'] = $req_tab['id_utilisateur'];
-                        $_SESSION['name'] = $req_tab['nom'];
-                        $_SESSION['surname'] = $req_tab['prenom'];
-                        $_SESSION['email'] = $req_tab['mail'];
+                        $_SESSION['nom'] = $req_tab['nom'];
+                        $_SESSION['prenom'] = $req_tab['prenom'];
+                        $_SESSION['mail'] = $req_tab['mail'];
                         $_SESSION['password'] = $req_tab['password'];
-                        $_SESSION['phone'] = $req_tab['telephone'];
+                        $_SESSION['telephone'] = $req_tab['telephone'];
                         $_SESSION['role'] = $req_tab['role'];
                         $_SESSION['est_affranchi'] = $req_tab['est_affranchi'];
                     

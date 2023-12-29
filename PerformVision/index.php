@@ -13,7 +13,7 @@ require_once "Models/Model.php";
 require_once "Controllers/Controller.php";
 
 //Liste des contrôleurs
-$controllers = ["home", "register_customer","register_former","choice","test", "former_list", "home_former", "home_customer", "profil_customer", "profil_former", "login", "logout"];
+$controllers = ["home", "register_customer","register_former","choice", "former_list", "home_former", "home_customer", "profil_customer", "profil_former", "login", "logout", "list"];
 //Nom du contrôleur par défaut
 $controller_default = "home";
 
