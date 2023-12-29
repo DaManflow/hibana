@@ -181,8 +181,17 @@ function check_data_former() {
             $infos['date_signature'] = "false";
         }
     }
-
-    
+    //signature 
+    /*
+    if (isset($_POST['url_signature'])) {
+        $date_signature = $_POST['url_signature'];
+        if (!empty($date_signature)) {
+            $infos['url_signature'] = e($url_signature);
+        } else {
+            $infos['url_signature'] = "false";
+        }
+    }
+    */
 
     return $infos;
 }

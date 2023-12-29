@@ -11,14 +11,7 @@ require_once "./Utils/functions.php" ; ?>
     <p> <label> <input required="" type="password" name="password" placeholder="Mot De Passe"/> </label> </p>
     <p> <label> <input required="" type="text" name="linkedin" placeholder="Lien de votre page Linkedin"/> </label> </p>
     <p> <label> <input required="" type="file" name="cv"/> </label> </p>
-    <p> <label> <input required="" type="radio" name="date_signature" value="<?= currentTime() ?>"/> Signature </label> </p>
+    <p> <label> <input required="" type="radio" name="date_signature" value="<?= currentTime() ?>"/> Signature</label> </p>
     <p> <label> <input required="" type="submit" name="submit" value="S'inscrire"> </label> </p>
 </form>
-
-
-
-<?php   
-
-
-
-require "view_end.php"; ?>
+<?php require "view_end.php"; ?>

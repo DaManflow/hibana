@@ -305,11 +305,11 @@ class Model
                         $this->bd->beginTransaction();
 
                         $_SESSION['idutilisateur'] = $req_tab['id_utilisateur'];
-                        $_SESSION['nom'] = $req_tab['nom'];
-                        $_SESSION['prenom'] = $req_tab['prenom'];
-                        $_SESSION['mail'] = $req_tab['mail'];
+                        $_SESSION['name'] = $req_tab['nom'];
+                        $_SESSION['surname'] = $req_tab['prenom'];
+                        $_SESSION['email'] = $req_tab['mail'];
                         $_SESSION['password'] = $req_tab['password'];
-                        $_SESSION['telephone'] = $req_tab['telephone'];
+                        $_SESSION['phone'] = $req_tab['telephone'];
                         $_SESSION['role'] = $req_tab['role'];
                         $_SESSION['est_affranchi'] = $req_tab['est_affranchi'];
                     

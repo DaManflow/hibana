@@ -9,17 +9,16 @@ if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "client") {
 }
 
 ?>
-<?php $infos=$_SESSION ; ?>
 <div class="profil">
 <h1> Mon profil </h1>
 <ul>
-<li> Nom : <?=$infos['nom'] ?> </li>
-<li> Prénom : <?=$infos['prenom'] ?> </li>
-<li> Adresse mail : <?=$infos['mail'] ?> </li>
-<li> Téléphone : <?=$infos['telephone'] ?> </li>
-<li> Linkedin : <?=$infos['linkedin'] ?> </li>
-<li> Date de signature éléctronique : <?=$infos['date_signature'] ?> </li>
-<li> Télécharger mon CV : <a href="<?=$infos['cv'] ?>" download><button>Télécharger</button></li>
+<li> Nom : <?=$_SESSION['name'] ?> </li>
+<li> Prénom : <?=$_SESSION['surname'] ?> </li>
+<li> Adresse mail : <?=$_SESSION['email'] ?> </li>
+<li> Téléphone : <?=$_SESSION['phone'] ?> </li>
+<li> Linkedin : <?=$_SESSION['linkedin'] ?> </li>
+<li> Date de signature éléctronique : <?=$_SESSION['date_signature'] ?> </li>
+<li> Mon CV : <a href="<?=$_SESSION['cv'] ?>"><button>Consulter</button></li>
 
 </ul>
 <a href="/hibana-main/PerformVision/?controller=logout&action=logout"><button class="button">Deconnexion</button></a>

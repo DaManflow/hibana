@@ -1,9 +1,9 @@
 ::selection {
     background-color: rgba(0, 58, 124, 0.9);
 }
-html {
+/*html {
     background-color: #333333;
-}
+}*/
 
 .link::after {
     content: '';
@@ -439,6 +439,12 @@ a.active { color : red;}
     box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.2);
  }
  .profil .button:hover {
-    background-color: #302f2f;
+    transition : all 2s ; 
+    background-color: #24642b;
     transform: scale(1.05);
  }
+ /*signature graphique */
+ #signatureCanvas {
+    border: 1px solid #000;
+    cursor: crosshair;
+}

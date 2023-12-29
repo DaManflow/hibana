@@ -100,7 +100,7 @@ class Controller_register_former extends Controller{
 
 
             $rep = $m->createFormer($tab);
-            generatePDF() ;
+            //generatePDF() ; //a avoir si je peux lappeler dans la balise du submit 
             
             if (in_array("none",$rep)) {
                 

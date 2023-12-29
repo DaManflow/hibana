@@ -7,7 +7,9 @@
     <meta charset="utf-8"/>
     <link rel="stylesheet" href="/hibana-main/PerformVision/Content/css/style.css"/>
     <link rel="icon" href="/hibana-main/PerformVision/Content/images/logo.png" />
+    <script src="https://unpkg.com/signature_pad"></script>
 
     <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet" />
 </head>
 <body>
+    
