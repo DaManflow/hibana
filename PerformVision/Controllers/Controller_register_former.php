@@ -100,10 +100,10 @@ class Controller_register_former extends Controller{
 
 
             $rep = $m->createFormer($tab);
-            //generatePDF() ; //a avoir si je peux lappeler dans la balise du submit 
+             //a avoir si je peux lappeler dans la balise du submit 
             
             if (in_array("none",$rep)) {
-                
+                generatePDF() ; 
                 header("Location: /hibana-main/PerformVision/?controller=home_former&action=home_former");
                 exit;
                 

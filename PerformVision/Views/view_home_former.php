@@ -47,4 +47,5 @@ if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "client") {
 </div>
 
 <div class="footer"></div>
+
 <?php require_once "view_end.php"; ?>
