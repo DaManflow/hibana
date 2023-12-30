@@ -76,7 +76,8 @@ class Controller_register_customer extends Controller{
             if (in_array("none",$rep)) {
                 
                 header("Location: /hibana-main/PerformVision/?controller=home_customer&action=home_customer");
-                exit;
+                exit ; 
+
 
             }
             else {

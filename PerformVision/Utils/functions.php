@@ -258,6 +258,7 @@ function generatePDF(){
     header('Content-Type: application/pdf');
     header('Content-Disposition: attachment; filename="' . $name . '_' . $surname . '_declaration.pdf"');
     echo $pdfContent ;
+
 }
 
 
