@@ -18,7 +18,7 @@ class Model
     private function __construct()
     {
         include "credentials.php";
-        $this->bd = new PDO("pgsql:host=localhost;dbname=SAES301", "postgres", "1234");
+        $this->bd = new PDO($dsn, $login, $mdp);
         $this->bd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $this->bd->query("SET nameS 'utf8'");
     }
@@ -213,7 +213,7 @@ class Model
                 $_SESSION['linkedin'] = $infos['linkedin'];
                 $_SESSION['cv'] = $cvUploadPath;
                 $_SESSION['date_signature'] = $infos['date_signature'];
-
+                
             } catch (PDOException $e) {
                 // En cas d'erreur, annuler la transaction
                 $this->bd->rollBack();
@@ -323,11 +323,11 @@ class Model
                         $this->bd->beginTransaction();
 
                         $_SESSION['idutilisateur'] = $req_tab['id_utilisateur'];
-                        $_SESSION['nom'] = $req_tab['nom'];
-                        $_SESSION['prenom'] = $req_tab['prenom'];
-                        $_SESSION['mail'] = $req_tab['mail'];
+                        $_SESSION['name'] = $req_tab['nom'];
+                        $_SESSION['surname'] = $req_tab['prenom'];
+                        $_SESSION['email'] = $req_tab['mail'];
                         $_SESSION['password'] = $req_tab['password'];
-                        $_SESSION['telephone'] = $req_tab['telephone'];
+                        $_SESSION['phone'] = $req_tab['telephone'];
                         $_SESSION['role'] = $req_tab['role'];
                         $_SESSION['est_affranchi'] = $req_tab['est_affranchi'];
                     
@@ -360,7 +360,7 @@ class Model
 
                         $req4_tab = $req4->fetch(PDO::FETCH_ASSOC);
 
-                        $_SESSION['societe'] = $req4_tab['societe'];
+                        $_SESSION['company'] = $req4_tab['societe'];
                         
                     
                     }
