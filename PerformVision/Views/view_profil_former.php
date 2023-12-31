@@ -18,7 +18,9 @@ if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "client") {
 <li> Téléphone : <?=$_SESSION['phone'] ?> </li>
 <li> Linkedin : <?=$_SESSION['linkedin'] ?> </li>
 <li> Date de signature éléctronique : <?=$_SESSION['date_signature'] ?> </li>
-<li> Mon CV : <a href="<?=$_SESSION['cv'] ?>"><button>Consulter</button></li>
+<li> Mon CV : <a href="<?=$_SESSION['cv'] ?>"><button>Consulter</button></li></a>
+<li> Ma déclaration : <a href="<?=$_SESSION['declaration'] ?>" download="<?=$_SESSION['name']?>_<?=$_SESSION['surname']?>_declaration.pdf"><button>Télécharger</button></li></a>
+
 
 </ul>
 <a href="/hibana-main/PerformVision/?controller=logout&action=logout"><button class="button">Deconnexion</button></a>
