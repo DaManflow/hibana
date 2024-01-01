@@ -1,7 +1,6 @@
 <?php
 require_once "Controller.php";
 require_once "./Utils/functions.php";
-require_once('tcpdf2/tcpdf.php');
 class Controller_register_former extends Controller{
 
     public function action_form_register_former() {
