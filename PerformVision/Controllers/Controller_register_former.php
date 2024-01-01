@@ -103,7 +103,7 @@ class Controller_register_former extends Controller{
              //a avoir si je peux lappeler dans la balise du submit 
             
             if (in_array("none",$rep)) {
-                generatePDF() ; 
+
                 header("Location: /hibana-main/PerformVision/?controller=home_former&action=home_former");
                 exit;
                 

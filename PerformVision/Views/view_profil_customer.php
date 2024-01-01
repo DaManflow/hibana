@@ -10,15 +10,14 @@ if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "formateur") {
 
 ?>
 
-<?php $infos=$_SESSION ; ?>
 <div class="profil">
 <h1> Mon profil </h1>
 <ul>
-<li> Nom : <?=$infos['name'] ?> </li>
-<li> Prénom : <?=$infos['surname'] ?> </li>
-<li> Adresse mail : <?=$infos['email'] ?> </li>
-<li> Téléphone : <?=$infos['phone'] ?> </li>
-<li> Société : <?=$infos['company'] ?> </li>
+<li> Nom : <?=$_SESSION['name'] ?> </li>
+<li> Prénom : <?=$_SESSION['surname'] ?> </li>
+<li> Adresse mail : <?=$_SESSION['email'] ?> </li>
+<li> Téléphone : <?=$_SESSION['phone'] ?> </li>
+<li> Société : <?=$_SESSION['company'] ?> </li>
 </ul>
 
 

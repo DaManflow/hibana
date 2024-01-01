@@ -6,6 +6,7 @@ class Model
      * Attribut contenant l'instance PDO
      */
     private $bd;
+    
 
     /**
      * Attribut statique qui contiendra l'unique instance de Model
@@ -17,6 +18,7 @@ class Model
      */
     private function __construct()
     {
+        
         include "credentials.php";
         $this->bd = new PDO($dsn, $login, $mdp);
         $this->bd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -124,7 +126,7 @@ class Model
 
         $erreur_type = [];
 
-
+        
         
 
         $req_verif = $this->bd->prepare('SELECT COUNT(*) AS count FROM UTILISATEUR WHERE mail = :email OR telephone = :phone');
@@ -140,6 +142,7 @@ class Model
 
 
                 $this->bd->beginTransaction();
+                
             
                 // Première partie : insertion dans la table Utilisateur
                 $req1 = $this->bd->prepare('INSERT INTO UTILISATEUR(nom,prenom,mail,password, telephone, role, est_affranchi) VALUES (:name,:surname,:email,:password,:phone,:role,:estaffranchi)');
@@ -156,8 +159,8 @@ class Model
 
                 // Deuxième partie : insertion dans la table Formateur
                 $req3 = $this->bd->prepare('
-                INSERT INTO Formateur (id_formateur, linkedin, date_signature, cv)
-                VALUES (:id_formateur, :linkedin, :date_signature, :cv)
+                INSERT INTO Formateur (id_formateur, linkedin, date_signature, cv, declaration)
+                VALUES (:id_formateur, :linkedin, :date_signature, :cv, :declaration)
                 ');
                 $req3->bindValue(':id_formateur', $id_formateur);
                 $req3->bindValue(':linkedin', $infos['linkedin']);
@@ -178,10 +181,35 @@ class Model
 
                 $req3->bindValue(':cv', $cvUploadPath);
                 
-                $req3->execute();
+                
 
                 // Déplace le fichier téléchargé vers le répertoire d'upload
+
                 move_uploaded_file($_FILES["cv"]["tmp_name"], $cvUploadPath);
+                // Créer un répertoire pour chaque formateur pour éviter les fichiers de même nom
+                $formateurDirectory = $cvUploadDirectory . "cv_former_" . $id_formateur . "/";
+                $derogationDirectory = $formateurDirectory . "derogation_former/";
+
+                if (!file_exists($derogationDirectory)) {
+                    mkdir($derogationDirectory, 0777, true);
+                }
+
+                $name = $infos['name'];
+                $surname = $infos['surname'];
+
+                $pdfContent = generatePDF($id_formateur, $name, $surname, $infos['email'], $infos['phone'], $infos['linkedin'], $infos['date_signature']);
+
+                // Enregistrez le contenu du PDF dans le fichier spécifié
+                $filePath = $derogationDirectory . "{$name}_{$surname}_declaration.pdf";
+
+                $req3->bindValue(':declaration', $filePath);
+
+                $req3->execute();
+
+                file_put_contents($filePath, $pdfContent);
+
+                
+
                 } else {
                 // Gérez les erreurs liées au téléchargement du fichier CV
                 echo "Erreur lors du téléchargement du fichier CV.";
@@ -190,6 +218,7 @@ class Model
                 
                 // Valider la transaction
                 $this->bd->commit();
+                
 
                 if (session_status() == PHP_SESSION_NONE) {
                     // Si la session n'est pas démarrée, alors on la démarre
@@ -213,7 +242,10 @@ class Model
                 $_SESSION['linkedin'] = $infos['linkedin'];
                 $_SESSION['cv'] = $cvUploadPath;
                 $_SESSION['date_signature'] = $infos['date_signature'];
-
+                $_SESSION['declaration'] = $filePath;
+                
+                
+                
             } catch (PDOException $e) {
                 // En cas d'erreur, annuler la transaction
                 $this->bd->rollBack();
@@ -334,7 +366,7 @@ class Model
                     if ($req_tab['role'] == "formateur") {
                         
 
-                        $req2 = $this->bd->prepare('SELECT linkedin, date_signature, cv FROM formateur WHERE id_formateur = :id_formateur');
+                        $req2 = $this->bd->prepare('SELECT linkedin, date_signature, cv, declaration FROM formateur WHERE id_formateur = :id_formateur');
                         $req2->bindValue(':id_formateur', $req_tab['id_utilisateur']);
                         $req2->execute();
 
@@ -347,6 +379,7 @@ class Model
                         $_SESSION['linkedin'] = $req2_tab['linkedin'];
                         $_SESSION['date_signature'] = $req2_tab['date_signature'];
                         $_SESSION['cv'] = $req2_tab['cv'];
+                        $_SESSION['declaration'] = $req2_tab['declaration'];
                         
                         
                        

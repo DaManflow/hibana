@@ -22,6 +22,7 @@ CREATE TABLE formateur(
    linkedin VARCHAR(255) NOT NULL,
    date_signature DATE NOT NULL,
    cv VARCHAR(255) NOT NULL,
+   declaration VARCHAR(255) NOT NULL,
    PRIMARY KEY(id_formateur),
    FOREIGN KEY(id_formateur) REFERENCES Utilisateur(id_utilisateur)
 );
