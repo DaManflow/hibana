@@ -343,3 +343,36 @@ a:hover {
 .ul1 li:hover {
     color : #a7a7a7 ; 
 }
+ /*profil de lutilisateur*/
+ .profil {
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif ;
+    width : 50% ;
+    margin: auto;
+    text-align: center;
+    background-color: #eeeeee ;
+    border: 3px solid black ;
+    border-radius: 10%;
+    box-shadow: #333333;
+ }
+ .profil ul {
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif ;
+    list-style: none;
+    margin : 0 ;
+    padding: 0 ; 
+    line-height: 2.5;
+ }
+ .profil .button {
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif ;
+    background-color: #000000;
+    margin : 5% ;
+    padding : 2% ;
+    color : #ffffff ; 
+    border-radius  : 15% ; 
+    cursor: pointer;
+    box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.2);
+ }
+ .profil .button:hover {
+    transition : all 2s ; 
+    background-color: #24642b;
+    transform: scale(1.05);
+ }
