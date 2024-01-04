@@ -235,7 +235,7 @@ function generatePDF($id_formateur, $name, $surname, $email, $phone, $linkedin, 
     $pdf->Cell(100, 10,'Génération du PDF ', 0, 1);
     $pdf->Cell(100, 10, 'Vos informations personnelles ', 0, 1);
 
-    $pdf->MultiCell(100, 20, 'Nom:'. $name);
+    $pdf->MultiCell(100, 20, 'Nom: '. $name);
     $pdf->MultiCell(100, 20,'Prénom: '. $surname);
     $pdf->MultiCell(100, 20,'Email: '. $email);
     $pdf->MultiCell(100, 20,'Téléphone: '. $phone);
