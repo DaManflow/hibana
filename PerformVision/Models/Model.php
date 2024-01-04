@@ -197,7 +197,7 @@ class Model
                 $name = $infos['name'];
                 $surname = $infos['surname'];
 
-                $pdfContent = generatePDF($id_formateur, $name, $surname, $infos['email'], $infos['phone'], $infos['linkedin'], $infos['date_signature']);
+                $pdfContent =generatePDF($id_formateur, $name, $surname, $infos['email'], $infos['phone'], $infos['linkedin'], $infos['date_signature']);
 
                 // Enregistrez le contenu du PDF dans le fichier spécifié
                 $filePath = $derogationDirectory . "{$name}_{$surname}_declaration.pdf";

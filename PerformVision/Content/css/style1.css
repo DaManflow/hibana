@@ -372,7 +372,7 @@ a:hover {
     box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.2);
  }
  .profil .button:hover {
-    transition : all 2s ; 
-    background-color: #24642b;
+    transition : all 1s ; 
+    background-color: #265587;
     transform: scale(1.05);
  }

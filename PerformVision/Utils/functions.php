@@ -1,6 +1,6 @@
 <?php 
 
-include "./fpdf186/fpdf.php";
+include "./tcpdf2/tcpdf.php";
 
 /**
  * Fonction échappant les caractères html dans $message
@@ -229,23 +229,25 @@ function check_data_user() {
 }
 //generer le pdf 
 function generatePDF($id_formateur, $name, $surname, $email, $phone, $linkedin, $signature) {
-    $pdf = new FPDF();
+    $pdf = new TCPDF();
     $pdf->AddPage();
     $pdf->SetFont('times', '', 12);
-    $pdf->Cell(100, 10, utf8_decode('Génération du PDF '), 0, 1);
+    $pdf->Cell(100, 10,'Génération du PDF ', 0, 1);
     $pdf->Cell(100, 10, 'Vos informations personnelles ', 0, 1);
 
-    $pdf->MultiCell(100, 20, utf8_decode('Nom:' ) . $name);
-    $pdf->MultiCell(100, 20, utf8_decode('Prénom: ') . $surname);
-    $pdf->MultiCell(100, 20, utf8_decode('Email: ') . $email);
-    $pdf->MultiCell(100, 20, utf8_decode('Téléphone: ') . $phone);
-    $pdf->MultiCell(100, 20, utf8_decode('Linkedin: ') . $linkedin);
-    $pdf->MultiCell(100, 20, utf8_decode('Signature: ') . $signature);
+    $pdf->MultiCell(100, 20, 'Nom:'. $name);
+    $pdf->MultiCell(100, 20,'Prénom: '. $surname);
+    $pdf->MultiCell(100, 20,'Email: '. $email);
+    $pdf->MultiCell(100, 20,'Téléphone: '. $phone);
+    $pdf->MultiCell(100, 20,'Linkedin: ' . $linkedin);
+    $pdf->MultiCell(100, 20,'Signature: '. $signature);
 
     $pdf->Cell(100, 10, 'Vos Formations : ', 0, 1);
 
-    // Obtenez le contenu du PDF
-    return $pdf->Output('S');
+    $pdfContent = $pdf->Output($name. '_'.$surname.'_declaration.pdf', 'S');
+
+    return $pdfContent;
+
 
 }
 
