@@ -6,8 +6,9 @@ class Controller_list extends Controller{
         
        $m = Model::getModel();
         $data = [
-            "themes"=>$m->getThemes(null),
-            "listCategories"=>$m->getCategories()
+            "themes"=>$m->getThemes(),
+            "listCategories"=>$m->getCategories(),
+            "formateurs"=>$m->getFormateurs(),
         ];
         $this->render("last", $data);
         
@@ -16,8 +17,5 @@ class Controller_list extends Controller{
         $this->action_last();
     }
 
-    public function action_test(){
-        $this->render("TEST_LAST", ["e"=>"1-1", "Mais"=>"2+2"]);
-    }
 }
 ?>

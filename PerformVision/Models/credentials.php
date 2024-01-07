@@ -5,10 +5,4 @@ $login = "postgres";
 $mdp = "1234";
 
 
-
-
-
-
-
-
 ?>

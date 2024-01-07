@@ -297,12 +297,15 @@ class Model
         return $tab[0];
     }
 
-    public function getThemes($idsc){
-        if($idsc != null){
+    public function getThemes($idsc = 0){
+        if (isset($_POST['theme'])) {
+            echo $_POST['theme'];
+        }
+        if($idsc != 0){
             $req = $this->bd->prepare('SELECT DISTINCT nomt, idc FROM THEME natural join categorie where validet = true and validec = true and theme.idc = :idscat');
             $req->bindValue(':idscat', $idsc);
         }else{
-            $req = $this->bd->prepare('SELECT DISTINCT nomt, idc FROM THEME natural join categorie where validet = true and validec = true');
+            $req = $this->bd->prepare('SELECT DISTINCT nomt, nomc, idc FROM THEME natural join categorie where validet = true and validec = true order by idc');
         }
 
         $req->execute();
@@ -310,7 +313,18 @@ class Model
     }
 
     public function getCategories(){
-        $req = $this->bd->prepare('SELECT nomC, idc, idc_mere FROM Categorie where validec = true'); // A revoir
+        $req = $this->bd->prepare('SELECT c1.nomC, c1.idc, c2.nomc as idc_mere FROM Categorie as c1 left outer join categorie as c2 on c2.idc = c1.idc_mere where c2.validec = true order by idc'); // A revoir
+        $req->execute();           // nomC, idc, idc_mere FROM Categorie where validec = true order by idc_mere
+        return $req->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function getFormateurs($cat="", $scat="", $th=""){
+        $req = $this->bd->prepare('select formateur.id_formateur, nom, prenom, volumehmoyensession, nbsessioneffectuee, commentaire, nomt from formateur
+inner join aexperiencepeda
+on formateur.id_formateur = aexperiencepeda.id_formateur
+inner join theme on aexperiencepeda.idt = theme.idt
+inner join utilisateur
+on formateur.id_formateur = utilisateur.id_utilisateur');
         $req->execute();
         return $req->fetchAll(PDO::FETCH_ASSOC);
     }
