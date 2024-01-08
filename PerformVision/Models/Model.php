@@ -324,12 +324,10 @@ class Model
     }
 
     public function getFormateurs($cat="", $scat="", $th=""){
-        $req = $this->bd->prepare('select formateur.id_formateur, nom, prenom, volumehmoyensession, nbsessioneffectuee, commentaire, nomt from formateur
-inner join aexperiencepeda
-on formateur.id_formateur = aexperiencepeda.id_formateur
+        $req = $this->bd->prepare('select formateur.id_formateur, nom, prenom, volumehmoyensession, nbsessioneffectuee, commentaire, nomt, theme.idt from formateur
+inner join aexperiencepeda on formateur.id_formateur = aexperiencepeda.id_formateur
 inner join theme on aexperiencepeda.idt = theme.idt
-inner join utilisateur
-on formateur.id_formateur = utilisateur.id_utilisateur');
+inner join utilisateur on formateur.id_formateur = utilisateur.id_utilisateur');
         $req->execute();
         return $req->fetchAll(PDO::FETCH_ASSOC);
     }
