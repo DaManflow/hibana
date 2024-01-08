@@ -16,6 +16,9 @@ class Controller_list extends Controller{
     public function action_default(){
         $this->action_last();
     }
+    public function action_list_categorie(){
+        
+    }
 
 }
 ?>

@@ -12,8 +12,11 @@ class Controller_register_former extends Controller{
         if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "formateur") {
             header("Location: /hibana-main/PerformVision/?controller=home_former&action=home_former");
         }
- 
-        $this->render("form_register_former");
+        $m = Model::getModel();
+        $data =[
+            'categories' => $m->getCategoriesMeres(),
+        ];
+        $this->render("form_register_former",$data);
 
     }
 

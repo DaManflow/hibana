@@ -314,7 +314,12 @@ class Model
 
     public function getCategories(){
         $req = $this->bd->prepare('SELECT c1.nomC, c1.idc, c2.nomc as idc_mere FROM Categorie as c1 left outer join categorie as c2 on c2.idc = c1.idc_mere where c2.validec = true order by idc'); // A revoir
-        $req->execute();           // nomC, idc, idc_mere FROM Categorie where validec = true order by idc_mere
+        $req->execute();          // nomC, idc, idc_mere FROM Categorie where validec = true order by idc_mere
+        return $req->fetchAll(PDO::FETCH_ASSOC);
+    }
+    public function getCategoriesMeres(){
+        $req  = $this->bd->prepare('SELECT * FROM categorie WHERE idC_mere IS NULL') ;
+        $req->execute() ; 
         return $req->fetchAll(PDO::FETCH_ASSOC);
     }
 

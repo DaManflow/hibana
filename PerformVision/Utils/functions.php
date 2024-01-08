@@ -13,6 +13,7 @@ function e($message)
 }
 
 function currentTime() {
+    date_default_timezone_set('Europe/Paris');
     // Récupérer l'heure actuelle
     $heureActuelle = date('Y-m-d H:i:s');
 
