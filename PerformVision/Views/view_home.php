@@ -22,14 +22,14 @@ if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "client") {
             <li>Activité 3</li>
         </ul>
 </li>
-            <div class="connect"><a href="/hibana-main/PerformVision/?controller=login&action=login"><button><i class="fa-regular fa-circle-user"></i><span class="aut">S'authentifier</span></button></a></div>
+            <div class="connect"><a href="/hibana-main/PerformVision/?controller=login&action=login"><button><i class="fa-regular fa-circle-user"></i><span class="aut">Se connecter</span></button></a></div>
 </ul>
     </div>
 </div>
 
 <div class="titles">
     <h2 class="h2">Bienvenue chez</h2>
-    <h1 class="h1">PerformVision Formations</h1>
+    <h1 class="h1">PerformVision Training & Consulting</h1>
 <br>
 <a href="/hibana-main/PerformVision/?controller=list&action=last"><button class="form-title">Découvrir les Formations</button></a>
 </div>

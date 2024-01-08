@@ -120,15 +120,17 @@
 }
 .connect i {
     font-size: large;
-    padding : 0 ;
+    padding : 0;
 }
 body {
     /*background-color: #15121E;*/
     background-color: #3a3846;
+    color : #A8D0FF;
     margin: 0;
     padding: 0; /* Couleur bleu ciel */
     font-family: Roboto, sans-serif;
-    font-size: large;
+    font-size: larger;
+    text-align: center;
 }
 
 .debut {
@@ -204,7 +206,7 @@ body {
     background-color: #189bf9; /* Bleu foncé */
     color: white;
     border: none;
-    border-radius: 5px;
+    border-radius: 8px;
     cursor: pointer;
     font-weight: bold;
     margin-bottom: 5%;
@@ -213,33 +215,38 @@ body {
 }
 .titles {
     text-shadow: 0 0 10px #3498db;
-    padding-top : 20% ; 
-    margin : auto ; 
+    padding: 1px;
+    margin-top: 0;
+    height: 600px;
+    width: 100%;
     align-items: center;
     text-align: center;
     background-image: url('../images/FondDiv1.png');
     background-repeat: no-repeat;
     background-size: cover; /* La taille de l'image couvrira toute la zone du corps */
-    background-position: center; /
+    background-position: center;
 
 }
 .titles h2 {
-    color : #ACDCFF ; 
+    color : #ACDCFF ;
+    margin-top: 9%;
 }
 .titles h1 {
     color : #189bf9 ;
 }
 .form-title {
     list-style: none ;
-    padding: 10px;
+    padding: 12px;
     background-color: #189bf9; /* Bleu foncé */
     color: white;
     border: none;
-    border-radius: 20px;
+    border-radius: 15px;
     cursor: pointer;
     font-weight: bold;
     box-shadow: 0 0 50px #3498db;
     transition : letter-spacing 0.5s ease, background-color 0.3s ease;
+    margin-top: 2%;
+    font-size: large;
 }
 
 .form-title:hover {
