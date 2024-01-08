@@ -3,7 +3,7 @@
         display: none; /* Cache le texte du bouton sur les écrans plus petits */
     }
     .conteneur2 {
-        margin-top: 0%;
+        margin-top: 0;
         text-align: center;
         background-color: white ;
         border-bottom-left-radius: 7%;
@@ -52,7 +52,6 @@
         font-weight: bold;
     }
 
-
 }
 @media only screen and (min-width: 770px) {
     .connect i {
@@ -60,9 +59,11 @@
     }
     body {
         font-size: large;
+        color : #A8D0FF;
+
     }
     .conteneur2 {
-        margin-top: 0%;
+        margin-top: 0;
         text-align: center;
         display: flex;
         background-color: white ;
@@ -103,7 +104,7 @@
 
         text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
         font-weight: bold;
-        margin-left : 0% ; 
+        margin-left : 0 ;
         font-size: larger;
     }
     .text2 {
@@ -114,62 +115,71 @@
         margin: 10%;
         text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
         font-weight: bold;
-        margin-left: 0%;
+        margin-left: 0;
     }
 }
 .connect i {
     font-size: large;
-    padding : 0% ; 
+    padding : 0;
 }
 body {
     /*background-color: #15121E;*/
-    background-color: #1f1b2d;
+    background-color: #3a3846;
+    color : #A8D0FF;
     margin: 0;
     padding: 0; /* Couleur bleu ciel */
-    font-family: Arial, sans-serif;
-      
+    font-family: Roboto, sans-serif;
+    font-size: larger;
+    text-align: center;
 }
 
-
 .debut {
-    padding-bottom : 10px ; 
-    padding-top : 10px ;
+    padding-bottom : 0;
+    padding-top : 0;
     padding-right: 10px;
-    top : 0  ;  
+    top : 0;
     position : fixed ; 
     width : 100% ; 
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: rgba(135, 206, 235, 0.5);
-    border-top: 2px solid #189bf9; /* Trait néon bleu en haut */
+    background-color: rgba(1, 74, 126, 0.5);
+    border-top: 4px solid #66BCFF; /* Trait bleu en haut */
+    font-size: small;
+    backdrop-filter: blur(5px);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
 }
 
 .partie-gauche {
-    margin-left : 10px ; 
+    margin-left : 7% ;
     font-weight : bold ; 
-    color : #238BD6 ;
+    color : #66BCFF ;
+    font-size: large;
+    width: 225px;
+    text-align: center;
 }
 
 .partie-droite .ul1{
     display: flex;
 }
 
-.formations ,
+.formations,
 .conseils,
 .autres {
     list-style: none;
     padding: 10px;
     border-radius: 5px;
     cursor: pointer;
-    margin-right: 10px;
-    color : white ; 
+    margin-right: 15px;
+    color : #A8D0FF;
     font-weight: bold;
+    font-size: large;
 }
 .formations a {
-    color : white ; 
     text-decoration: none;
+    color : #A8D0FF;
 }
+
 .dropdown {
     list-style: none;
     color : #ffffff ;
@@ -196,46 +206,52 @@ body {
     background-color: #189bf9; /* Bleu foncé */
     color: white;
     border: none;
-    border-radius: 10%;
+    border-radius: 8px;
     cursor: pointer;
     font-weight: bold;
     margin-bottom: 5%;
     text-shadow: 0 0 100px #3498db;
+    margin-top: 4px;
 }
 .titles {
     text-shadow: 0 0 10px #3498db;
-    padding-top : 20% ; 
-    margin : auto ; 
+    padding: 1px;
+    margin-top: 0;
+    height: 600px;
+    width: 100%;
     align-items: center;
     text-align: center;
     background-image: url('../images/FondDiv1.png');
     background-repeat: no-repeat;
     background-size: cover; /* La taille de l'image couvrira toute la zone du corps */
-    background-position: center; /
+    background-position: center;
+
 }
 .titles h2 {
-    color : #ACDCFF ; 
+    color : #ACDCFF ;
+    margin-top: 9%;
 }
 .titles h1 {
     color : #189bf9 ;
 }
 .form-title {
     list-style: none ;
-    padding: 10px;
+    padding: 12px;
     background-color: #189bf9; /* Bleu foncé */
     color: white;
     border: none;
-    border-radius: 20px;
+    border-radius: 15px;
     cursor: pointer;
     font-weight: bold;
     box-shadow: 0 0 50px #3498db;
-    transition: background-color 0.3s ease;
-    transition : letter-spacing 0.5s ease ; 
+    transition : letter-spacing 0.5s ease, background-color 0.3s ease;
+    margin-top: 2%;
+    font-size: large;
 }
 
 .form-title:hover {
     background-color: #2980b9;
-    letter-spacing: 2px;
+    letter-spacing: 0.5px;
     box-shadow: 0 0 100px #3498db;
 }
 .reste {
@@ -287,9 +303,9 @@ footer {
 */
 .partie-droite{
     display : block ; 
-    float : center ;
-    text-align: center;
 
+    text-align: center;
+    margin-right : 2%;
 }
 /*
 .partie-gauche{
@@ -337,11 +353,9 @@ footer {
 .droits {
     margin: 0;
 }
-a:hover {
-    color : #a7a7a7 ; 
-}
-.ul1 li:hover {
-    color : #a7a7a7 ; 
+
+a:hover, .ul1 li:hover {
+    color: #008eff;;
 }
  /*profil de lutilisateur*/
  .profil {

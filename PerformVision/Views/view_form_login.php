@@ -12,7 +12,7 @@
 
 </form>
 
-Vous n'êtes pas encore inscrit ?<a href="/hibana-main/PerformVision/?controller=choice&action=register_choice"> Inscrivez-Vous</a>
+Vous n'êtes pas encore inscrit ? <a href="/hibana-main/PerformVision/?controller=choice&action=register_choice">Inscrivez-Vous</a>
 
 
 
