@@ -104,7 +104,7 @@
 
         text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
         font-weight: bold;
-        margin-left : 0% ; 
+        margin-left : 0 ;
         font-size: larger;
     }
     .text2 {
@@ -115,7 +115,7 @@
         margin: 10%;
         text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
         font-weight: bold;
-        margin-left: 0%;
+        margin-left: 0;
     }
 }
 .connect i {
@@ -239,13 +239,12 @@ body {
     cursor: pointer;
     font-weight: bold;
     box-shadow: 0 0 50px #3498db;
-    transition: background-color 0.3s ease;
-    transition : letter-spacing 0.5s ease ; 
+    transition : letter-spacing 0.5s ease, background-color 0.3s ease;
 }
 
 .form-title:hover {
     background-color: #2980b9;
-    letter-spacing: 2px;
+    letter-spacing: 0.5px;
     box-shadow: 0 0 100px #3498db;
 }
 .reste {
@@ -347,11 +346,9 @@ footer {
 .droits {
     margin: 0;
 }
-a:hover {
-    color : #a7a7a7 ; 
-}
-.ul1 li:hover {
-    color : #a7a7a7 ; 
+
+a:hover, .ul1 li:hover {
+    color: #008eff;;
 }
  /*profil de lutilisateur*/
  .profil {
