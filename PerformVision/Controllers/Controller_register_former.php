@@ -103,6 +103,55 @@ class Controller_register_former extends Controller{
             
             if (in_array("none",$rep)) {
 
+                
+               /* $nomPrenom = $name.$surname;
+
+                use PHPMailer\PHPMailer\PHPMailer;
+                use PHPMailer\PHPMailer\Exception;
+
+                require './Mail/PHPMailer/PHPMailer/src/Exception.php';
+                require './Mail/PHPMailer/PHPMailer/src/PHPMailer.php';
+                require './Mail/PHPMailer/PHPMailer/src/SMTP.php';
+
+                // Informations sur l'utilisateur
+                $destinataire_email = $tab['email'];
+                $nom_utilisateur = $nomPrenom;
+
+                // Paramètres de l'e-mail
+                $sujet = 'Confirmation d\'inscription';
+                $message = "Bienvenue, $nom_utilisateur! Merci de vous être inscrit.";
+
+                // Configurer PHPMailer
+                $mail = new PHPMailer(true);
+
+                try {
+                    // Paramètres du serveur SMTP
+                    $mail->isSMTP();
+                    $mail->Host = 'localhost'; // L'adresse du serveur SMTP local
+                    $mail->SMTPAuth = true;
+                    $mail->Username = 'hibana.sae@gmail.com';  // Remplacez par votre adresse e-mail
+                    $mail->Password = '1234';  // Remplacez par votre mot de passe
+                    $mail->SMTPSecure = 'tls';
+                    $mail->Port = 1025; // Le port par défaut utilisé par MailHog
+
+                    // Destinataire
+                    $mail->setFrom('hibana.sae@gmail.com', 'Hibana');  // Remplacez par votre adresse e-mail et votre nom
+                    $mail->addAddress($destinataire_email, $nom_utilisateur);
+
+                    // Contenu de l'e-mail
+                    $mail->isHTML(true);
+                    $mail->Subject = $sujet;
+                    $mail->Body = $message;
+
+                    // Envoyer l'e-mail
+                    $mail->send();
+
+                    echo "Un e-mail de confirmation a été envoyé à $destinataire_email.";
+                } catch (Exception $e) {
+                    echo "Erreur lors de l'envoi de l'e-mail : {$mail->ErrorInfo}";
+                }
+                */
+
                 header("Location: /hibana-main/PerformVision/?controller=home_former&action=home_former");
                 exit;
                 

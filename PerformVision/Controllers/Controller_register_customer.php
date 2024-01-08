@@ -98,15 +98,15 @@ class Controller_register_customer extends Controller{
         else {
 
             if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "client") {
-                header("Location: ?controller=home_customer&action=home_customer");
+                header("Location: /hibana-main/PerformVision/?controller=home_customer&action=home_customer");
             }
     
             if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "formateur") {
-                header("Location: ?controller=home_former&action=home_former");
+                header("Location: /hibana-main/PerformVision/?controller=home_former&action=home_former");
             }
 
             if (!isset($_SESSION['idutilisateur'])) {
-                header("Location: ?controller=home&action=home");
+                header("Location: /hibana-main/PerformVision/?controller=home&action=home");
             }
         }
 
