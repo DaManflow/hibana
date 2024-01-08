@@ -41,12 +41,12 @@ if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "client") {
 <div class="centre">
     <div class="conteneur1">
     <div class="img1">
-        <img src="../Content/images/ProgrammeurQuiFaitDuC.jpg" alt="img"/>
+        <img src="/hibana-main/PerformVision/Content/images/ProgrammeurQuiFaitDuC.jpg" alt="img"/>
     </div>
     </div>
         <div class="conteneur2">
             <div class="img2">
-                <img src="../Content/images/HommeQuiEstHeureuxDeTravailler.jpg" alt="img"/>
+                <img src="/hibana-main/PerformVision/Content/images/HommeQuiEstHeureuxDeTravailler.jpg" alt="img"/>
         </div>
         <div class="text">
             Que vous soyez en autodidacte, salarié(e) ou en reconvresion professionnelle,<span> PerformVision</span> vous propose<span> la formation qu'il vous faut</span>
@@ -54,7 +54,7 @@ if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "client") {
         </div>
     <div class="conteneur3">
         <div class="img3">
-            <img src="../Content/images/HommeQuiEstHeureuxDeTravailler.jpg" alt="img"/>
+            <img src="/hibana-main/PerformVision/Content/images/HommeQuiEstHeureuxDeTravailler.jpg" alt="img"/>
         </div>
     <div class="text2">
         Devenez <span>développeur informatique</span><br/>Suivez des cours auprès de formateurs <span>expérimentés</span>, apprenez le python, C, C++, Java, SQL et bien d'autres !
