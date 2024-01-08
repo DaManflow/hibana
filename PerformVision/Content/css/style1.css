@@ -52,7 +52,6 @@
         font-weight: bold;
     }
 
-
 }
 @media only screen and (min-width: 770px) {
     .connect i {
@@ -125,7 +124,7 @@
 }
 body {
     /*background-color: #15121E;*/
-    background-color: #2e2844;
+    background-color: #3a3846;
     margin: 0;
     padding: 0; /* Couleur bleu ciel */
     font-family: Roboto, sans-serif;
@@ -150,17 +149,19 @@ body {
 }
 
 .partie-gauche {
-    margin-left : 4% ;
+    margin-left : 7% ;
     font-weight : bold ; 
     color : #66BCFF ;
     font-size: large;
+    width: 225px;
+    text-align: center;
 }
 
 .partie-droite .ul1{
     display: flex;
 }
 
-.formations ,
+.formations,
 .conseils,
 .autres {
     list-style: none;
@@ -208,6 +209,7 @@ body {
     font-weight: bold;
     margin-bottom: 5%;
     text-shadow: 0 0 100px #3498db;
+    margin-top: 4px;
 }
 .titles {
     text-shadow: 0 0 10px #3498db;

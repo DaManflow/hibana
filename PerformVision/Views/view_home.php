@@ -23,7 +23,7 @@ if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "client") {
         </ul>
 </li>
 
-        <li class="connect"><a href="/hibana-main/PerformVision/?controller=login&action=login"><button><i class="fa-regular fa-circle-user"></i><span class="aut">S'authentifier</span></button></a></li>
+        <div class="connect"><a href="/hibana-main/PerformVision/?controller=login&action=login"><button><i class="fa-regular fa-circle-user"></i><span class="aut">S'authentifier</span></button></a></div>
 </ul>
     </div>
 </div>
