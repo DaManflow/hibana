@@ -1,3 +1,19 @@
+DROP TABLE IF EXISTS message;
+DROP TABLE IF EXISTS discussion;
+DROP TABLE IF EXISTS client;
+DROP TABLE IF EXISTS moderateur;
+DROP TABLE IF EXISTS admin;
+DROP TABLE IF EXISTS aExpertiseProfessionnelle;
+DROP TABLE IF EXISTS aExperiencePeda;
+DROP TABLE IF EXISTS formateur;
+DROP TABLE IF EXISTS activite;
+DROP TABLE IF EXISTS image;
+DROP TABLE IF EXISTS niveau;
+DROP TABLE IF EXISTS theme;
+DROP TABLE IF EXISTS categorie;
+DROP TABLE IF EXISTS public;
+DROP TABLE utilisateur;
+
 CREATE TABLE utilisateur(
    id_utilisateur SERIAL,
    nom VARCHAR(255) NOT NULL,
