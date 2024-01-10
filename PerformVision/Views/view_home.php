@@ -13,14 +13,14 @@ if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "client") {
     <div class="partie-gauche">PerformVision Training & Consulting</div>
     <div class="partie-droite">
         <ul class="ul1">
-        <li class="formations"><a href="/hibana-main/PerformVision/?controller=list&action=last">Formations</a></li>
-        <li class="conseils">Conseils</li>
-        <li class="autres">Autres        
-        <ul class="dropdown">
-            <li>Activité 1</li>
-            <li>Activité 2</li>
-            <li>Activité 3</li>
-        </ul>
+        <li class="formations" id="link"><a href="/hibana-main/PerformVision/?controller=list&action=last">Formations</a></li>
+        <li class="conseils" id="link">Conseils</li>
+        <li class="autres">Autres ▽
+            <ul class="dropdown">
+            <ul><a href="#" id="link">Activité 1</a></ul>
+            <ul><a href="#" id="link">Activité 2</a></ul>
+            <ul><a href="#" id="link">Activité 3</a></ul>
+            </ul>
         </li>
             <a class="connect" href="/hibana-main/PerformVision/?controller=login&action=login">
                 <button>
@@ -66,8 +66,8 @@ if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "client") {
     <div class="partie1">
         <div class="partie1-gauche">
             <h4>Nous contacter</h4>
-            <a href="#">06 22 22 22 22</a>
-            <a href="#">hibana.sae103@gmail.com</a>
+            <p>06 22 22 22 22</p>
+            <p>hibana.sae103@gmail.com</p>
         </div>
         <!--
         <div class="partie1-droite">
