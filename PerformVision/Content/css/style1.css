@@ -5,7 +5,7 @@
     .conteneur2 {
         margin-top: 0;
         text-align: center;
-        background-color: white ;
+        background-color: #222425 ;
         border-bottom-left-radius: 7%;
         border-bottom-right-radius: 7%;
         padding-bottom: 5%;
@@ -22,7 +22,7 @@
         display: block;
         margin: 10% 10% 10% 10%; /* Espace sous la première image */
         float : left ; 
-        border-radius: 7%;
+        border-radius: 20px;
     }
     .img3 {
         height: auto;
@@ -30,7 +30,7 @@
          /* Espace sous la première image */
     }
     .img3 img {
-        border-radius: 7%;
+        border-radius: 20px;
         width : 70% ; 
         margin: 10%;
     }
@@ -38,7 +38,7 @@
     .text {
         width : 80% ; 
         text-align: center;
-        color : black  ; 
+        color : lightgrey ;
         margin: 5%;
         text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
         font-weight: bold;
@@ -46,7 +46,7 @@
     .text2 {
         width : 80% ; 
         text-align: center;
-        color : black  ; 
+        color : lightgray;
         margin: 0 10% 10% 10%;
         text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
         font-weight: bold;
@@ -66,9 +66,9 @@
         margin-top: 0;
         text-align: center;
         display: flex;
-        background-color: white ;
-        border-bottom-left-radius: 7%;
-        border-bottom-right-radius: 7%;
+        background-color: #222425 ;
+        border-bottom-left-radius: 30px;
+        border-bottom-right-radius: 30px;
     }
     .conteneur3 {
         text-align: center;
@@ -81,7 +81,7 @@
         display: block;
         margin: 5%; /* Espace sous la première image */
         float : left ; 
-        border-radius: 7%;
+        border-radius: 20px;
     }
     .img3 {
         height: auto;
@@ -89,7 +89,7 @@
          /* Espace sous la première image */
     }
     .img3 img {
-        border-radius: 7%;
+        border-radius: 20px;
         width : 70% ; 
         float : left ;
         margin: 10%;
@@ -99,9 +99,8 @@
         width : 50% ; 
         float : right ;
         text-align: center;
-        color : black  ; 
+        color : lightgrey;
         margin: 10% 5% 5% 5%;
-
         text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
         font-weight: bold;
         margin-left : 0 ;
@@ -111,7 +110,7 @@
         width : 70% ; 
         float : right ;
         text-align: center;
-        color : black  ; 
+        color : lightgrey;
         margin: 10%;
         text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
         font-weight: bold;
@@ -124,16 +123,14 @@
 }
 body {
     /*background-color: #15121E;*/
-    background-color: #3a3846;
+    background-color: #2b2a33;
     color : #A8D0FF;
     margin: 0;
     padding: 0; /* Couleur bleu ciel */
     font-family: Roboto, sans-serif;
     font-size: larger;
     text-align: center;
-}
-::selection {
-    background-color: #ff4c6d;
+
 }
 
 .debut {
@@ -147,7 +144,7 @@ body {
     justify-content: space-between;
     align-items: center;
     background-color: rgba(1, 74, 126, 0.5);
-    border-top: 4px solid #66BCFF; /* Trait bleu en haut */
+    border-top: 4px solid #0d5792; /* Trait bleu en haut */
     font-size: small;
     backdrop-filter: blur(5px);
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
@@ -179,27 +176,7 @@ body {
     font-size: large;
 }
 .autres {margin-top:-2px}
-/*
-#link::after {
-    content: '';
-    font-style: normal;
-    transform-origin: 0 0;
-    transform: scaleX(0);
-    position: absolute;
-    bottom: 10px;
-    height: 3px;
-    left: 0px;
-    width: 100%;
-    box-sizing: content-box;
-    background-color: #66BCFF;
-    z-index: 1;
-    opacity: 0.8;
-    transition: transform .3s;
-}
-#link:hover::after {
-    transform: scaleX(1);
-    background-color: #A8D0FF;
-}*/
+
 #link {
     position: relative;
     display: inline-block;
@@ -211,15 +188,21 @@ body {
     transform-origin: 0 0;
     transform: scaleX(0);
     position: absolute;
-    bottom: 10px;
+    bottom: -5px;
     height: 3px;
-    left: 0px;
+    left: 0;
     width: 100%;
-    background-color: rgba(68, 176, 255, 0.9);
+    background-color: #D9EEFF;
     z-index: 1;
     opacity: 1;
     transition: transform .3s;
     box-sizing: border-box;
+}
+.autres #link::after{
+    bottom: 5px;
+    width: 90%;
+    left: -6px;
+    padding: 0;
 }
 #link:hover::after {
     transform: scaleX(1);
@@ -233,7 +216,7 @@ body {
 
 .dropdown {
     /*width : 50% ; */
-    background-color: rgba(47, 49, 64, 0.7);
+    background-color: rgba(57, 58, 65, 0.7);
     z-index: 1;
     border-radius: 10px;
     display: none;
@@ -241,19 +224,18 @@ body {
     min-width: 100px;
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
     overflow: visible;
-
     list-style-type: none;
-    padding: 5px;
+    padding: 10px;
 }
 
 .dropdown ul a{
     float: none;
-    margin-right: 15px;
-    padding: 0 10px 5px 0px;
+    margin-right: 0px;
+    padding: 0 10px 10px 0;
     text-decoration: none;
     text-align: left;
     z-index: 11;
-    height: 50px;
+
     width: 100px;
     overflow: visible;
 }
@@ -272,7 +254,7 @@ body {
 .connect button {
     list-style: none ;
     padding: 8px;
-    background-color: #189bf9; /* Bleu foncé */
+    background-color: #2671a7; /* Bleu foncé */
     color: white;
     border: none;
     border-radius: 8px;
@@ -308,7 +290,7 @@ body {
 .form-title {
     list-style: none ;
     padding: 12px;
-    background-color: #238bd6; /* Bleu foncé */
+    background-color: #2671a7; /* Bleu foncé */
     color: white;
     border: none;
     border-radius: 15px;
@@ -321,7 +303,7 @@ body {
 }
 
 .form-title:hover {
-    background-color: #009bff;
+    background-color: #217EC2;
     box-shadow: 0 0 100px #3498db;
     letter-spacing: 0.5px;
 }
@@ -432,14 +414,14 @@ footer {
 
 .droits {
     margin: 0;
-    color: #6b6b6b;
+    color: lightgrey;
 }
 
 a:hover, .ul1 li:hover {
     color: #D9EEFF;
 }
 .connect button:hover {
-    background-color: #008eff;
+    background-color: #217EC2;
 }
 
  /*profil de lutilisateur*/
@@ -450,7 +432,7 @@ a:hover, .ul1 li:hover {
     text-align: center;
     background-color: #eeeeee ;
     border: 3px solid black ;
-    border-radius: 10%;
+    border-radius: 20px;
     box-shadow: #333333;
  }
  .profil ul {
@@ -466,7 +448,7 @@ a:hover, .ul1 li:hover {
     margin : 5% ;
     padding : 2% ;
     color : #ffffff ; 
-    border-radius  : 15% ; 
+    border-radius  : 20px ;
     cursor: pointer;
     box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.2);
  }

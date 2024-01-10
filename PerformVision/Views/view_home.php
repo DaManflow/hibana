@@ -13,8 +13,8 @@ if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "client") {
     <div class="partie-gauche">PerformVision Training & Consulting</div>
     <div class="partie-droite">
         <ul class="ul1">
-        <li class="formations" id="link"><a href="/hibana-main/PerformVision/?controller=list&action=last">Formations</a></li>
-        <li class="conseils" id="link">Conseils</li>
+        <li class="formations"><a href="/hibana-main/PerformVision/?controller=list&action=last" id="link">Formations</a></li>
+        <li class="conseils"><a href="" id="link">Conseils</a></li>
         <li class="autres">Autres ▽
             <ul class="dropdown">
             <ul><a href="#" id="link">Activité 1</a></ul>
@@ -54,7 +54,7 @@ if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "client") {
         </div>
     <div class="conteneur3">
         <div class="img3">
-            <img src="/hibana-main/PerformVision/Content/images/HommeQuiEstHeureuxDeTravailler.jpg" alt="img"/>
+            <img src="/hibana-main/PerformVision/Content/images/DeveloppeurInformatique.png" alt="img"/>
         </div>
     <div class="text2">
         Devenez <span>développeur informatique</span><br/>Suivez des cours auprès de formateurs <span>expérimentés</span>, apprenez le python, C, C++, Java, SQL et bien d'autres !
