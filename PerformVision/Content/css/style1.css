@@ -276,7 +276,7 @@ a {
 /* Fin header */
 
 .titles {
-    text-shadow: 0 0 10px #3498db;
+    text-shadow: 0 0 20px #3498db;
     padding: 1px;
     margin-top: 0;
     height: 600px;
@@ -306,15 +306,16 @@ a {
     cursor: pointer;
     font-weight: bold;
     box-shadow: 0 0 50px #3498db;
-    transition : letter-spacing 0.5s ease, background-color 0.3s ease;
     margin-top: 2%;
     font-size: large;
+    transition: 0.3s;
 }
 
 .form-title:hover {
     background-color: #217EC2;
     box-shadow: 0 0 100px #3498db;
     letter-spacing: 0.5px;
+    transition: 0.3s;
 }
 
 .reste {
@@ -382,7 +383,7 @@ input[type=submit]:hover, a.lienbtn:hover {
     background-color: #217EC2;
     letter-spacing: 0.2px;
     transition: 0.3s;
-    box-shadow: 0 0 10px #66BCFF;
+    box-shadow: 0 0 5px #66BCFF;
 }
 
 /* Style pour le span dans le texte */
@@ -473,6 +474,18 @@ a:hover, .ul1 li:hover {
 }
 .connect button:hover {
     background-color: #217EC2;
+}
+
+div.divchoice {
+    width: 30%;
+    padding: 8px 20px;
+    margin: 24px -20px;
+    box-shadow: none;
+    margin-left: 40%;
+}
+div.divchoice p{
+    text-align: left;
+    color: #D9EEFF;
 }
 
  /*profil de lutilisateur*/
