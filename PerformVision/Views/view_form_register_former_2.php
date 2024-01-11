@@ -6,7 +6,7 @@ var_dump($_POST);
 
 <h1> S'incrire </h1>
 
-<form id="former-form" action="/hibana-main/PerformVision/?controller=register_redirection&action=register_redirection" method="POST" enctype="multipart/form-data">
+<form id="former-form" action="?controller=register_redirection&action=register_redirection" method="POST" enctype="multipart/form-data">
     <p> <label> <input required="" type="text" name="name" placeholder="Nom" value="<?= $_POST['name']?>"/></label> </p>
     <p> <label> <input required="" type="text" name="surname" placeholder="Prénom" value="<?= $_POST['surname']?>"/></label> </p>
     <p> <label> <input required="" type="text" name="email" placeholder="Email" value="<?= $_POST['email']?>"/></label> </p>

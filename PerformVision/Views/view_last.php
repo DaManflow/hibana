@@ -2,18 +2,6 @@
 
 <?php
 
-if(isset($_POST['categorie'])){
-    echo $_POST['categorie'];
-}
-
-if(isset($_POST['souscategorie'])){
-    echo $_POST['souscategorie'];
-}
-
-if(isset($_POST['theme'])){
-    echo $_POST['theme'];
-}
-
 require "view_begin.php";
 
 $categories =[];
@@ -50,43 +38,46 @@ foreach ($formateurs as $f){
     }
 }
 ?>
+
 <center>
 
     <p> Découvrez Nos Formateurs </p>
+
+    <p>Choisissez un</p>
+
     <div>
         <form id="formulaire" action="" method="post">
-            <select id="categorie" name="categorie" multiple="">  <!-- Affiche une liste déroulante des catégories -->
+            <select id="categorie" name="categorie">
+                <!-- Affiche une liste déroulante des catégories -->
                 <option value="0"> Toutes les catégories </option>
                 <?php foreach(array_keys($categories) as $c):?>
-                    <option value=<?= $c ?>> <?= $c ?> </option>
+                    <option class="option" value=<?= $c ?>> <?= $c ?> </option>
                 <?php endforeach;?>
             </select>
 
-            <?php echo "avant";
-            if(isset($_POST['categorie'])):
-             echo "après"   ?>
 
-            <select id="souscategorie" name="souscategorie"> <!-- Affiche une liste déroulante des sous catégories en fonction des catégories -->
+            <select id="souscategorie" name="souscategorie">
+                <!-- Affiche une liste déroulante des sous catégories en fonction des catégories -->
                 <option value="0"> Toutes les sous-catégories </option>
                 <?php foreach(array_keys($categories) as $c): ?>
                     <optgroup label=<?= $c ?>>
                         <?php foreach($categories[$c] as $sc=>$tabsc):?>
-                            <option value=<?= $sc ?>> <?= $sc ?> </option>
+                            <option class="option" value=<?= $sc ?>> <?= $sc ?> </option>
                         <?php endforeach;?>
                     </optgroup>
                 <?php endforeach;?>
             </select>
+<!--chercher une balise invisible pour refaire passer la categorie en post dans le formulaire-->
 
-            <?php if(isset($_POST['souscategorie'])): ?>
-
-            <select id="theme" name="theme"> <!-- Affiche une liste déroulante des sous catégories en fonction des catégories -->
+            <select id="theme" name="theme">
+                <!-- Affiche une liste déroulante des sous catégories en fonction des catégories -->
                 <option value="0"> Touts les thèmes </option>
                 <?php foreach(array_keys($categories) as $c): ?>
                     <optgroup label=<?= $c ?>>
                         <?php foreach($categories[$c] as $sc=>$tabsc):?>
                             <optgroup label=<?= $sc ?>>
                                 <?php foreach ($tabsc as $t):?>
-                                    <option value=<?= $t['nomt'] ?>><?= $t['nomt'] ?></option>
+                                    <option class="option" value=<?= $t['nomt'] ?>><?= $t['nomt'] ?></option>
                                 <?php endforeach ?>
                             </optoption>
                         <?php endforeach ?>
@@ -94,7 +85,6 @@ foreach ($formateurs as $f){
                 <?php endforeach ?>
             </select>
 
-            <?php endif; endif;?>
 
             <button type="submit">Valider</button>
 
@@ -105,4 +95,38 @@ foreach ($formateurs as $f){
 
     <p> AFFICHER LES FORMATEURS ICI !!!!</p>
 </center>
+
+<script>
+    /*selects.forEach(v=>{
+        v.addEventListener('click', function () {
+
+        })
+    });*/
+
+
+    //let selects = document.querySelectorAll('select');
+
+    let form = document.querySelector('form');
+    isOpen = [0, 0, 0]
+
+    form.addEventListener('click', function (event) {
+        console.log(event.target.options);
+    })
+
+    /*selects.forEach(v=>{
+        v.addEventListener('click', function () {
+            isOpen += 1; // si isOpen est à 0, il n'y a pas eu de click sur les select. Si c'est 1 alors on a cliqué sur un select et si c'est 2 alors ca fait l'action
+            if(isOpen == 2) {
+                console.log(this.options[this.options.selectedIndex]);
+                isOpen =0;
+            }
+        })
+    });*/
+
+
+    console.log('feur')
+
+</script>
+
+
 <?php require "view_end.php"; ?>
