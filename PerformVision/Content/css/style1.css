@@ -3,12 +3,14 @@
         display: none; /* Cache le texte du bouton sur les écrans plus petits */
     }
     .conteneur2 {
+        width: 1101px;
         margin-top: 0;
         text-align: center;
         background-color: #222425 ;
         border-bottom-left-radius: 7%;
         border-bottom-right-radius: 7%;
         padding-bottom: 5%;
+        z-index: 1;
     }
     .conteneur3 {
         text-align: center;
@@ -225,7 +227,7 @@ body {
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
     overflow: visible;
     list-style-type: none;
-    padding: 10px;
+    padding: 10px 10px 0 10px;
 }
 
 .dropdown ul a{
@@ -262,6 +264,7 @@ body {
     font-weight: bold;
     text-shadow: 0 0 100px #3498db;
     margin: 4px 10px 5%;
+    font-family: Roboto, sans-serif;
 }
 
 /* Fin header */
