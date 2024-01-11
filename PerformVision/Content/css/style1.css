@@ -21,28 +21,28 @@ html {
         align-items: center;
         justify-content: center;
     }
-    
+
     .img2 img {
         width: 80%; /* L'image prend la largeur du conteneur */
         height: auto;
         display: block;
         margin: 10% 10% 10% 10%; /* Espace sous la première image */
-        float : left ; 
+        float : left ;
         border-radius: 20px;
     }
     .img3 {
         height: auto;
         display: block;
-         /* Espace sous la première image */
+        /* Espace sous la première image */
     }
     .img3 img {
         border-radius: 20px;
-        width : 70% ; 
+        width : 70% ;
         margin: 10%;
     }
-    
+
     .text {
-        width : 80% ; 
+        width : 80% ;
         text-align: center;
         color : lightgrey ;
         margin: 5%;
@@ -50,7 +50,7 @@ html {
         font-weight: bold;
     }
     .text2 {
-        width : 80% ; 
+        width : 80% ;
         text-align: center;
         color : lightgray;
         margin: 0 10% 10% 10%;
@@ -80,29 +80,29 @@ html {
         text-align: center;
         display: flex;
     }
-    
+
     .img2 img {
         width: 70%; /* L'image prend la largeur du conteneur */
         height: auto;
         display: block;
         margin: 5%; /* Espace sous la première image */
-        float : left ; 
+        float : left ;
         border-radius: 20px;
     }
     .img3 {
         height: auto;
         display: block;
-         /* Espace sous la première image */
+        /* Espace sous la première image */
     }
     .img3 img {
         border-radius: 20px;
-        width : 70% ; 
+        width : 70% ;
         float : left ;
         margin: 10%;
     }
-    
+
     .text {
-        width : 50% ; 
+        width : 50% ;
         float : right ;
         text-align: center;
         color : lightgrey;
@@ -113,7 +113,7 @@ html {
         font-size: larger;
     }
     .text2 {
-        width : 70% ; 
+        width : 70% ;
         float : right ;
         text-align: center;
         color : lightgrey;
@@ -147,8 +147,8 @@ a {
     padding-top : 0;
     padding-right: 10px;
     top : 0;
-    position : fixed ; 
-    width : 100% ; 
+    position : fixed ;
+    width : 100% ;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -161,7 +161,7 @@ a {
 
 .partie-gauche {
     margin-left : 7% ;
-    font-weight : bold ; 
+    font-weight : bold ;
     color : #66BCFF ;
     font-size: large;
     width: 205px;
@@ -271,6 +271,7 @@ a {
     text-shadow: 0 0 100px #3498db;
     margin: 4px 10px 5%;
     font-family: Roboto, sans-serif;
+    transition: 0.3s;
 }
 
 /* Fin header */
@@ -313,7 +314,7 @@ a {
 
 .form-title:hover {
     background-color: #217EC2;
-    box-shadow: 0 0 100px #3498db;
+    box-shadow: 0 0 100px #3498db, 0 0 5px #66BCFF;
     letter-spacing: 0.5px;
     transition: 0.3s;
 }
@@ -325,7 +326,7 @@ a {
 
 .centre {
     margin-top: 5%;
-    width : 80% ; 
+    width : 80% ;
 }
 
 .conteneur1 {
@@ -372,7 +373,6 @@ input[type=submit], a.lienbtn {
     border-radius: 10px;
     cursor: pointer;
     font-weight: bold;
-    text-shadow: 0 0 100px #3498db;
     margin: 4px 0 3%;
     font-family: Roboto, sans-serif;
     font-size: large;
@@ -384,6 +384,7 @@ input[type=submit]:hover, a.lienbtn:hover {
     letter-spacing: 0.2px;
     transition: 0.3s;
     box-shadow: 0 0 5px #66BCFF;
+    color: white;
 }
 
 /* Style pour le span dans le texte */
@@ -410,15 +411,14 @@ footer {
 }
 */
 .partie-droite{
-    display : block ; 
-
+    display : block ;
     text-align: center;
     margin-right : 2%;
 }
 /*
 .partie-gauche{
     display : block ;
-    float : left ; 
+    float : left ;
 }
 */
 .partie1-gauche, .partie1-droite {
@@ -474,6 +474,8 @@ a:hover, .ul1 li:hover {
 }
 .connect button:hover {
     background-color: #217EC2;
+    transition: 0.3s;
+    box-shadow: 0 0 5px #66BCFF;
 }
 
 div.divchoice {
@@ -481,15 +483,15 @@ div.divchoice {
     padding: 8px 20px;
     margin: 24px -20px;
     box-shadow: none;
-    margin-left: 40%;
+    margin-left: 41%;
 }
 div.divchoice p{
     text-align: left;
     color: #D9EEFF;
 }
 
- /*profil de lutilisateur*/
- .profil {
+/*profil de lutilisateur*/
+.profil {
     font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif ;
     width : 50% ;
     margin: auto;
@@ -498,26 +500,26 @@ div.divchoice p{
     border: 3px solid black ;
     border-radius: 20px;
     box-shadow: #333333;
- }
- .profil ul {
+}
+.profil ul {
     font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif ;
     list-style: none;
     margin : 0 ;
-    padding: 0 ; 
+    padding: 0 ;
     line-height: 2.5;
- }
- .profil .button {
+}
+.profil .button {
     font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif ;
     background-color: #000000;
     margin : 5% ;
     padding : 2% ;
-    color : #ffffff ; 
+    color : #ffffff ;
     border-radius  : 20px ;
     cursor: pointer;
     box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.2);
- }
- .profil .button:hover {
-    transition : all 1s ; 
+}
+.profil .button:hover {
+    transition : all 1s ;
     background-color: #265587;
     transform: scale(1.05);
- }
+}
