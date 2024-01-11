@@ -1,3 +1,4 @@
+
 <?php require "view_begin.php";
 require_once "./Utils/functions.php" ;
 ?>

@@ -1,3 +1,5 @@
+<body>
+
 <!--header-->
 <?php require_once "view_header.php" ?>
 <!--header-->
