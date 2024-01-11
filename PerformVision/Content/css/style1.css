@@ -360,7 +360,7 @@ input[type=text]:focus,input[type=password]:focus {
     box-shadow: 0 0 10px #66BCFF;
 }
 .bodyform {
-    bg-color: #39383F;
+    background-color: #39383F;
 }
 
 input[type=submit], a.lienbtn {
