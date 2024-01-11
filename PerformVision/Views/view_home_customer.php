@@ -23,7 +23,7 @@ if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "formateur") {
             <li>Activité 3</li>
         </ul>
 </li>
-
+<li class="connect"><a href="/hibana-main/PerformVision/?controller=message_customer&action=discussion"><button><span class="aut">Mes discussions</span></button></a></li>
         <li class="connect"><a href="/hibana-main/PerformVision/?controller=profil_customer&action=profil_customer"><button><i class="fa-regular fa-circle-user"></i><span class="aut">Mon Profil</span></button></a></li>
 </ul>
     </div>

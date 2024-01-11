@@ -40,13 +40,13 @@ class Controller_former_list extends Controller{
             }
             else {
                 $_GET['start'] = 1;
-                header("Location: /hibana-main/PerformVision/?controller=former_list&action=former_pagination&start=" . $_GET['start']);
+                header("Location: ?controller=former_list&action=former_pagination&start=" . $_GET['start']);
             }
 
         }
         else {
             $_GET['start'] = 1;
-            header("Location: /hibana-main/PerformVision/?controller=former_list&action=former_pagination&start=" . $_GET['start']);
+            header("Location: ?controller=former_list&action=former_pagination&start=" . $_GET['start']);
         }
 
 
@@ -139,6 +139,9 @@ class Controller_former_list extends Controller{
     }
 
     }
+
+
+    
 
 
 

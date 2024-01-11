@@ -354,7 +354,7 @@ class Model
             $tabC[] = $val['nomc'];
         }
         
-        
+
         
         return $tabC;
     }
@@ -501,6 +501,67 @@ inner join utilisateur on formateur.id_formateur = utilisateur.id_utilisateur');
         $erreur_type[] = "mail_mdp_error";
         return $erreur_type;
         
+    }
+
+
+    public function add_discussion($infos) {
+
+        if (! $infos) {return false;}
+
+        $erreur_type = [];
+
+        try {
+
+            $this->bd->beginTransaction();
+
+
+
+            $req = $this->bd->prepare('INSERT INTO discussion(id_client,id_formateur) VALUES(:id_client, :id_formateur)');
+            $req->bindValue(':id_client', $_SESSION['idutilisateur']);
+            $req->bindValue(':id_formateur', $infos['id_former']);
+            $req->execute();
+
+            $id_discussion = $this->bd->lastInsertId();
+
+
+            $req2 = $this->bd->prepare('INSERT INTO message(id_discussion,texte,date_heure,valideM,lu) VALUES(:id_discussion, :texte, :date_heure, :valideM, :lu)');
+            $req2->bindValue(':id_discussion', $id_discussion);
+            $req2->bindValue(':texte', $infos['message']);
+            $req2->bindValue(':date_heure', $infos['date_msg']);
+            $req2->bindValue(':valideM', "false");
+            $req2->bindValue(':lu', "false");
+            $req2->execute();
+
+
+
+
+
+
+
+            $this->bd->commit();
+
+
+        }catch (PDOException $e) {
+            // En cas d'erreur, annuler la transaction
+            $this->bd->rollBack();
+
+            $_SESSION = array();
+            session_destroy();
+
+            echo "Erreur : " . $e->getMessage();
+            $erreur_type[] = "error_db";
+            return $erreur_type;
+        }
+
+        $erreur_type[] = "none";
+        return $erreur_type;
+
+
+
+
+
+
+
     }
     
 

@@ -43,7 +43,7 @@ CREATE TABLE admin(
 );
 
 CREATE TABLE discussion(
-   id_discussion INTEGER,
+   id_discussion SERIAL,
    id_client INTEGER NOT NULL,
    id_formateur INTEGER NOT NULL,
    PRIMARY KEY(id_discussion),
@@ -52,7 +52,7 @@ CREATE TABLE discussion(
 );
 
 CREATE TABLE message(
-   id_message INTEGER,
+   id_message SERIAL,
    id_discussion INTEGER,
    texte VARCHAR(1500),
    date_heure TIMESTAMP NOT NULL,
