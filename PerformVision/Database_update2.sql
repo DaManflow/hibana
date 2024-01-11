@@ -1,3 +1,5 @@
+DROP TABLE IF EXISTS message, discussion, client, moderateur, admin, aExpertiseProfessionnelle, aExperiencePeda, formateur, activite, image, niveau, theme, categorie, public, utilisateur;
+
 CREATE TABLE utilisateur(
    id_utilisateur SERIAL,
    nom VARCHAR(255) NOT NULL,

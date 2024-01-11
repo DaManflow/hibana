@@ -1,0 +1,459 @@
+@media only screen and (max-width: 770px) {
+    .aut {
+        display: none; /* Cache le texte du bouton sur les écrans plus petits */
+    }
+    .conteneur2 {
+        margin-top: 0;
+        text-align: center;
+        background-color: #222425 ;
+        border-bottom-left-radius: 7%;
+        border-bottom-right-radius: 7%;
+        padding-bottom: 5%;
+    }
+    .conteneur3 {
+        text-align: center;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .img2 img {
+        width: 80%; /* L'image prend la largeur du conteneur */
+        height: auto;
+        display: block;
+        margin: 10% 10% 10% 10%; /* Espace sous la première image */
+        float : left ; 
+        border-radius: 20px;
+    }
+    .img3 {
+        height: auto;
+        display: block;
+         /* Espace sous la première image */
+    }
+    .img3 img {
+        border-radius: 20px;
+        width : 70% ; 
+        margin: 10%;
+    }
+    
+    .text {
+        width : 80% ; 
+        text-align: center;
+        color : lightgrey ;
+        margin: 5%;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        font-weight: bold;
+    }
+    .text2 {
+        width : 80% ; 
+        text-align: center;
+        color : lightgray;
+        margin: 0 10% 10% 10%;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        font-weight: bold;
+    }
+
+}
+@media only screen and (min-width: 770px) {
+    .connect i {
+        display: none; /* Cache le texte du bouton sur les écrans plus petits */
+    }
+    body {
+        font-size: large;
+        color : #A8D0FF;
+
+    }
+    .conteneur2 {
+        margin-top: 0;
+        text-align: center;
+        display: flex;
+        background-color: #222425 ;
+        border-bottom-left-radius: 30px;
+        border-bottom-right-radius: 30px;
+    }
+    .conteneur3 {
+        text-align: center;
+        display: flex;
+    }
+    
+    .img2 img {
+        width: 70%; /* L'image prend la largeur du conteneur */
+        height: auto;
+        display: block;
+        margin: 5%; /* Espace sous la première image */
+        float : left ; 
+        border-radius: 20px;
+    }
+    .img3 {
+        height: auto;
+        display: block;
+         /* Espace sous la première image */
+    }
+    .img3 img {
+        border-radius: 20px;
+        width : 70% ; 
+        float : left ;
+        margin: 10%;
+    }
+    
+    .text {
+        width : 50% ; 
+        float : right ;
+        text-align: center;
+        color : lightgrey;
+        margin: 10% 5% 5% 5%;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        font-weight: bold;
+        margin-left : 0 ;
+        font-size: larger;
+    }
+    .text2 {
+        width : 70% ; 
+        float : right ;
+        text-align: center;
+        color : lightgrey;
+        margin: 10%;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        font-weight: bold;
+        margin-left: 0;
+    }
+}
+.connect i {
+    font-size: large;
+    padding : 0;
+}
+body {
+    /*background-color: #15121E;*/
+    background-color: #2b2a33;
+    color : #A8D0FF;
+    margin: 0;
+    padding: 0; /* Couleur bleu ciel */
+    font-family: Roboto, sans-serif;
+    font-size: larger;
+    text-align: center;
+
+}
+
+.debut {
+    padding-bottom : 0;
+    padding-top : 0;
+    padding-right: 10px;
+    top : 0;
+    position : fixed ; 
+    width : 100% ; 
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgba(1, 74, 126, 0.5);
+    border-top: 4px solid #0d5792; /* Trait bleu en haut */
+    font-size: small;
+    backdrop-filter: blur(5px);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.partie-gauche {
+    margin-left : 7% ;
+    font-weight : bold ; 
+    color : #66BCFF ;
+    font-size: large;
+    width: 205px;
+    text-align: center;
+}
+
+.partie-droite .ul1{
+    display: flex;
+}
+
+.formations,
+.conseils,
+.autres {
+    list-style-type: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 15px;
+    color : #A8D0FF;
+    font-weight: bold;
+    font-size: large;
+}
+.autres {margin-top:-2px}
+
+#link {
+    position: relative;
+    display: inline-block;
+    box-sizing: border-box;
+}
+#link::after {
+    content: '';
+    font-style: normal;
+    transform-origin: 0 0;
+    transform: scaleX(0);
+    position: absolute;
+    bottom: -5px;
+    height: 3px;
+    left: 0;
+    width: 100%;
+    background-color: #D9EEFF;
+    z-index: 1;
+    opacity: 1;
+    transition: transform .3s;
+    box-sizing: border-box;
+}
+.autres #link::after{
+    bottom: 5px;
+    width: 90%;
+    left: -6px;
+    padding: 0;
+}
+#link:hover::after {
+    transform: scaleX(1);
+}
+
+
+.formations a {
+    text-decoration: none;
+    color : #A8D0FF;
+}
+
+.dropdown {
+    /*width : 50% ; */
+    background-color: rgba(57, 58, 65, 0.7);
+    z-index: 1;
+    border-radius: 10px;
+    display: none;
+    position: absolute;
+    min-width: 100px;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    overflow: visible;
+    list-style-type: none;
+    padding: 10px;
+}
+
+.dropdown ul a{
+    float: none;
+    margin-right: 0px;
+    padding: 0 10px 10px 0;
+    text-decoration: none;
+    text-align: left;
+    z-index: 11;
+
+    width: 100px;
+    overflow: visible;
+}
+.dropdown ul{
+    list-style-type: none;
+    padding-left: 2px}
+
+.autres:hover .dropdown {
+    display: block;
+}
+
+.dropdown ul a:hover {
+    color: #D9EEFF;
+}
+
+.connect button {
+    list-style: none ;
+    padding: 8px;
+    background-color: #2671a7; /* Bleu foncé */
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    text-shadow: 0 0 100px #3498db;
+    margin: 4px 10px 5%;
+}
+
+/* Fin header */
+
+.titles {
+    text-shadow: 0 0 10px #3498db;
+    padding: 1px;
+    margin-top: 0;
+    height: 600px;
+    width: 99.9%;
+    align-items: center;
+    text-align: center;
+    background-image: url('../images/FondDiv1.png');
+    background-repeat: no-repeat;
+    background-size: cover; /* La taille de l'image couvrira toute la zone du corps */
+    background-position: center;
+
+}
+.titles h2 {
+    color : #ACDCFF ;
+    margin-top: 9%;
+}
+.titles h1 {
+    color : #189bf9 ;
+}
+.form-title {
+    list-style: none ;
+    padding: 12px;
+    background-color: #2671a7; /* Bleu foncé */
+    color: white;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    font-weight: bold;
+    box-shadow: 0 0 50px #3498db;
+    transition : letter-spacing 0.5s ease, background-color 0.3s ease;
+    margin-top: 2%;
+    font-size: large;
+}
+
+.form-title:hover {
+    background-color: #217EC2;
+    box-shadow: 0 0 100px #3498db;
+    letter-spacing: 0.5px;
+}
+
+.reste {
+    display: flex;
+    justify-content: center;
+}
+
+.centre {
+    margin-top: 5%;
+    width : 80% ; 
+}
+
+.conteneur1 {
+    text-align: center;
+    height: 509.2px;
+}
+
+.img1 img {
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
+    max-width: 100%; /* Assurez-vous que l'image ne dépasse pas la largeur du conteneur */
+    height: auto; /* Évitez la déformation de l'image */
+    margin-top: -105px;
+}
+
+
+
+
+/* Style pour le span dans le texte */
+.text span  , .text2 span{
+    font-weight: bold;
+    color: #3498db; /* Couleur bleue */
+}
+/*footer */
+footer {
+    display: flex;
+    text-align: center;
+    align-items: center;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 20px; /* Ajoutez du padding au besoin */
+    background-color: #1C5465; /* Ajoutez une couleur de fond au besoin */
+    color: white;
+    border-top: 3px solid #189bf9; /* Ajoutez une couleur de texte au besoin */
+}
+/*
+.partie1 {
+    display: flex;
+    justify-content: space-between;
+}
+*/
+.partie-droite{
+    display : block ; 
+
+    text-align: center;
+    margin-right : 2%;
+}
+/*
+.partie-gauche{
+    display : block ;
+    float : left ; 
+}
+*/
+.partie1-gauche, .partie1-droite {
+    title {
+        color: #fff; /* Ajoutez une couleur au titre au besoin */
+    }
+
+    a {
+        color: #fff; /* Ajoutez une couleur au lien au besoin */
+        text-decoration: none;
+        display: block;
+        margin-bottom: 5px; /* Ajoutez une marge entre les liens au besoin */
+    }
+
+    ul {
+        list-style: none;
+        display: flex;
+        padding: 0;
+        margin: 0;
+    }
+
+    li {
+        margin-right: 10px; /* Ajoutez une marge entre les icônes de réseau au besoin */
+    }
+
+    a {
+        color: #fff; /* Ajoutez une couleur au lien d'icône de réseau au besoin */
+        text-decoration: none;
+    }
+
+    p {
+        margin: 2px;
+    }
+}
+
+.partie2 {
+    text-align: center;
+    font-size: small;
+
+}
+.partie2 h1 {
+    margin-top: 40px;
+    color : #3498db ;
+}
+
+.droits {
+    margin: 0;
+    color: lightgrey;
+}
+
+a:hover, .ul1 li:hover {
+    color: #D9EEFF;
+}
+.connect button:hover {
+    background-color: #217EC2;
+}
+
+ /*profil de lutilisateur*/
+ .profil {
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif ;
+    width : 50% ;
+    margin: auto;
+    text-align: center;
+    background-color: #eeeeee ;
+    border: 3px solid black ;
+    border-radius: 20px;
+    box-shadow: #333333;
+ }
+ .profil ul {
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif ;
+    list-style: none;
+    margin : 0 ;
+    padding: 0 ; 
+    line-height: 2.5;
+ }
+ .profil .button {
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif ;
+    background-color: #000000;
+    margin : 5% ;
+    padding : 2% ;
+    color : #ffffff ; 
+    border-radius  : 20px ;
+    cursor: pointer;
+    box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.2);
+ }
+ .profil .button:hover {
+    transition : all 1s ; 
+    background-color: #265587;
+    transform: scale(1.05);
+ }
