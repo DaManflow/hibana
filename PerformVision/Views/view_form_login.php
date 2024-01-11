@@ -10,7 +10,7 @@
     <p> <label> <input class="connect" required="" type="submit" name="submit" value="Se connecter"> </label> </p>
 </form>
 
-Vous n'êtes pas encore inscrit ?  <a class="lienbtn" href="?controller=choice&action=register_choice">Inscrivez-Vous</a>
+Vous n'êtes pas encore inscrit ?  <a class="lienbtn" href="?controller=choice&action=register_choice">Inscrivez-Vous</a>
 <br><br>
 
 <?php require "view_end.php"; ?>

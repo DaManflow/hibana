@@ -342,6 +342,7 @@ a {
 
 input[type=text],input[type=password] {
     width: 30%;
+    min-width: 20%;
     padding: 8px 10px;
     border-radius: 5px;
     margin: 15px 0;
