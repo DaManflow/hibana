@@ -1,3 +1,7 @@
+html {
+    background-color: #2E2D33;
+}
+
 @media only screen and (max-width: 770px) {
     .aut {
         display: none; /* Cache le texte du bouton sur les écrans plus petits */
@@ -125,14 +129,17 @@
 }
 body {
     /*background-color: #15121E;*/
-    background-color: #2b2a33;
+    background-color: #39383F;
     color : #A8D0FF;
     margin: 0;
     padding: 0; /* Couleur bleu ciel */
     font-family: Roboto, sans-serif;
     font-size: larger;
     text-align: center;
-
+}
+a {
+    text-decoration: none;/*Pour que le lien ne soit plus "souligné"...*/
+    color: #A8D0FF;
 }
 
 .debut {
@@ -232,12 +239,11 @@ body {
 
 .dropdown ul a{
     float: none;
-    margin-right: 0px;
+    margin-right: 0;
     padding: 0 10px 10px 0;
     text-decoration: none;
     text-align: left;
     z-index: 11;
-
     width: 100px;
     overflow: visible;
 }
@@ -270,7 +276,7 @@ body {
 /* Fin header */
 
 .titles {
-    text-shadow: 0 0 10px #3498db;
+    text-shadow: 0 0 20px #3498db;
     padding: 1px;
     margin-top: 0;
     height: 600px;
@@ -300,15 +306,16 @@ body {
     cursor: pointer;
     font-weight: bold;
     box-shadow: 0 0 50px #3498db;
-    transition : letter-spacing 0.5s ease, background-color 0.3s ease;
     margin-top: 2%;
     font-size: large;
+    transition: 0.3s;
 }
 
 .form-title:hover {
     background-color: #217EC2;
     box-shadow: 0 0 100px #3498db;
     letter-spacing: 0.5px;
+    transition: 0.3s;
 }
 
 .reste {
@@ -334,8 +341,50 @@ body {
     margin-top: -105px;
 }
 
+input[type=text],input[type=password] {
+    width: 30%;
+    min-width: 20%;
+    padding: 8px 10px;
+    border-radius: 5px;
+    margin: 15px 0;
+    box-sizing: border-box;
+    border: 3px solid rgb(194, 222, 255);
+    background-color: #333333;
+    color: white;
+    -webkit-transition: 0.5s;
+    transition: 0.5s;
+    outline: none;
+}
+input[type=text]:focus,input[type=password]:focus {
+    border: 3px solid #66BCFF;
+    box-shadow: 0 0 10px #66BCFF;
+}
+.bodyform {
+    background-color: #39383F;
+}
 
+input[type=submit], a.lienbtn {
+    list-style: none;
+    padding: 8px;
+    background-color: #2671a7; /* Bleu foncé */
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: bold;
+    text-shadow: 0 0 100px #3498db;
+    margin: 4px 0 3%;
+    font-family: Roboto, sans-serif;
+    font-size: large;
+    transition: 0.3s;
+}
 
+input[type=submit]:hover, a.lienbtn:hover {
+    background-color: #217EC2;
+    letter-spacing: 0.2px;
+    transition: 0.3s;
+    box-shadow: 0 0 5px #66BCFF;
+}
 
 /* Style pour le span dans le texte */
 .text span  , .text2 span{
@@ -425,6 +474,18 @@ a:hover, .ul1 li:hover {
 }
 .connect button:hover {
     background-color: #217EC2;
+}
+
+div.divchoice {
+    width: 30%;
+    padding: 8px 20px;
+    margin: 24px -20px;
+    box-shadow: none;
+    margin-left: 40%;
+}
+div.divchoice p{
+    text-align: left;
+    color: #D9EEFF;
 }
 
  /*profil de lutilisateur*/

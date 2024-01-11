@@ -4,6 +4,10 @@
 
 require "view_begin.php";
 
+echo var_dump($filtre);
+
+// Créer un tableau des catégories avec comme valeurs ses sous-catégories avec comme valeurs de celle-ci les thèmes associés
+
 $categories =[];
 $der_mere = $listCategories[0]['idc_mere'];
 foreach ($listCategories as $c){
@@ -23,6 +27,9 @@ foreach ($listCategories as $c){
 }
 
 
+
+// Créer un tableau des formateurs avec un tableau pour chaque compétence
+
 $formateur = [];
 foreach ($formateurs as $f){
     if(!(key_exists($f['id_formateur'], $formateur))) {
@@ -37,18 +44,19 @@ foreach ($formateurs as $f){
         $formateur[$f['id_formateur']][2][$f['idt']][] = $f['nomt'];
     }
 }
+
+
 ?>
 
 <center>
 
     <p> Découvrez Nos Formateurs </p>
 
-    <p>Choisissez un</p>
-
     <div>
         <form id="formulaire" action="" method="post">
             <select id="categorie" name="categorie">
                 <!-- Affiche une liste déroulante des catégories -->
+                <option value="" disabled> Categories :</option>
                 <option value="0"> Toutes les catégories </option>
                 <?php foreach(array_keys($categories) as $c):?>
                     <option class="option" value=<?= $c ?>> <?= $c ?> </option>
@@ -58,6 +66,7 @@ foreach ($formateurs as $f){
 
             <select id="souscategorie" name="souscategorie">
                 <!-- Affiche une liste déroulante des sous catégories en fonction des catégories -->
+                <option value="" disabled> Sous-categories :</option>
                 <option value="0"> Toutes les sous-catégories </option>
                 <?php foreach(array_keys($categories) as $c): ?>
                     <optgroup label=<?= $c ?>>
@@ -67,10 +76,11 @@ foreach ($formateurs as $f){
                     </optgroup>
                 <?php endforeach;?>
             </select>
-<!--chercher une balise invisible pour refaire passer la categorie en post dans le formulaire-->
+
 
             <select id="theme" name="theme">
                 <!-- Affiche une liste déroulante des sous catégories en fonction des catégories -->
+                <option value="" disabled> Themes :</option>
                 <option value="0"> Touts les thèmes </option>
                 <?php foreach(array_keys($categories) as $c): ?>
                     <optgroup label=<?= $c ?>>
@@ -86,45 +96,112 @@ foreach ($formateurs as $f){
             </select>
 
 
-            <button type="submit">Valider</button>
+            <!-- Renvoi dans le formulaire la valeur de l'ancien filtre de chaque type si il existe-->
 
+            <?php if (isset($filtre['categorie'])) :?>
+            <input type="hidden" name="filtrecategorie" value=<?= serialize($filtre['categorie']) ?>>
+            <?php endif ?>
+
+            <?php if (isset($filtre['souscategorie'])) :?>
+                <input type="hidden" name="filtresouscategorie" value=<?= serialize($filtre['souscategorie']) ?>>
+            <?php endif ?>
+
+            <?php if (isset($filtre['theme'])) :?>
+                <input type="hidden" name="filtretheme" value=<?= serialize($filtre['theme']) ?>>
+            <?php endif ?>
 
 
         </form>
+
+
+        <!-- liste qui permet de supprimer des valeurs du filtre -->
+
+        <ul id="filtre">
+        <label>Catégories</label>
+            <!-- Mettre les Categories choisies -->
+
+            <?php if (isset($filtre['categorie'])) :
+                foreach ($filtre['categorie'] as $val): ?>
+                    <li class="lifiltre categorie" style="margin: 10px; list-style-type: none;border: 1px solid darkslategrey;background-color: slategrey; border-radius: 10px;">
+                        <div>
+                            <p class="valeur" style="display:inline-block"><?= $val ?></p>
+                            <p class="croix" style="color: red; display:inline-block">X</p>
+                        </div>
+                    </li>
+            <?php endforeach; endif ?>
+
+        <label>Sous-catégories</label>
+            <!-- Mettre les Sous-categories choisies -->
+
+        <label>Thèmes</label>
+            <!-- Mettre les Thèmes choisis -->
+
+        </ul>
+
     </div>
 
+
     <p> AFFICHER LES FORMATEURS ICI !!!!</p>
+
 </center>
 
 <script>
-    /*selects.forEach(v=>{
+
+    let isOpen = 1;
+    let locker = -1;
+    let derselect = -1;
+
+    const formulaire = document.getElementById("formulaire");
+    let selects = document.querySelectorAll('select');
+
+    selects.forEach(v=>{
         v.addEventListener('click', function () {
+            if(this.name === "categorie"){
+                locker = 0;
+            }else if(this.name === "souscategorie"){
+                locker = 1;
+            }else{
+                locker = 2;
+            }
+
+            // si isOpen est à 0, il y a eu de click sur un des select. Si c'est 1 alors on a cliqué sur une option d'un select
+
+            if(derselect === locker){
+                isOpen -= 1
+                if(isOpen === 0) {
+                    const input = document.createElement("input");
+                    input.setAttribute('type', 'hidden');
+                    input.setAttribute('name', 'addlocker');
+                    input.setAttribute('value', this.name); // cette input renvoie le select qui a été touché
+                    formulaire.appendChild(input);
+                    formulaire.submit();
+                    isOpen = 1;
+                }
+            }else{
+                isOpen = 1;
+            }
+            derselect = locker;
 
         })
-    });*/
+    });
 
 
-    //let selects = document.querySelectorAll('select');
-
-    let form = document.querySelector('form');
-    isOpen = [0, 0, 0]
-
-    form.addEventListener('click', function (event) {
-        console.log(event.target.options);
-    })
-
-    /*selects.forEach(v=>{
-        v.addEventListener('click', function () {
-            isOpen += 1; // si isOpen est à 0, il n'y a pas eu de click sur les select. Si c'est 1 alors on a cliqué sur un select et si c'est 2 alors ca fait l'action
-            if(isOpen == 2) {
-                console.log(this.options[this.options.selectedIndex]);
-                isOpen =0;
+    lis = document.querySelectorAll('.lifiltre');
+    console.log(lis);
+    lis.forEach(v=>{
+        v.addEventListener('click', function (event) {
+            console.log(event.target);
+            if(event.target.contains("croix")){
+                const input = document.createElement("input");
+                input.setAttribute('type', 'hidden');
+                input.setAttribute('name', 'deletelocker');
+                input.setAttribute('value', this.querySelector('.valeur').textContent + "_" + this.className[1]);
+                formulaire.appendChild(input);
+                this.remove();
+                formulaire.submit();
             }
         })
-    });*/
-
-
-    console.log('feur')
+    })
 
 </script>
 
