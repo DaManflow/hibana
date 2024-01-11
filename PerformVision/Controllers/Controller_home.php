@@ -4,11 +4,11 @@ class Controller_home extends Controller{
     public function action_home(){
 
         if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "formateur") {
-            header("Location: /hibana-main/PerformVision/?controller=home_former&action=home_former");
+            header("Location: ?controller=home_former&action=home_former");
         }
         
         if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "client") {
-            header("Location: /hibana-main/PerformVision/?controller=home_customer&action=home_customer");
+            header("Location: ?controller=home_customer&action=home_customer");
         }
 
 
