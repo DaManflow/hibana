@@ -125,7 +125,7 @@
 }
 body {
     /*background-color: #15121E;*/
-    background-color: #2b2a33;
+    background-color: #2E2D33;
     color : #A8D0FF;
     margin: 0;
     padding: 0; /* Couleur bleu ciel */
@@ -333,8 +333,21 @@ body {
     margin-top: -105px;
 }
 
+input[type=text] {
+    width: 30%;
+    padding: 12px 20px;
+    box-sizing: border-box;
+    border: 3px solid #ccc;
+    transition: 0.5s;
+}
+input[type=text]:focus {
+    border: 3px solid #ff0000;
+}
 
 
+form {
+    background-color: #333333;
+}
 
 /* Style pour le span dans le texte */
 .text span  , .text2 span{
