@@ -6,7 +6,6 @@ require "view_begin.php";
 
 echo var_dump($filtre);
 
-
 // Créer un tableau des catégories avec comme valeurs ses sous-catégories avec comme valeurs de celle-ci les thèmes associés
 
 $categories =[];
@@ -45,13 +44,13 @@ foreach ($formateurs as $f){
         $formateur[$f['id_formateur']][2][$f['idt']][] = $f['nomt'];
     }
 }
+
+
 ?>
 
 <center>
 
     <p> Découvrez Nos Formateurs </p>
-
-    <p>Choisissez un</p>
 
     <div>
         <form id="formulaire" action="" method="post">
@@ -100,21 +99,42 @@ foreach ($formateurs as $f){
             <!-- Renvoi dans le formulaire la valeur de l'ancien filtre de chaque type si il existe-->
 
             <?php if (isset($filtre['categorie'])) :?>
-            <input type="hidden" name="filtrecategorie" value=<?= $filtre['categorie'] ?>>
+            <input type="hidden" name="filtrecategorie" value=<?= serialize($filtre['categorie']) ?>>
             <?php endif ?>
 
             <?php if (isset($filtre['souscategorie'])) :?>
-                <input type="hidden" name="filtresouscategorie" value=<?= $filtre['souscategorie'] ?>>
+                <input type="hidden" name="filtresouscategorie" value=<?= serialize($filtre['souscategorie']) ?>>
             <?php endif ?>
 
             <?php if (isset($filtre['theme'])) :?>
-                <input type="hidden" name="filtretheme" value=<?= $filtre['theme'] ?>>
+                <input type="hidden" name="filtretheme" value=<?= serialize($filtre['theme']) ?>>
             <?php endif ?>
 
 
         </form>
 
-        <ul>
+
+        <!-- liste qui permet de supprimer des valeurs du filtre -->
+
+        <ul id="filtre">
+        <label>Catégories</label>
+            <!-- Mettre les Categories choisies -->
+
+            <?php if (isset($filtre['categorie'])) :
+                foreach ($filtre['categorie'] as $val): ?>
+                    <li class="lifiltre categorie" style="margin: 10px; list-style-type: none;border: 1px solid darkslategrey;background-color: slategrey; border-radius: 10px;">
+                        <div>
+                            <p class="valeur" style="display:inline-block"><?= $val ?></p>
+                            <p class="croix" style="color: red; display:inline-block">X</p>
+                        </div>
+                    </li>
+            <?php endforeach; endif ?>
+
+        <label>Sous-catégories</label>
+            <!-- Mettre les Sous-categories choisies -->
+
+        <label>Thèmes</label>
+            <!-- Mettre les Thèmes choisis -->
 
         </ul>
 
@@ -151,7 +171,7 @@ foreach ($formateurs as $f){
                 if(isOpen === 0) {
                     const input = document.createElement("input");
                     input.setAttribute('type', 'hidden');
-                    input.setAttribute('name', 'locker');
+                    input.setAttribute('name', 'addlocker');
                     input.setAttribute('value', this.name); // cette input renvoie le select qui a été touché
                     formulaire.appendChild(input);
                     formulaire.submit();
@@ -166,7 +186,22 @@ foreach ($formateurs as $f){
     });
 
 
-    console.log('feur')
+    lis = document.querySelectorAll('.lifiltre');
+    console.log(lis);
+    lis.forEach(v=>{
+        v.addEventListener('click', function (event) {
+            console.log(event.target);
+            if(event.target.contains("croix")){
+                const input = document.createElement("input");
+                input.setAttribute('type', 'hidden');
+                input.setAttribute('name', 'deletelocker');
+                input.setAttribute('value', this.querySelector('.valeur').textContent + "_" + this.className[1]);
+                formulaire.appendChild(input);
+                this.remove();
+                formulaire.submit();
+            }
+        })
+    })
 
 </script>
 

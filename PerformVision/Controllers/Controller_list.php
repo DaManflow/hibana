@@ -12,19 +12,24 @@ class Controller_list extends Controller{
         if(!(isset($_POST['filtrecategorie']))){
             $filtrecat = null;
         }else{
-            $filtrecat = $_POST['filtrecategorie'];
+            $filtrecat = unserialize($_POST['filtrecategorie']);
         }
 
         if(!(isset($_POST['filtresouscategorie']))){
             $filtresouscat = null;
         }else{
-            $filtresouscat = $_POST['filtresouscategorie'];
+            $filtresouscat = unserialize($_POST['filtresouscategorie']);
         }
 
         if(!(isset($_POST['filtretheme']))){
             $filtretheme = null;
         }else{
-            $filtretheme = $_POST['filtretheme'];
+            $filtretheme = unserialize($_POST['filtretheme']);
+        }
+
+        if(isset($_POST['deletelocker'])){
+            $valeur = explode("_", $_POST['deletelocker']);
+            $filtre[] = $valeur;
         }
 
         $filtre = ["categorie"=>$filtrecat, "souscategorie"=>$filtresouscat, "theme"=>$filtretheme];
@@ -32,14 +37,11 @@ class Controller_list extends Controller{
 
         // il faut modifier que select qui est locked
 
-        if(isset($_POST['locker'])){
-            $filtre[$_POST['locker']] = $_POST[$_POST['locker']];
+        if(isset($_POST['addlocker'])){
+            $filtre[$_POST['addlocker']][] = $_POST[$_POST['addlocker']];
         }
 
 
-        /*if(isset($_POST['filtre'.$_POST['locker']])){
-            $filtre[$_POST['filtre'.$_POST['locker']]] = $_POST[$_POST['locker']];
-        }*/
 
 
        $m = Model::getModel();
