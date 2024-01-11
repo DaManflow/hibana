@@ -317,11 +317,69 @@ class Model
         $req->execute();          // nomC, idc, idc_mere FROM Categorie where validec = true order by idc_mere
         return $req->fetchAll(PDO::FETCH_ASSOC);
     }
-    public function getCategoriesMeres(){
-        $req  = $this->bd->prepare('SELECT * FROM categorie WHERE idC_mere IS NULL') ;
+    public function getCategorie($idc){
+        $req = $this->bd->prepare('SELECT idc , nomc  from categorie where idc is not null and idc=:idc') ; 
+        $req->bindValue(':idc',$idc) ;
         $req->execute() ; 
-        return $req->fetchAll(PDO::FETCH_ASSOC);
+        $result = $req->fetchAll(PDO::FETCH_ASSOC);
+        $categories = array();
+        foreach ($result as $categorie) {
+            $categories[$categorie['idc']] = $categorie['nomc'];
+        }
+    
+        return $categories;
     }
+    public function getCategoriesMeres(){
+        $req = $this->bd->prepare('SELECT idc, nomc FROM categorie WHERE idC_mere IS NULL');
+        $req->execute();
+        
+        $result = $req->fetchAll(PDO::FETCH_ASSOC);
+        
+    
+        // Crée un tableau associatif avec 'idc' comme clé et 'nomc' comme valeur
+        $categoriesMeres = array();
+        foreach ($result as $categorie) {
+            $categoriesMeres[$categorie['idc']] = $categorie['nomc'];
+        }
+    
+        return $categoriesMeres;
+    }
+    public function getCategoriesWithSubcategoriesAndThemes2()
+    {
+        $req = $this->bd->prepare('SELECT idc,nomc from categorie WHERE idc_mere IS NULL'); 
+        $req->execute();
+        $tab = $req->fetchAll(PDO::FETCH_ASSOC);
+        $tabC = [];
+        foreach($tab as $val) {
+            $tabC[] = $val['nomc'];
+        }
+        
+        
+        
+        return $tabC;
+    }
+
+    public function getCategoriesWithSubcategoriesAndThemes(){
+        $req= $this->bd-> prepare("SELECT 
+        ");
+
+        $req->execute();
+
+        $tableau_final = array();
+
+    // Parcourez les résultats
+    while ($row = $req->fetch(PDO::FETCH_ASSOC)) {
+        // Ajoutez chaque ligne au tableau associatif
+        $tableau_final[$row['cle_principale']] = array(
+            'tableau_idC_mere' => $row['tableau_idC_mere'],
+            'tableau_themes' => $row['tableau_themes']
+        );
+    }
+
+    return $tableau_final;
+
+    }
+
 
     public function getFormateurs($cat="", $scat="", $th=""){
         $req = $this->bd->prepare('select formateur.id_formateur, nom, prenom, volumehmoyensession, nbsessioneffectuee, commentaire, nomt, theme.idt from formateur
@@ -444,5 +502,6 @@ inner join utilisateur on formateur.id_formateur = utilisateur.id_utilisateur');
         return $erreur_type;
         
     }
+    
 
 }

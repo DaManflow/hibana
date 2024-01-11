@@ -1,6 +1,6 @@
 <?php require "view_begin.php";
 require_once "./Utils/functions.php" ;
-var_dump($_POST);
+var_dump($tous);
 ?>
 
 <h1> S'incrire </h1>
@@ -15,16 +15,26 @@ var_dump($_POST);
     <p> <label> <input required="" type="text" name="linkedin" placeholder="Lien de votre page Linkedin"/> </label> </p>
     <p> <label> <input required="" type="file" name="cv"/> </label> </p>
     <p> <label> <input required="" type="radio" name="date_signature" value="<?= currentTime() ?>"/> Signature</label> </p>
-    <p>
         <label>Sélectionnez une catégorie :</label>
-        <select name="categorie" id="categorie">
-            <?php foreach ($categories as $categorie) : ?>
-                <option value="<?= $categorie['idc'] ?>"><?= $categorie['nomc'] ?></option>
-            <?php endforeach; ?>
-        </select>
-        <label> <input required="" type="submit" name="submit_categorie" value="Valider"> </label>
-    </p>
-    <p> <label> <input type="hidden" name="nom_categorie" value="<?= $categorie['nomc'] ?>"/> </label></p>
+        <label for="noms">Choisissez un nom :</label>
+  <select id="noms" name="noms">
+
+  
+    <?php foreach($categoriesMeres as $cle => $val): ?>
+
+        <optgroup label="<?php echo $val ?>">
+
+        <optgroup label="Noms en gras">
+            <option value="nom1">Nom en gras 1</option>
+            <option value="nom2">Nom en gras 2</option>
+      </optgroup>
+    </optgroup>
+    <optgroup label="Autres noms">
+      <option value="nom3">Nom 3</option>
+      <option value="nom4">Nom 4</option>
+    </optgroup>
+    <?php endforeach; ?>
+  </select>
     <p> <label> <input required="" type="submit" name="submit" value="S'inscrire"> </label> </p>
 </form>
 <?php require "view_end.php";?>

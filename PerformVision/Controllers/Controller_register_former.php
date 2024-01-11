@@ -14,7 +14,8 @@ class Controller_register_former extends Controller{
         }
         $m = Model::getModel();
         $data =[
-            'categories' => $m->getCategoriesMeres(),
+            'categoriesMeres' => $m->getCategoriesMeres(),
+            'tous'=>$m->getCategoriesWithSubcategoriesAndThemes2(),
         ];
         $this->render("form_register_former",$data);
 

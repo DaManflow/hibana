@@ -85,7 +85,7 @@ CREATE TABLE categorie(
    idC SERIAL,
    nomC VARCHAR(255) NOT NULL,
    valideC BOOLEAN NOT NULL,
-   idC_mere SERIAL,
+   idC_mere INT NULL,
    PRIMARY KEY(idC),
    FOREIGN KEY(idC_mere) REFERENCES categorie(idC)
 );
@@ -94,7 +94,7 @@ CREATE TABLE theme(
    idT SERIAL,
    nomT VARCHAR NOT NULL,
    valideT BOOLEAN NOT NULL,
-   idC SERIAL,
+   idC INT NOT NULL,
    PRIMARY KEY(idT),
    FOREIGN KEY(idC) REFERENCES categorie(idC)
 );
