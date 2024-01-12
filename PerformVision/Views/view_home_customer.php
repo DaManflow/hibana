@@ -1,11 +1,11 @@
 <?php require_once "view_begin.php";
 
 if (!isset($_SESSION['idutilisateur'])) {
-    header("Location: /hibana-main/PerformVision/?controller=home&action=home");
+    header("Location: ?controller=home&action=home");
 }
 
 if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "formateur") {
-    header("Location: /hibana-main/PerformVision/?controller=home_former&action=home_former");
+    header("Location: ?controller=home_former&action=home_former");
 }
 
 ?>
@@ -14,7 +14,7 @@ if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "formateur") {
     <div class="partie-gauche">PerformVision Training & Consulting</div>
     <div class="partie-droite">
         <ul class="ul1">
-            <li class="formations"><a href="/hibana-main/PerformVision/?controller=former_list&action=former_pagination">Formations</a></li>
+            <li class="formations"><a href="?controller=former_list&action=former_pagination">Formations</a></li>
             <li class="conseils">Conseils</li>
             <li class="autres">Autres
                 <ul class="dropdown">
@@ -23,8 +23,8 @@ if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "formateur") {
                     <li>Activité 3</li>
                 </ul>
             </li>
-            <li class="connect"><a href="/hibana-main/PerformVision/?controller=message_customer&action=discussion"><button><span class="aut">Mes discussions</span></button></a></li>
-            <li class="connect"><a href="/hibana-main/PerformVision/?controller=profil_customer&action=profil_customer"><button><i class="fa-regular fa-circle-user"></i><span class="aut">Mon Profil</span></button></a></li>
+            <li class="connect"><a href="?controller=message_customer&action=discussion"><button><span class="aut">Mes discussions</span></button></a></li>
+            <li class="connect"><a href="?controller=profil_customer&action=profil_customer"><button><i class="fa-regular fa-circle-user"></i><span class="aut">Mon Profil</span></button></a></li>
         </ul>
     </div>
 </div>
@@ -33,18 +33,18 @@ if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "formateur") {
     <h2 class="h2">Bienvenue chez</h2>
     <h1 class="h1">PerformVision Formations</h1>
     </br>
-    <a href="/hibana-main/PerformVision/?controller=&action=formateur"><button class="form-title">Découvrir les Formations</button></a>
+    <a href="?controller=&action=formateur"><button class="form-title">Découvrir les Formations</button></a>
 </div>
 <div class="reste">
     <div class="centre">
         <div class="conteneur1">
             <div class="img1">
-                <img src="/hibana-main/PerformVision/Content/images/ProgrammeurQuiFaitDuC.jpg"/>
+                <img src="./Content/images/ProgrammeurQuiFaitDuC.jpg"/>
             </div>
         </div>
         <div class="conteneur2">
             <div class="img2">
-                <img src="/hibana-main/PerformVision/Content/images/HommeQuiEstHeureuxDeTravailler.jpg"/>
+                <img src="./Content/images/HommeQuiEstHeureuxDeTravailler.jpg"/>
             </div>
             <div class="text">
                 Que vous soyez en autodidacte, salarié(e) ou en reconvresion professionnelle,<span> PerformVision</span> vous propose<span> la formation qu'il vous faut</span>
@@ -52,7 +52,7 @@ if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "formateur") {
         </div>
         <div class="conteneur3">
             <div class="img3">
-                <img src="/hibana-main/PerformVision/Content/images/HommeQuiEstHeureuxDeTravailler.jpg"/>
+                <img src="./Content/images/HommeQuiEstHeureuxDeTravailler.jpg"/>
             </div>
             <div class="text2">
                 Devenez <span>développeur informatique</span><br/>Suivez des cours auprès de formateurs <span>expérimentés</span>, apprenez le python, C, C++, Java, SQL et bien d'autres !

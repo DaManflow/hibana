@@ -14,11 +14,11 @@ class Controller_message_customer extends Controller{
 
     public function action_envoyer_message_customer() {
         if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "formateur") {
-            header("Location: /hibana-main/PerformVision/?controller=home_formateur&action=home_formateur");
+            header("Location: ?controller=home_formateur&action=home_formateur");
         }
 
         if (!isset($_SESSION['idutilisateur'])) {
-            header("Location: /hibana-main/PerformVision/?controller=former_list&action=former_information_no_login");
+            header("Location: ?controller=former_list&action=former_information_no_login");
         }
 
         if (isset($_GET['id']) && preg_match("/^[1-9][0-9]*$/", $_GET['id'])) {
