@@ -563,6 +563,51 @@ inner join utilisateur on formateur.id_formateur = utilisateur.id_utilisateur');
 
 
     }
+
+    public function getFormersWithLimitVerifModerator($start){
+        /* 
+        Cette fonction retourne une liste des formateurs avec un booléen 
+        indiquant s'il s'agit d'un modérateur ou non sous forme de tableau 
+        (clés = indice; valeurs = tableaux avec nom, prénom, est_modérateur)
+        */
+
+        // Requete pour obtenir un tableau avec les id, noms et prénoms des formateurs
+        $requete1 = $this->bd->prepare('SELECT id_utilisateur, nom, prenom FROM formateur 
+                                        JOIN utilisateur ON id_utilisateur = id_formateur
+                                        ORDER BY nom ASC LIMIT :end OFFSET :offset');
+
+        $offset = ($start - 1)*25 + 1;
+        $end = $offset + 1;
+        $requete1->bindValue(':end', $end);
+        $requete1->bindValue(':offset', $offset);
+        $requete1->execute();
+        $tab1 = $requete1->fetchAll(PDO::FETCH_ASSOC);
+
+        // Requete pour obtenir les id_moderateur
+        $requete2 = $this->bd->prepare('SELECT id_moderateur FROM moderateur');
+        $requete2->execute();
+        $tmp = $requete2->fetch(PDO::FETCH_ASSOC);
+        $tab2 = $tmp["id_moderateur"];
+
+        /*
+        Mise à jour de $tab1 pour obtenir un tableau de la forme :
+        [
+            indice0 => ["id_formateur"=>0, "nom"=>Buscaldi, "prenom"=>"Davide", "est_moderateur"=>false],
+            indice1 => ["id_formateur"=>1, "nom"=>Ellouze, "prenom"=>"Slim", "est_moderateur"=>true],
+            indice2 => ["id_formateur"=>2, "nom"=>Zargayouna, "prenom"=>"Haifa", "est_moderateur"=>true]
+        ]
+        */
+        
+        foreach($tab1 as $tab1_bis){
+            if( in_array($tab1_bis["id_formateur"], $tab2) ){
+                $tab1_bis["est_moderateur"] = true;
+            }
+            else{
+                $tab1_bis["est_moderateur"] = false;
+            }
+        }
+        return $tab1;
+    }
     
 
 }
