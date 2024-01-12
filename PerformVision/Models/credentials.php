@@ -1,8 +1,8 @@
 <?php
 
-$dsn = "pgsql:host=localhost;dbname=SAES301v2";
-$login = "postgres";
-$mdp = "1234";
+$dsn = "pgsql:host=aquabdd;dbname=etudiants";
+$login = "12203005";
+$mdp = "071917138CA";
 
 
 ?>

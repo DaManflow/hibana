@@ -572,12 +572,13 @@ inner join utilisateur on formateur.id_formateur = utilisateur.id_utilisateur');
         */
 
         // Requete pour obtenir un tableau avec les id, noms et prénoms des formateurs
-        $requete1 = $this->bd->prepare('SELECT id_utilisateur, nom, prenom FROM formateur 
+        $requete1 = $this->bd->prepare('SELECT id_formateur, nom, prenom FROM formateur 
                                         JOIN utilisateur ON id_utilisateur = id_formateur
                                         ORDER BY nom ASC LIMIT :end OFFSET :offset');
 
-        $offset = ($start - 1)*25 + 1;
-        $end = $offset + 1;
+        if($start == 0){ $offset = 0;}
+        else{$offset = ($start - 1)*25 + 1;}
+        $end = $offset + 24;
         $requete1->bindValue(':end', $end);
         $requete1->bindValue(':offset', $offset);
         $requete1->execute();
@@ -586,8 +587,7 @@ inner join utilisateur on formateur.id_formateur = utilisateur.id_utilisateur');
         // Requete pour obtenir les id_moderateur
         $requete2 = $this->bd->prepare('SELECT id_moderateur FROM moderateur');
         $requete2->execute();
-        $tmp = $requete2->fetch(PDO::FETCH_ASSOC);
-        $tab2 = $tmp["id_moderateur"];
+        $tmp = $requete2->fetchAll(PDO::FETCH_ASSOC);
 
         /*
         Mise à jour de $tab1 pour obtenir un tableau de la forme :
@@ -598,12 +598,17 @@ inner join utilisateur on formateur.id_formateur = utilisateur.id_utilisateur');
         ]
         */
         
-        foreach($tab1 as $tab1_bis){
-            if( in_array($tab1_bis["id_formateur"], $tab2) ){
-                $tab1_bis["est_moderateur"] = true;
-            }
-            else{
-                $tab1_bis["est_moderateur"] = false;
+        foreach($tab1 as $tab2){
+            $i = 0;
+            while($i<count($tmp)){
+                if($tmp[$i]["id_moderateur"] == $tab2["id_formateur"]){
+                    $tab2["est_moderateur"] = true;
+                    break;
+                }
+                else{
+                    $tab2["est_moderateur"] = false;
+                }
+                $i = $i + 1;
             }
         }
         return $tab1;
