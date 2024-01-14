@@ -4,8 +4,8 @@
 
 require "view_begin.php";
 
-// echo var_dump($listSousCategories);
- echo var_dump($filtre);
+//echo var_dump($listSousCategories);
+echo var_dump($filtre);
 
 // Créer un tableau des catégories avec comme valeurs ses sous-catégories avec comme valeurs de celle-ci les thèmes associés
 
@@ -40,7 +40,6 @@ foreach ($formateurs as $f){
     $formateur[$f['id_formateur']][2][$f['idt']][] = $f['nomt'];
 }
 
-
 ?>
 
 <center>
@@ -64,7 +63,7 @@ foreach ($formateurs as $f){
                 <option value="" disabled> Sous-categories :</option>
                 <option value="0"> Toutes les sous-catégories </option>
                 <?php foreach(array_keys($sousCategories) as $c): ?>
-                    <optgroup label=<?= $c ?>>
+                    <optgroup label="<?= e($c) ?>">
                         <?php foreach($sousCategories[$c] as $sc=>$tabsc):?>
                             <option class="option" value=<?= $sc ?>> <?= $sc ?> </option>
                         <?php endforeach;?>
@@ -78,9 +77,9 @@ foreach ($formateurs as $f){
                 <option value="" disabled> Themes :</option>
                 <option value="0"> Touts les thèmes </option>
                 <?php foreach(array_keys($sousCategories) as $c): ?>
-                    <optgroup label=<?= $c ?>>
+                    <optgroup label="<?= e($c) ?>">
                         <?php foreach($sousCategories[$c] as $sc=>$tabsc):?>
-                            <optgroup label=<?= $sc ?>>
+                            <optgroup label="<?= e($sc) ?>">
                                 <?php foreach ($tabsc as $t):?>
                                     <option class="option" value=<?= $t['nomt'] ?>><?= $t['nomt'] ?></option>
                                 <?php endforeach ?>
@@ -128,8 +127,28 @@ foreach ($formateurs as $f){
         <label>Sous-catégories</label>
             <!-- Mettre les Sous-categories choisies -->
 
+            <?php if (isset($filtre['souscategorie'])) :
+                foreach ($filtre['souscategorie'] as $val): ?>
+                    <li class="lifiltre souscategorie" style="margin: 10px; list-style-type: none;border: 1px solid darkslategrey;background-color: slategrey; border-radius: 10px;">
+                        <div>
+                            <p class="valeur" style="display:inline-block"><?= $val ?></p>
+                            <p class="croix" style="color: red; display:inline-block">X</p>
+                        </div>
+                    </li>
+                <?php endforeach; endif ?>
+
         <label>Thèmes</label>
             <!-- Mettre les Thèmes choisis -->
+
+            <?php if (isset($filtre['theme'])) :
+                foreach ($filtre['theme'] as $val): ?>
+                    <li class="lifiltre theme" style="margin: 10px; list-style-type: none;border: 1px solid darkslategrey;background-color: slategrey; border-radius: 10px;">
+                        <div>
+                            <p class="valeur" style="display:inline-block"><?= $val ?></p>
+                            <p class="croix" style="color: red; display:inline-block">X</p>
+                        </div>
+                    </li>
+                <?php endforeach; endif ?>
 
         </ul>
 
@@ -142,8 +161,9 @@ foreach ($formateurs as $f){
 
 <script>
 
+    const formulaire = document.getElementById("formulaire");
     function create_input(nom, valeur) {
-        const formulaire = document.getElementById("formulaire");
+
         const input = document.createElement("input");
         input.setAttribute('type', 'hidden');
         input.setAttribute('name', nom);
@@ -162,7 +182,7 @@ foreach ($formateurs as $f){
 
     selects.forEach(v=>{
         v.addEventListener('click', function () {
-            console.log(this.options[this.options.selectedIndex].value);
+            console.log(this.options[this.options.selectedIndex]);
             if(this.name === "categorie"){
                 locker = 0;
             }else if(this.name === "souscategorie"){
@@ -171,18 +191,13 @@ foreach ($formateurs as $f){
                 locker = 2;
             }
 
-            // si isOpen est à 0, il y a eu de click sur un des select. Si c'est 1 alors on a cliqué sur une option d'un select
+            // si isOpen est à 1, il y a eu un click sur un des select. Si c'est 0 alors on a cliqué sur une option d'un select
 
             if(derselect === locker){
                 isOpen -= 1
                 if(isOpen === 0) {
-                    /*const input = document.createElement("input");
-                    input.setAttribute('type', 'hidden');
-                    input.setAttribute('name', 'addlocker');
-                    input.setAttribute('value', this.name);
-                    formulaire.appendChild(input);*/
 
-                    create_input('addlocker', this.name);// cette input renvoie le select qui a été touché
+                    create_input('addLockerName', this.name);// cette input renvoie le select qui a été touché
                     formulaire.submit();
                     isOpen = 1;
                 }
@@ -197,15 +212,10 @@ foreach ($formateurs as $f){
     console.log(lis);
     lis.forEach(v=>{
         v.addEventListener('click', function (event) {
-            console.log(this.className);
-            console.log(this.classList[1]);
             if(event.target.classList.contains('croix')){
-                /*const input = document.createElement("input");
-                input.setAttribute('type', 'hidden');
-                input.setAttribute('name', 'deletelocker');
-                input.setAttribute('value', this.querySelector('.valeur').textContent + "_" + this.className[1]);
-                formulaire.appendChild(input);*/
-                create_input('deletelocker', this.querySelector('.valeur').textContent + "" + this.classList[1]);  // Valeur dans la liste du filtre visuel + le type (ex = 'programmation_categorie')
+
+                create_input('deleteLockerValue', this.querySelector('.valeur').textContent);  // Valeur dans la liste du filtre visuel + le type (ex = 'programmation_categorie')
+                create_input('deleteLockerKind', this.classList[1])
                 this.remove();
                 formulaire.submit();
             }

@@ -32,24 +32,22 @@ class Controller_list extends Controller{
 
         // Pour supprimer un élément dans le filtre
 
-        if(isset($POST['deletelocker'])){
-            $tabvaleur = explode("", $_POST['deletelocker']);   // Valeur de type string, ex="programation_categorie", transformé en tableau
-            $type = $tabvaleur[1];  // Retourne le type choisi
-            $valeur = $tabvaleur[0];    // Retourne la valeur dans le tableau du type (Ex : Programmation dans categorie )
+        if(isset($_POST['deleteLockerValue'])){
+            $filtre[] = $filtre[$_POST['deleteLockerKind']][array_search($_POST['deleteLockerValue'], $filtre[$_POST['deleteLockerKind']])];
+            $type = $_POST['deleteLockerKind'];  // Retourne le type choisi
+            $valeur = $_POST['deleteLockerValue'];    // Retourne la valeur dans le tableau du type (Ex : Programmation dans categorie )
             $tabtypefiltre = $filtre[$type];    // Retourne le tableau d'un des 3 types dans le filtre
             $idvalasupr = array_search($valeur, $tabtypefiltre);    // Retourne l'id de la valeur dans le tableau du type
-            $filtre[] = $tabtypefiltre[$type][$idvalasupr];  // Débogage
-            unset($tabtypefiltre[$type][$idvalasupr]);     // supprime la valeur dans le bon type
-            /*
-            $tabtypefiltre = $filtre[$valeur[1]]; // Retourne le tableau d'un type
-            $idvalasupr = array_search($valeur[0], $tabtypefiltre); // Retourne l'id de la valeur à enlever dans le tableau de son type
-            unset($tabtypefiltre[$idvalasupr]); // Supprime l'id*/
+            unset($tabtypefiltre[$idvalasupr]);     // supprime la valeur dans le bon type
+
         }
 
         // Pour ajouter un élément dans le filtre
-        if(isset($_POST['addlocker']) and !in_array($_POST[$_POST['addlocker']], $filtre[$_POST['addlocker']])){
-            $filtre[$_POST['addlocker']][] = $_POST[$_POST['addlocker']];
+        if(isset($_POST['addLockerName']) and !in_array($_POST[$_POST['addLockerName']], $filtre[$_POST['addLockerName']])){
+            $filtre[$_POST['addLockerName']][] = $_POST[$_POST['addLockerName']];
+            $filtre['ajout'] = $_POST['addLockerName'];
         }
+
 
 
         if(!array_search(0, $filtre['categorie']) and count($filtre['categorie']) <= 1){
@@ -57,7 +55,6 @@ class Controller_list extends Controller{
         }else{
             $valPourRequetecat = $filtre['categorie'];
         }
-
 
        $m = Model::getModel();
         $data = [
