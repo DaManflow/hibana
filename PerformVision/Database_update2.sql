@@ -129,7 +129,7 @@ CREATE TABLE aExperiencePeda(
    id_formateur SMALLINT,
    idT SERIAL,
    idP SERIAL,
-   volumeHMoyenSession SMALLINT NOT NULL,
+   volumeHMoyenSession TIME NOT NULL,
    nbSessionEffectuee SMALLINT NOT NULL,
    commentaire VARCHAR(255),
    PRIMARY KEY(id_formateur, idT, idP),

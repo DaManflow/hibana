@@ -12,12 +12,15 @@ class Controller_register_former extends Controller{
         if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "formateur") {
             header("Location: ?controller=home_former&action=home_former");
         }
+
         $m = Model::getModel();
-        $data =[
-            'categoriesMeres' => $m->getCategoriesMeres(),
-            'tous'=>$m->getCategoriesWithSubcategoriesAndThemes2(),
+        $data = [
+            "themes"=>$m->seeThemes(),
+            "levels"=>$m->seeLevel(),
+            "public"=>$m->seePublic(),
+
         ];
-        $this->render("form_register_former",$data);
+        $this->render("form_register_former", $data);
 
     }
 
@@ -42,11 +45,6 @@ class Controller_register_former extends Controller{
             $m = Model::getModel();
             $tab = check_data_former();
             
-
-            
-            
-
-
                 if ($tab['name'] == 'false') {
                     echo "Le nom n'est pas valide. Assurez-vous d'entrer uniquement des caractères alphabétiques.";
                     $this->render("form_register_former");
@@ -102,9 +100,7 @@ class Controller_register_former extends Controller{
                 }
 
 
-            $rep = $m->createFormer($tab);
-             //a avoir si je peux lappeler dans la balise du submit 
-            
+            $rep = $m->createFormer($tab);            
             if (in_array("none",$rep)) {
 
                 

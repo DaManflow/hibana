@@ -155,13 +155,47 @@ class Model
             
                 // Récupérer l'idUtilisateur généré
                 $id_formateur = $this->bd->lastInsertId();
+                //Insertion des experiences 
+                $nombre_experiences = 0;
 
+                    foreach ($_POST as $key => $value) {
+                        // Vérifiez si la clé est associée à une expérience
+                        if (strpos($key, 'theme') !== false) {
+                            $nombre_experiences++;
+                        }
+                    }
+
+                for ($i = 1; $i <= $nombre_experiences; $i++) {
+                    // Préparation et insertion des données dans aExpertiseProfessionnelle
+                    $reqExpertise = $this->bd->prepare('
+                        INSERT INTO aExpertiseProfessionnelle(idn, idt, id_formateur, dureeMExperience, commentaire_expertise)
+                        VALUES (:idn, :idt, :id_formateur, :duree, :commentaire)
+                    ');
+                    $reqExpertise->bindValue(':idn', $infos['expertise' . $i]);
+                    $reqExpertise->bindValue(':idt', $infos['theme' . $i]);
+                    $reqExpertise->bindValue(':id_formateur', $id_formateur);
+                    $reqExpertise->bindValue(':duree', $infos['dureeExpertise' . $i]);
+                    $reqExpertise->bindValue(':commentaire', $infos['commentaireExpertise' . $i]);
+                    $reqExpertise->execute();
+                
+                    // Préparation et insertion des données dans aExperiencePeda
+                    $reqPeda = $this->bd->prepare('
+                        INSERT INTO aExperiencePeda(id_formateur, idt, idp, volumeHMoyenSession, nbSessionEffectuee, commentaire)
+                        VALUES (:id_formateur, :idt, :idp, :volumeHMoyenSession, :nbSessionEffectuee, :commentaire)
+                    ');
+                    $reqPeda->bindValue(':id_formateur', $id_formateur);
+                    $reqPeda->bindValue(':idt', $infos['theme' . $i]);
+                    $reqPeda->bindValue(':idp', $infos['expePeda' . $i]);
+                    $reqPeda->bindValue(':volumeHMoyenSession', $infos['VolumeHMoyenSession' . $i]);
+                    $reqPeda->bindValue(':nbSessionEffectuee', $infos['nbSession' . $i]);
+                    $reqPeda->bindValue(':commentaire', $infos['commentaireExpePeda' . $i]);
+                    $reqPeda->execute();
+                }
 
                 // Deuxième partie : insertion dans la table Formateur
                 $req3 = $this->bd->prepare('
                 INSERT INTO Formateur (id_formateur, linkedin, date_signature, cv, declaration)
-                VALUES (:id_formateur, :linkedin, :date_signature, :cv, :declaration)
-                ');
+                VALUES (:id_formateur, :linkedin, :date_signature, :cv, :declaration)');
                 $req3->bindValue(':id_formateur', $id_formateur);
                 $req3->bindValue(':linkedin', $infos['linkedin']);
                 $req3->bindValue(':date_signature', $infos['date_signature']);
@@ -179,9 +213,7 @@ class Model
                 $cvFileName = basename($_FILES["cv"]["name"]);
                 $cvUploadPath = $formateurDirectory . $cvFileName;
 
-                $req3->bindValue(':cv', $cvUploadPath);
-                
-                
+                $req3->bindValue(':cv', $cvUploadPath);               
 
                 // Déplace le fichier téléchargé vers le répertoire d'upload
 
@@ -613,6 +645,50 @@ inner join utilisateur on formateur.id_formateur = utilisateur.id_utilisateur');
         }
         return $tab1;
     }
-    
 
+    public function seeCategories(){
+        $req = $this->bd->prepare('SELECT * FROM categorie WHERE idc_mere IS NULL') ;
+        $req->execute() ;
+        return $req->fetchAll(PDO::FETCH_ASSOC);
+    }
+    public function seeSousCategories(){
+        $req = $this->bd->prepare('SELECT * FROM categorie WHERE idc_mere IS NOT NULL') ;
+        $req->execute() ;
+        return $req->fetchAll(PDO::FETCH_ASSOC);
+    }   
+    public function seeThemes(){
+        $req = $this->bd->prepare('SELECT 
+    t.idT AS id_theme,
+    t.nomT AS theme,
+    c1.nomC AS sous_categorie,
+    c2.nomC AS categorie
+FROM 
+    theme t
+JOIN 
+    categorie c1 ON t.idC = c1.idC
+LEFT JOIN 
+    categorie c2 ON c1.idC_mere = c2.idC
+WHERE 
+    c1.idC_mere IS NOT NULL;
+') ;
+        $req->execute() ;
+        return $req->fetchAll(PDO::FETCH_ASSOC);
+
+    } 
+    public function seeLevel(){
+        $req = $this->bd->prepare('SELECT * FROM niveau') ;
+        $req->execute() ; 
+        return $req->fetchAll(PDO::FETCH_ASSOC);
+    }
+    public function seePublic(){
+        $req = $this->bd->prepare('SELECT * FROM public') ;
+        $req->execute() ; 
+        return $req->fetchAll(PDO::FETCH_ASSOC);
+    }
+    public function selectTheme($id_t){
+        $req->$this->bd->prepare('SELECT nomc from theme WHERE idt=:idt');
+        $req->bindValue(':idt', $id_t) ; 
+        $req->execute();
+        return $req->fetchAll(PDO::FETCH_ASSOC);
+        }
 }

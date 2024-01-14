@@ -14,6 +14,7 @@ var_dump($_POST);
     <p> <label> <input required="" type="password" name="password" placeholder="Mot De Passe" value="<?= $_POST['password']?>"/></label> </p>
     <p> <label> <input required="" type="text" name="linkedin" placeholder="Lien de votre page Linkedin" value="<?= $_POST['linkedin']?>"/></label> </p>
     <p> <label> <input required="" type="file" name="cv"/> </label> </p>
+    
     <p> <label> <input required="" type="radio" name="date_signature" value="<?= currentTime() ?>"/> Signature</label> </p>
     <p>
         <label>Sélectionnez une catégorie :</label>

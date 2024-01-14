@@ -205,6 +205,49 @@ function check_data_former() {
             $infos['date_signature'] = "false";
         }
     }
+    //inserer les experiences 
+    $experienceIndex = 1;
+    while (isset($_POST['theme' . $experienceIndex])) {
+        $themeKey = 'theme' . $experienceIndex;
+        $expertiseKey = 'expertise' . $experienceIndex;
+        $dureeExpertiseKey = 'dureeExpertise' . $experienceIndex;
+        $commentaireExpertiseKey = 'commentaireExpertise' . $experienceIndex;
+        $expePedaKey = 'expePeda' . $experienceIndex;
+        $VolumeHMoyenSessionKey = 'VolumeHMoyenSession' . $experienceIndex;
+        $nbSessionKey = 'nbSession' . $experienceIndex;
+        $commentaireExpePedaKey = 'commentaireExpePeda' . $experienceIndex;
+
+        if (
+            isset($_POST[$themeKey]) && isset($_POST[$expertiseKey]) &&
+            isset($_POST[$dureeExpertiseKey]) && isset($_POST[$commentaireExpertiseKey]) &&
+            isset($_POST[$expePedaKey]) && isset($_POST[$VolumeHMoyenSessionKey]) &&
+            isset($_POST[$nbSessionKey]) && isset($_POST[$commentaireExpePedaKey])
+        ) {
+            // Traitement de chaque expérience et ajout à $infos
+            $theme = $_POST[$themeKey];
+            $expertise = $_POST[$expertiseKey];
+            $dureeExpertise = $_POST[$dureeExpertiseKey];
+            $commentaireExpertise = $_POST[$commentaireExpertiseKey];
+            $expePeda = $_POST[$expePedaKey];
+            $VolumeHMoyenSession = $_POST[$VolumeHMoyenSessionKey];
+            $nbSession = $_POST[$nbSessionKey];
+            $commentaireExpePeda = $_POST[$commentaireExpePedaKey];
+
+            // Effectuez ici vos vérifications et traitements spécifiques
+
+            // Ajoutez les données au tableau $infos
+            $infos[$themeKey] = e($theme);
+            $infos[$expertiseKey] = e($expertise);
+            $infos[$dureeExpertiseKey] = e($dureeExpertise);
+            $infos[$commentaireExpertiseKey] = e($commentaireExpertise);
+            $infos[$expePedaKey] = e($expePeda);
+            $infos[$VolumeHMoyenSessionKey] = e($VolumeHMoyenSession);
+            $infos[$nbSessionKey] = e($nbSession);
+            $infos[$commentaireExpePedaKey] = e($commentaireExpePeda);
+        }
+
+        $experienceIndex++;
+    }
     //signature 
     /*
     if (isset($_POST['url_signature'])) {
@@ -250,6 +293,18 @@ function check_data_user() {
 
 
 }
+//le tableau theme , niveau, public 
+/*
+$m = Model::getModel();
+        $data = [
+            "themes"=>$m->seeThemes(),
+            "levels"=>$m->seeLevel(),
+            "public"=>$m->seePublic(),
+
+        ];
+$themes = $data('themes') ; 
+$levels = $data('levels') ; 
+$public = $data('public') ; */
 //generer le pdf 
 function generatePDF($id_formateur, $name, $surname, $email, $phone, $linkedin, $signature) {
     $pdf = new TCPDF();
@@ -263,9 +318,23 @@ function generatePDF($id_formateur, $name, $surname, $email, $phone, $linkedin, 
     $pdf->MultiCell(100, 20,'Email: '. $email);
     $pdf->MultiCell(100, 20,'Téléphone: '. $phone);
     $pdf->MultiCell(100, 20,'Linkedin: ' . $linkedin);
-    $pdf->MultiCell(100, 20,'Signature: '. $signature);
 
     $pdf->Cell(100, 10, 'Vos Formations : ', 0, 1);
+    for ($i = 1; isset($_POST['theme' . $i]); $i++) {
+        $theme = $_POST['theme' . $i];
+        $expertise = $_POST['expertise' . $i];
+        $duree = $_POST['dureeExpertise' . $i];
+        $commentaire = $_POST['commentaireExpertise' . $i];
+        $expePeda = $_POST['expePeda' . $i];
+        $volumeHMoyenSession = $_POST['VolumeHMoyenSession' . $i];
+        $nbSession = $_POST['nbSession' . $i];
+        $commentaireExpePeda = $_POST['commentaireExpePeda' . $i];
+    
+        // Ajouter les informations d'expérience au PDF
+        $pdf->MultiCell(100, 20, "Thème: $theme\nExpertise: $expertise\nDurée: $duree\nCommentaire: $commentaire\nExpérience pédagogique: $expePeda\nVolume horaire moyen de session: $volumeHMoyenSession\nNombre de sessions: $nbSession\nCommentaire: $commentaireExpePeda");
+        $pdf->Ln(6);
+    }
+    $pdf->MultiCell(100, 20,'Signature: '. $signature);
 
     $pdfContent = $pdf->Output($name. '_'.$surname.'_declaration.pdf', 'S');
 
