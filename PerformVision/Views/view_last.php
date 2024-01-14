@@ -8,25 +8,22 @@ echo var_dump($filtre);
 
 // Créer un tableau des catégories avec comme valeurs ses sous-catégories avec comme valeurs de celle-ci les thèmes associés
 
-$categories =[];
-$der_mere = $listCategories[0]['idc_mere'];
-foreach ($listCategories as $c){
-    if($c['idc_mere'] == $der_mere) {
-        $categories[$der_mere][$c['nomc']] = [];
-    }else{
-        $der_mere = $c['idc_mere'];
-        $categories[$der_mere][$c['nomc']] = [];
-    }
+// Ce tableau peut bien sûr être placé dans controller_list pour optimiser (mais des questions se posent comme 'Est-ce que générer un tableau en entier à partir d'une requête consomme moins que faire une requête pour chaque itération boucle ?')
 
-    $der_meret = $c['nomc'];
-    foreach ($themes as $t){ // on peut opti
+$sousCategories = [];
+$der_mere = $listSousCategories[0]['nomc_mere'];
+foreach ($listSousCategories as $sc){
+    if($sc['nomc_mere'] != $der_mere) {
+        $der_mere = $sc['nomc_mere'];
+    }
+    $sousCategories[$der_mere][$sc['nomc']] = [];
+    $der_meret = $sc['nomc'];
+    foreach ($themes as $t){
         if($t['nomc'] == $der_meret){
-            $categories[$der_mere][$der_meret][$t['nomt']] = $t;
+            $sousCategories[$der_mere][$der_meret][$t['nomt']] = $t;
         }
     }
 }
-
-
 
 // Créer un tableau des formateurs avec un tableau pour chaque compétence
 
@@ -34,15 +31,10 @@ $formateur = [];
 foreach ($formateurs as $f){
     if(!(key_exists($f['id_formateur'], $formateur))) {
         $formateur[$f['id_formateur']] = [$f['nom'], $f['prenom']];
-        $formateur[$f['id_formateur']][2][$f['idt']][] = $f['volumehmoyensession'];
-        $formateur[$f['id_formateur']][2][$f['idt']][] = $f['nbsessioneffectuee'];
-        $formateur[$f['id_formateur']][2][$f['idt']][] = $f['nomt'];
     }
-    else{
-        $formateur[$f['id_formateur']][2][$f['idt']][] = $f['volumehmoyensession'];
-        $formateur[$f['id_formateur']][2][$f['idt']][] = $f['nbsessioneffectuee'];
-        $formateur[$f['id_formateur']][2][$f['idt']][] = $f['nomt'];
-    }
+    $formateur[$f['id_formateur']][2][$f['idt']][] = $f['volumehmoyensession'];
+    $formateur[$f['id_formateur']][2][$f['idt']][] = $f['nbsessioneffectuee'];
+    $formateur[$f['id_formateur']][2][$f['idt']][] = $f['nomt'];
 }
 
 
@@ -58,8 +50,8 @@ foreach ($formateurs as $f){
                 <!-- Affiche une liste déroulante des catégories -->
                 <option value="" disabled> Categories :</option>
                 <option value="0"> Toutes les catégories </option>
-                <?php foreach(array_keys($categories) as $c):?>
-                    <option class="option" value=<?= $c ?>> <?= $c ?> </option>
+                <?php foreach($listCategories as $c): ?>
+                    <option class="option" value=<?= $c['nomc'] ?>> <?= $c['nomc'] ?> </option>
                 <?php endforeach;?>
             </select>
 
@@ -68,9 +60,9 @@ foreach ($formateurs as $f){
                 <!-- Affiche une liste déroulante des sous catégories en fonction des catégories -->
                 <option value="" disabled> Sous-categories :</option>
                 <option value="0"> Toutes les sous-catégories </option>
-                <?php foreach(array_keys($categories) as $c): ?>
+                <?php foreach(array_keys($sousCategories) as $c): ?>
                     <optgroup label=<?= $c ?>>
-                        <?php foreach($categories[$c] as $sc=>$tabsc):?>
+                        <?php foreach($sousCategories[$c] as $sc=>$tabsc):?>
                             <option class="option" value=<?= $sc ?>> <?= $sc ?> </option>
                         <?php endforeach;?>
                     </optgroup>
@@ -82,9 +74,9 @@ foreach ($formateurs as $f){
                 <!-- Affiche une liste déroulante des sous catégories en fonction des catégories -->
                 <option value="" disabled> Themes :</option>
                 <option value="0"> Touts les thèmes </option>
-                <?php foreach(array_keys($categories) as $c): ?>
+                <?php foreach(array_keys($sousCategories) as $c): ?>
                     <optgroup label=<?= $c ?>>
-                        <?php foreach($categories[$c] as $sc=>$tabsc):?>
+                        <?php foreach($sousCategories[$c] as $sc=>$tabsc):?>
                             <optgroup label=<?= $sc ?>>
                                 <?php foreach ($tabsc as $t):?>
                                     <option class="option" value=<?= $t['nomt'] ?>><?= $t['nomt'] ?></option>
@@ -147,15 +139,27 @@ foreach ($formateurs as $f){
 
 <script>
 
+    function create_input(nom, valeur) {
+        const formulaire = document.getElementById("formulaire");
+        const input = document.createElement("input");
+        input.setAttribute('type', 'hidden');
+        input.setAttribute('name', nom);
+        input.setAttribute('value', valeur);
+        formulaire.appendChild(input)
+    }
+
+    // Algorithme pour renvoyer le formulaire à chaque clique sur un select
+
     let isOpen = 1;
     let locker = -1;
     let derselect = -1;
 
-    const formulaire = document.getElementById("formulaire");
+
     let selects = document.querySelectorAll('select');
 
     selects.forEach(v=>{
         v.addEventListener('click', function () {
+            console.log(this.options[this.options.selectedIndex].value);
             if(this.name === "categorie"){
                 locker = 0;
             }else if(this.name === "souscategorie"){
@@ -169,11 +173,13 @@ foreach ($formateurs as $f){
             if(derselect === locker){
                 isOpen -= 1
                 if(isOpen === 0) {
-                    const input = document.createElement("input");
+                    /*const input = document.createElement("input");
                     input.setAttribute('type', 'hidden');
                     input.setAttribute('name', 'addlocker');
-                    input.setAttribute('value', this.name); // cette input renvoie le select qui a été touché
-                    formulaire.appendChild(input);
+                    input.setAttribute('value', this.name);
+                    formulaire.appendChild(input);*/
+
+                    create_input('addlocker', this.name);// cette input renvoie le select qui a été touché
                     formulaire.submit();
                     isOpen = 1;
                 }
@@ -184,19 +190,19 @@ foreach ($formateurs as $f){
 
         })
     });
-
-
     lis = document.querySelectorAll('.lifiltre');
     console.log(lis);
     lis.forEach(v=>{
         v.addEventListener('click', function (event) {
-            console.log(event.target);
-            if(event.target.contains("croix")){
-                const input = document.createElement("input");
+            console.log(this.className);
+            console.log(this.classList[1]);
+            if(event.target.classList.contains('croix')){
+                /*const input = document.createElement("input");
                 input.setAttribute('type', 'hidden');
                 input.setAttribute('name', 'deletelocker');
                 input.setAttribute('value', this.querySelector('.valeur').textContent + "_" + this.className[1]);
-                formulaire.appendChild(input);
+                formulaire.appendChild(input);*/
+                create_input('deletelocker', this.querySelector('.valeur').textContent + "" + this.classList[1]);  // Valeur dans la liste du filtre visuel + le type (ex = 'programmation_categorie')
                 this.remove();
                 formulaire.submit();
             }

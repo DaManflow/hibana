@@ -155,47 +155,13 @@ class Model
             
                 // Récupérer l'idUtilisateur généré
                 $id_formateur = $this->bd->lastInsertId();
-                //Insertion des experiences 
-                $nombre_experiences = 0;
 
-                    foreach ($_POST as $key => $value) {
-                        // Vérifiez si la clé est associée à une expérience
-                        if (strpos($key, 'theme') !== false) {
-                            $nombre_experiences++;
-                        }
-                    }
-
-                for ($i = 1; $i <= $nombre_experiences; $i++) {
-                    // Préparation et insertion des données dans aExpertiseProfessionnelle
-                    $reqExpertise = $this->bd->prepare('
-                        INSERT INTO aExpertiseProfessionnelle(idn, idt, id_formateur, dureeMExperience, commentaire_expertise)
-                        VALUES (:idn, :idt, :id_formateur, :duree, :commentaire)
-                    ');
-                    $reqExpertise->bindValue(':idn', $infos['expertise' . $i]);
-                    $reqExpertise->bindValue(':idt', $infos['theme' . $i]);
-                    $reqExpertise->bindValue(':id_formateur', $id_formateur);
-                    $reqExpertise->bindValue(':duree', $infos['dureeExpertise' . $i]);
-                    $reqExpertise->bindValue(':commentaire', $infos['commentaireExpertise' . $i]);
-                    $reqExpertise->execute();
-                
-                    // Préparation et insertion des données dans aExperiencePeda
-                    $reqPeda = $this->bd->prepare('
-                        INSERT INTO aExperiencePeda(id_formateur, idt, idp, volumeHMoyenSession, nbSessionEffectuee, commentaire)
-                        VALUES (:id_formateur, :idt, :idp, :volumeHMoyenSession, :nbSessionEffectuee, :commentaire)
-                    ');
-                    $reqPeda->bindValue(':id_formateur', $id_formateur);
-                    $reqPeda->bindValue(':idt', $infos['theme' . $i]);
-                    $reqPeda->bindValue(':idp', $infos['expePeda' . $i]);
-                    $reqPeda->bindValue(':volumeHMoyenSession', $infos['VolumeHMoyenSession' . $i]);
-                    $reqPeda->bindValue(':nbSessionEffectuee', $infos['nbSession' . $i]);
-                    $reqPeda->bindValue(':commentaire', $infos['commentaireExpePeda' . $i]);
-                    $reqPeda->execute();
-                }
 
                 // Deuxième partie : insertion dans la table Formateur
                 $req3 = $this->bd->prepare('
                 INSERT INTO Formateur (id_formateur, linkedin, date_signature, cv, declaration)
-                VALUES (:id_formateur, :linkedin, :date_signature, :cv, :declaration)');
+                VALUES (:id_formateur, :linkedin, :date_signature, :cv, :declaration)
+                ');
                 $req3->bindValue(':id_formateur', $id_formateur);
                 $req3->bindValue(':linkedin', $infos['linkedin']);
                 $req3->bindValue(':date_signature', $infos['date_signature']);
@@ -213,7 +179,9 @@ class Model
                 $cvFileName = basename($_FILES["cv"]["name"]);
                 $cvUploadPath = $formateurDirectory . $cvFileName;
 
-                $req3->bindValue(':cv', $cvUploadPath);               
+                $req3->bindValue(':cv', $cvUploadPath);
+                
+                
 
                 // Déplace le fichier téléchargé vers le répertoire d'upload
 
@@ -349,69 +317,11 @@ class Model
         $req->execute();          // nomC, idc, idc_mere FROM Categorie where validec = true order by idc_mere
         return $req->fetchAll(PDO::FETCH_ASSOC);
     }
-    public function getCategorie($idc){
-        $req = $this->bd->prepare('SELECT idc , nomc  from categorie where idc is not null and idc=:idc') ; 
-        $req->bindValue(':idc',$idc) ;
-        $req->execute() ; 
-        $result = $req->fetchAll(PDO::FETCH_ASSOC);
-        $categories = array();
-        foreach ($result as $categorie) {
-            $categories[$categorie['idc']] = $categorie['nomc'];
-        }
-    
-        return $categories;
-    }
     public function getCategoriesMeres(){
-        $req = $this->bd->prepare('SELECT idc, nomc FROM categorie WHERE idC_mere IS NULL');
-        $req->execute();
-        
-        $result = $req->fetchAll(PDO::FETCH_ASSOC);
-        
-    
-        // Crée un tableau associatif avec 'idc' comme clé et 'nomc' comme valeur
-        $categoriesMeres = array();
-        foreach ($result as $categorie) {
-            $categoriesMeres[$categorie['idc']] = $categorie['nomc'];
-        }
-    
-        return $categoriesMeres;
+        $req  = $this->bd->prepare('SELECT * FROM categorie WHERE idC_mere IS NULL') ;
+        $req->execute() ; 
+        return $req->fetchAll(PDO::FETCH_ASSOC);
     }
-    public function getCategoriesWithSubcategoriesAndThemes2()
-    {
-        $req = $this->bd->prepare('SELECT idc,nomc from categorie WHERE idc_mere IS NULL'); 
-        $req->execute();
-        $tab = $req->fetchAll(PDO::FETCH_ASSOC);
-        $tabC = [];
-        foreach($tab as $val) {
-            $tabC[] = $val['nomc'];
-        }
-        
-
-        
-        return $tabC;
-    }
-
-    public function getCategoriesWithSubcategoriesAndThemes(){
-        $req= $this->bd-> prepare("SELECT 
-        ");
-
-        $req->execute();
-
-        $tableau_final = array();
-
-    // Parcourez les résultats
-    while ($row = $req->fetch(PDO::FETCH_ASSOC)) {
-        // Ajoutez chaque ligne au tableau associatif
-        $tableau_final[$row['cle_principale']] = array(
-            'tableau_idC_mere' => $row['tableau_idC_mere'],
-            'tableau_themes' => $row['tableau_themes']
-        );
-    }
-
-    return $tableau_final;
-
-    }
-
 
     public function getFormateurs($cat="", $scat="", $th=""){
         $req = $this->bd->prepare('select formateur.id_formateur, nom, prenom, volumehmoyensession, nbsessioneffectuee, commentaire, nomt, theme.idt from formateur
@@ -535,160 +445,4 @@ inner join utilisateur on formateur.id_formateur = utilisateur.id_utilisateur');
         
     }
 
-
-    public function add_discussion($infos) {
-
-        if (! $infos) {return false;}
-
-        $erreur_type = [];
-
-        try {
-
-            $this->bd->beginTransaction();
-
-
-
-            $req = $this->bd->prepare('INSERT INTO discussion(id_client,id_formateur) VALUES(:id_client, :id_formateur)');
-            $req->bindValue(':id_client', $_SESSION['idutilisateur']);
-            $req->bindValue(':id_formateur', $infos['id_former']);
-            $req->execute();
-
-            $id_discussion = $this->bd->lastInsertId();
-
-
-            $req2 = $this->bd->prepare('INSERT INTO message(id_discussion,texte,date_heure,valideM,lu) VALUES(:id_discussion, :texte, :date_heure, :valideM, :lu)');
-            $req2->bindValue(':id_discussion', $id_discussion);
-            $req2->bindValue(':texte', $infos['message']);
-            $req2->bindValue(':date_heure', $infos['date_msg']);
-            $req2->bindValue(':valideM', "false");
-            $req2->bindValue(':lu', "false");
-            $req2->execute();
-
-
-
-
-
-
-
-            $this->bd->commit();
-
-
-        }catch (PDOException $e) {
-            // En cas d'erreur, annuler la transaction
-            $this->bd->rollBack();
-
-            $_SESSION = array();
-            session_destroy();
-
-            echo "Erreur : " . $e->getMessage();
-            $erreur_type[] = "error_db";
-            return $erreur_type;
-        }
-
-        $erreur_type[] = "none";
-        return $erreur_type;
-
-
-
-
-
-
-
-    }
-
-    public function getFormersWithLimitVerifModerator($start){
-        /* 
-        Cette fonction retourne une liste des formateurs avec un booléen 
-        indiquant s'il s'agit d'un modérateur ou non sous forme de tableau 
-        (clés = indice; valeurs = tableaux avec nom, prénom, est_modérateur)
-        */
-
-        // Requete pour obtenir un tableau avec les id, noms et prénoms des formateurs
-        $requete1 = $this->bd->prepare('SELECT id_formateur, nom, prenom FROM formateur 
-                                        JOIN utilisateur ON id_utilisateur = id_formateur
-                                        ORDER BY nom ASC LIMIT :end OFFSET :offset');
-
-        if($start == 0){ $offset = 0;}
-        else{$offset = ($start - 1)*25 + 1;}
-        $end = $offset + 24;
-        $requete1->bindValue(':end', $end);
-        $requete1->bindValue(':offset', $offset);
-        $requete1->execute();
-        $tab1 = $requete1->fetchAll(PDO::FETCH_ASSOC);
-
-        // Requete pour obtenir les id_moderateur
-        $requete2 = $this->bd->prepare('SELECT id_moderateur FROM moderateur');
-        $requete2->execute();
-        $tmp = $requete2->fetchAll(PDO::FETCH_ASSOC);
-
-        /*
-        Mise à jour de $tab1 pour obtenir un tableau de la forme :
-        [
-            indice0 => ["id_formateur"=>0, "nom"=>Buscaldi, "prenom"=>"Davide", "est_moderateur"=>false],
-            indice1 => ["id_formateur"=>1, "nom"=>Ellouze, "prenom"=>"Slim", "est_moderateur"=>true],
-            indice2 => ["id_formateur"=>2, "nom"=>Zargayouna, "prenom"=>"Haifa", "est_moderateur"=>true]
-        ]
-        */
-        
-        foreach($tab1 as $tab2){
-            $i = 0;
-            while($i<count($tmp)){
-                if($tmp[$i]["id_moderateur"] == $tab2["id_formateur"]){
-                    $tab2["est_moderateur"] = true;
-                    break;
-                }
-                else{
-                    $tab2["est_moderateur"] = false;
-                }
-                $i = $i + 1;
-            }
-        }
-        return $tab1;
-    }
-
-    public function seeCategories(){
-        $req = $this->bd->prepare('SELECT * FROM categorie WHERE idc_mere IS NULL') ;
-        $req->execute() ;
-        return $req->fetchAll(PDO::FETCH_ASSOC);
-    }
-    public function seeSousCategories(){
-        $req = $this->bd->prepare('SELECT * FROM categorie WHERE idc_mere IS NOT NULL') ;
-        $req->execute() ;
-        return $req->fetchAll(PDO::FETCH_ASSOC);
-    }   
-    public function seeThemes(){
-        $req = $this->bd->prepare('SELECT 
-    t.idT AS id_theme,
-    t.nomT AS theme,
-    c1.nomC AS sous_categorie,
-    c2.nomC AS categorie
-FROM 
-    theme t
-JOIN 
-    categorie c1 ON t.idC = c1.idC
-LEFT JOIN 
-    categorie c2 ON c1.idC_mere = c2.idC
-WHERE 
-    c1.idC_mere IS NOT NULL;
-') ;
-        $req->execute() ;
-        return $req->fetchAll(PDO::FETCH_ASSOC);
-
-    } 
-    public function seeLevel(){
-        $req = $this->bd->prepare('SELECT * FROM niveau') ;
-        $req->execute() ; 
-        return $req->fetchAll(PDO::FETCH_ASSOC);
-    }
-    public function seePublic(){
-        $req = $this->bd->prepare('SELECT * FROM public') ;
-        $req->execute() ; 
-        return $req->fetchAll(PDO::FETCH_ASSOC);
-    }
-    public function selectTheme($id_t){
-        $req->$this->bd->prepare('SELECT nomc from theme WHERE idt=:idt');
-        $req->bindValue(':idt', $id_t) ; 
-        $req->execute();
-        return $req->fetchAll(PDO::FETCH_ASSOC);
-        }
 }
