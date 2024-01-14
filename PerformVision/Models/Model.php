@@ -312,13 +312,23 @@ class Model
         return $req->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function getCategories(){
-        $req = $this->bd->prepare('SELECT c1.nomC, c1.idc, c2.nomc as idc_mere FROM Categorie as c1 left outer join categorie as c2 on c2.idc = c1.idc_mere where c2.validec = true order by idc'); // A revoir
+    public function getSousCategories($cat = 0){
+        if($cat == 0){
+            $req = $this->bd->prepare('SELECT c1.nomC, c1.idc, c2.nomc as nomc_mere, c2.idc_mere FROM Categorie as c1 left outer join categorie as c2 on c2.idc = c1.idc_mere where c2.validec = true order by idc');
+
+        }else{
+            $res = "''";
+            foreach ($cat as $c){
+                $res .= ",'".$c."'";
+                $req = $this->bd->prepare('SELECT c1.nomC, c1.idc, c2.nomc as nomc_mere, c2.idc_mere FROM Categorie as c1 left outer join categorie as c2 on c2.idc = c1.idc_mere where c2.validec = true and c2.nomc IN('.$res.') order by idc');
+            }
+        }
         $req->execute();          // nomC, idc, idc_mere FROM Categorie where validec = true order by idc_mere
         return $req->fetchAll(PDO::FETCH_ASSOC);
     }
+
     public function getCategoriesMeres(){
-        $req  = $this->bd->prepare('SELECT * FROM categorie WHERE idC_mere IS NULL') ;
+        $req  = $this->bd->prepare('SELECT * FROM categorie WHERE validec = true and idC_mere IS NULL') ;
         $req->execute() ; 
         return $req->fetchAll(PDO::FETCH_ASSOC);
     }

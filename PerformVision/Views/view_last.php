@@ -4,7 +4,8 @@
 
 require "view_begin.php";
 
-echo var_dump($filtre);
+// echo var_dump($listSousCategories);
+ echo var_dump($filtre);
 
 // Créer un tableau des catégories avec comme valeurs ses sous-catégories avec comme valeurs de celle-ci les thèmes associés
 
@@ -24,6 +25,8 @@ foreach ($listSousCategories as $sc){
         }
     }
 }
+
+//echo var_dump($sousCategories);
 
 // Créer un tableau des formateurs avec un tableau pour chaque compétence
 
