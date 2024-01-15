@@ -320,19 +320,20 @@ function generatePDF($id_formateur, $name, $surname, $email, $phone, $linkedin, 
     $pdf->MultiCell(100, 20,'Linkedin: ' . $linkedin);
 
     $pdf->Cell(100, 10, 'Vos Formations : ', 0, 1);
-    for ($i = 1; isset($_SESSION['theme' . $i]); $i++) {
-        
-        $theme = $_SESSION[$_POST['theme' . $i]]['theme'];
-        $expertise = $_SESSION[$_POST['expertise' . $i]]['libelle'];
+    for ($i = 1; isset($_POST['theme' . $i]); $i++) {
+        $categorie = $_SESSION['themes'][$_POST['theme' . $i]]['categorie'];
+        $sous_categorie = $_SESSION['themes'][$_POST['theme' . $i]]['sous_categorie'];
+        $theme = $_SESSION['themes'][$_POST['theme' . $i]]['theme'];
+        $expertise = $_SESSION['levels'][$_POST['expertise' . $i]]['libelle'];
         $duree = $_POST['dureeExpertise' . $i];
         $commentaire = $_POST['commentaireExpertise' . $i];
-        $expertise = $_SESSION[$_POST['expePeda' . $i]]['libellep'];
+        $expePeda = $_SESSION['public'][$_POST['expePeda' . $i]]['libellep'];
         $volumeHMoyenSession = $_POST['VolumeHMoyenSession' . $i];
         $nbSession = $_POST['nbSession' . $i];
         $commentaireExpePeda = $_POST['commentaireExpePeda' . $i];
     
         // Ajouter les informations d'expérience au PDF
-        $pdf->MultiCell(100, 20, "Thème: $theme\nExpertise: $expertise\nDurée: $duree\nCommentaire: $commentaire\nExpérience pédagogique: $expePeda\nVolume horaire moyen de session: $volumeHMoyenSession\nNombre de sessions: $nbSession\nCommentaire: $commentaireExpePeda");
+        $pdf->MultiCell(100, 20, "Categorie : $categorie\nSous-catégorie : $sous_categorie\nThème : $theme\nExpertise : $expertise\nDurée : $duree\nCommentaire : $commentaire\nExpérience pédagogique : $expePeda\nVolume horaire moyen de session : $volumeHMoyenSession\nNombre de sessions : $nbSession\nCommentaire : $commentaireExpePeda");
         $pdf->Ln(6);
     }
     $pdf->MultiCell(100, 20,'Signature: '. $signature);

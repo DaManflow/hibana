@@ -79,15 +79,6 @@ class Model
 
                 $this->bd->commit();
 
-                if (session_status() == PHP_SESSION_NONE) {
-                    // Si la session n'est pas démarrée, alors on la démarre
-                    session_start();
-                }
-                else {
-                    session_destroy();
-                    session_start();
-                }
-
 
                 $_SESSION['idutilisateur'] = $id_client;
                 $_SESSION['name'] = $infos['name'];
@@ -125,10 +116,7 @@ class Model
     public function createFormer($infos) {
         if (! $infos) {return false;}
 
-        $erreur_type = [];
-
-        
-        
+        $erreur_type = []; 
 
         $req_verif = $this->bd->prepare('SELECT COUNT(*) AS count FROM UTILISATEUR WHERE mail = :email OR telephone = :phone');
         $req_verif->bindValue(":email", $infos['email']);
