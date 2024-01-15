@@ -301,8 +301,8 @@ class Model
         return $req->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function getSousCategories($cat = 0){
-        if($cat == 0){
+    public function getSousCategories($cat){
+        if($cat == 'tout'){
             $req = $this->bd->prepare('SELECT c1.nomC, c1.idc, c2.nomc as nomc_mere, c2.idc_mere FROM Categorie as c1 left outer join categorie as c2 on c2.idc = c1.idc_mere where c2.validec = true order by idc');
 
         }else{

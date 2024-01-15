@@ -12,12 +12,15 @@ class Controller_list extends Controller{
         if(!(isset($_POST['filtrecategorie']))){
             $filtrecat = [];
         }else{
+            echo var_dump($_POST['filtrecategorie']);
             $filtrecat = unserialize($_POST['filtrecategorie']);
         }
 
         if(!(isset($_POST['filtresouscategorie']))){
             $filtresouscat = [];
         }else{
+            echo 'feur';
+            echo var_dump($_POST['filtresouscategorie']);
             $filtresouscat = unserialize($_POST['filtresouscategorie']);
         }
 
@@ -50,8 +53,9 @@ class Controller_list extends Controller{
 
 
 
-        if(!array_search(0, $filtre['categorie']) and count($filtre['categorie']) <= 1){
-            $valPourRequetecat = 0;
+        if(count($filtre['categorie']) == 0){ // Si il n'y a pas encore de categorie choisie
+            $valPourRequetecat = 'tout';
+
         }else{
             $valPourRequetecat = $filtre['categorie'];
         }
