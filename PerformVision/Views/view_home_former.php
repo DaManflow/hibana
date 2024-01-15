@@ -18,13 +18,13 @@ if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "client") {
             <li class="conseils">Conseils</li>
             <li class="autres">Autres
                 <ul class="dropdown">
-                    <li>Activité 1</li>
-                    <li>Activité 2</li>
-                    <li>Activité 3</li>
+                    <ul><a href="#" id="link">Activité 1</a></ul>
+                    <ul><a href="#" id="link">Activité 2</a></ul>
+                    <ul><a href="#" id="link">Activité 3</a></ul>
                 </ul>
             </li>
-            <li class="connect"><a href="?controller=message_former&action=mes_messages"><button><span class="aut">Mes discussions</span></button></a></li>
-            <li class="connect"><a href="?controller=profil_former&action=profil_former"><button><i class="fa-regular fa-circle-user"></i><span class="aut">Mon profil</span></button></a></li>
+            <a class="connect" href="../?controller=message_former&action=mes_messages"><button><span class="aut">Mes discussions</span></button></a></li>
+            <a class="connect" href="../?controller=profil_former&action=profil_former"><button><i class="fa-regular fa-circle-user"></i><span class="aut">Mon profil</span></button></a></li>
         </ul>
     </div>
 </div>

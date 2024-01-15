@@ -29,16 +29,16 @@ foreach ($listSousCategories as $sc){
 //echo var_dump($sousCategories);
 
 // Créer un tableau des formateurs avec un tableau pour chaque compétence
-
-$formateur = [];
-foreach ($formateurs as $f){
-    if(!(key_exists($f['id_formateur'], $formateur))) {
-        $formateur[$f['id_formateur']] = [$f['nom'], $f['prenom']];
-    }
-    $formateur[$f['id_formateur']][2][$f['idt']][] = $f['volumehmoyensession'];
-    $formateur[$f['id_formateur']][2][$f['idt']][] = $f['nbsessioneffectuee'];
-    $formateur[$f['id_formateur']][2][$f['idt']][] = $f['nomt'];
-}
+//
+//$formateur = [];
+//foreach ($formateurs as $f){
+//    if(!(key_exists($f['id_formateur'], $formateur))) {
+//        $formateur[$f['id_formateur']] = [$f['nom'], $f['prenom']];
+//    }
+//    $formateur[$f['id_formateur']][2][$f['idt']][] = $f['volumehmoyensession'];
+//    $formateur[$f['id_formateur']][2][$f['idt']][] = $f['nbsessioneffectuee'];
+//    $formateur[$f['id_formateur']][2][$f['idt']][] = $f['nomt'];
+//}
 
 ?>
 
