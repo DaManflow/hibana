@@ -156,47 +156,13 @@ class Model
             
                 // Récupérer l'idUtilisateur généré
                 $id_formateur = $this->bd->lastInsertId();
-                //Insertion des experiences 
-                $nombre_experiences = 0;
 
-                    foreach ($_POST as $key => $value) {
-                        // Vérifiez si la clé est associée à une expérience
-                        if (strpos($key, 'theme') !== false) {
-                            $nombre_experiences++;
-                        }
-                    }
-
-                for ($i = 1; $i <= $nombre_experiences; $i++) {
-                    // Préparation et insertion des données dans aExpertiseProfessionnelle
-                    $reqExpertise = $this->bd->prepare('
-                        INSERT INTO aExpertiseProfessionnelle(idn, idt, id_formateur, dureeMExperience, commentaire_expertise)
-                        VALUES (:idn, :idt, :id_formateur, :duree, :commentaire)
-                    ');
-                    $reqExpertise->bindValue(':idn', $infos['expertise' . $i]);
-                    $reqExpertise->bindValue(':idt', $infos['theme' . $i]);
-                    $reqExpertise->bindValue(':id_formateur', $id_formateur);
-                    $reqExpertise->bindValue(':duree', $infos['dureeExpertise' . $i]);
-                    $reqExpertise->bindValue(':commentaire', $infos['commentaireExpertise' . $i]);
-                    $reqExpertise->execute();
-                
-                    // Préparation et insertion des données dans aExperiencePeda
-                    $reqPeda = $this->bd->prepare('
-                        INSERT INTO aExperiencePeda(id_formateur, idt, idp, volumeHMoyenSession, nbSessionEffectuee, commentaire)
-                        VALUES (:id_formateur, :idt, :idp, :volumeHMoyenSession, :nbSessionEffectuee, :commentaire)
-                    ');
-                    $reqPeda->bindValue(':id_formateur', $id_formateur);
-                    $reqPeda->bindValue(':idt', $infos['theme' . $i]);
-                    $reqPeda->bindValue(':idp', $infos['expePeda' . $i]);
-                    $reqPeda->bindValue(':volumeHMoyenSession', $infos['VolumeHMoyenSession' . $i]);
-                    $reqPeda->bindValue(':nbSessionEffectuee', $infos['nbSession' . $i]);
-                    $reqPeda->bindValue(':commentaire', $infos['commentaireExpePeda' . $i]);
-                    $reqPeda->execute();
-                }
 
                 // Deuxième partie : insertion dans la table Formateur
                 $req3 = $this->bd->prepare('
                 INSERT INTO Formateur (id_formateur, linkedin, date_signature, cv, declaration)
-                VALUES (:id_formateur, :linkedin, :date_signature, :cv, :declaration)');
+                VALUES (:id_formateur, :linkedin, :date_signature, :cv, :declaration)
+                ');
                 $req3->bindValue(':id_formateur', $id_formateur);
                 $req3->bindValue(':linkedin', $infos['linkedin']);
                 $req3->bindValue(':date_signature', $infos['date_signature']);
@@ -214,7 +180,9 @@ class Model
                 $cvFileName = basename($_FILES["cv"]["name"]);
                 $cvUploadPath = $formateurDirectory . $cvFileName;
 
-                $req3->bindValue(':cv', $cvUploadPath);               
+                $req3->bindValue(':cv', $cvUploadPath);
+                
+                
 
                 // Déplace le fichier téléchargé vers le répertoire d'upload
 
@@ -345,74 +313,26 @@ class Model
         return $req->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function getCategories(){
-        $req = $this->bd->prepare('SELECT c1.nomC, c1.idc, c2.nomc as idc_mere FROM Categorie as c1 left outer join categorie as c2 on c2.idc = c1.idc_mere where c2.validec = true order by idc'); // A revoir
+    public function getSousCategories($cat = 0){
+        if($cat == 0){
+            $req = $this->bd->prepare('SELECT c1.nomC, c1.idc, c2.nomc as nomc_mere, c2.idc_mere FROM Categorie as c1 left outer join categorie as c2 on c2.idc = c1.idc_mere where c2.validec = true order by idc');
+
+        }else{
+            $res = "''";
+            foreach ($cat as $c){
+                $res .= ",'".$c."'";
+                $req = $this->bd->prepare('SELECT c1.nomC, c1.idc, c2.nomc as nomc_mere, c2.idc_mere FROM Categorie as c1 left outer join categorie as c2 on c2.idc = c1.idc_mere where c2.validec = true and c2.nomc IN('.$res.') order by idc');
+            }
+        }
         $req->execute();          // nomC, idc, idc_mere FROM Categorie where validec = true order by idc_mere
         return $req->fetchAll(PDO::FETCH_ASSOC);
     }
-    public function getCategorie($idc){
-        $req = $this->bd->prepare('SELECT idc , nomc  from categorie where idc is not null and idc=:idc') ; 
-        $req->bindValue(':idc',$idc) ;
-        $req->execute() ; 
-        $result = $req->fetchAll(PDO::FETCH_ASSOC);
-        $categories = array();
-        foreach ($result as $categorie) {
-            $categories[$categorie['idc']] = $categorie['nomc'];
-        }
-    
-        return $categories;
-    }
+
     public function getCategoriesMeres(){
-        $req = $this->bd->prepare('SELECT idc, nomc FROM categorie WHERE idC_mere IS NULL');
-        $req->execute();
-        
-        $result = $req->fetchAll(PDO::FETCH_ASSOC);
-        
-    
-        // Crée un tableau associatif avec 'idc' comme clé et 'nomc' comme valeur
-        $categoriesMeres = array();
-        foreach ($result as $categorie) {
-            $categoriesMeres[$categorie['idc']] = $categorie['nomc'];
-        }
-    
-        return $categoriesMeres;
+        $req  = $this->bd->prepare('SELECT * FROM categorie WHERE validec = true and idC_mere IS NULL') ;
+        $req->execute() ; 
+        return $req->fetchAll(PDO::FETCH_ASSOC);
     }
-    public function getCategoriesWithSubcategoriesAndThemes2()
-    {
-        $req = $this->bd->prepare('SELECT idc,nomc from categorie WHERE idc_mere IS NULL'); 
-        $req->execute();
-        $tab = $req->fetchAll(PDO::FETCH_ASSOC);
-        $tabC = [];
-        foreach($tab as $val) {
-            $tabC[] = $val['nomc'];
-        }
-        
-
-        
-        return $tabC;
-    }
-
-    public function getCategoriesWithSubcategoriesAndThemes(){
-        $req= $this->bd-> prepare("SELECT 
-        ");
-
-        $req->execute();
-
-        $tableau_final = array();
-
-    // Parcourez les résultats
-    while ($row = $req->fetch(PDO::FETCH_ASSOC)) {
-        // Ajoutez chaque ligne au tableau associatif
-        $tableau_final[$row['cle_principale']] = array(
-            'tableau_idC_mere' => $row['tableau_idC_mere'],
-            'tableau_themes' => $row['tableau_themes']
-        );
-    }
-
-    return $tableau_final;
-
-    }
-
 
     public function getFormateurs($cat="", $scat="", $th=""){
         $req = $this->bd->prepare('select formateur.id_formateur, nom, prenom, volumehmoyensession, nbsessioneffectuee, commentaire, nomt, theme.idt from formateur
