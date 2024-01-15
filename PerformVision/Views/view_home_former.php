@@ -8,13 +8,20 @@ if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "client") {
     header("Location: /hibana-main/PerformVision/?controller=home_customer&action=home_customer");
 }
 
+if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "administrateur") {
+    header("Location: /hibana-main/PerformVision/?controller=home_admin&action=home_admin");
+}
+
+
+
+
 
 ?>
 <div class="debut">
     <div class="partie-gauche">PerformVision Training & Consulting</div>
     <div class="partie-droite">
         <ul class="ul1">
-        <li class="formations"><a href="/hibana-main/PerformVision/?controller=former_list&action=former_pagination">Formations</a></li>
+        <li class="formations"><a href="/hibana-main/PerformVision/?controller=former_list&action=former_pagination">Formateurs</a></li>
         <li class="conseils">Conseils</li>
         <li class="autres">Autres        
         <ul class="dropdown">
@@ -23,7 +30,7 @@ if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "client") {
             <li>Activité 3</li>
         </ul>
 </li>
-<li class="connect"><a href="/hibana-main/PerformVision/?controller=message_former&action=mes_messages"><button><span class="aut">Mes discussions</span></button></a></li>
+<li class="connect"><a href="/hibana-main/PerformVision/?controller=message_former&action=mes_discussions"><button><span class="aut">Mes discussions</span></button></a></li>
         <li class="connect"><a href="/hibana-main/PerformVision/?controller=profil_former&action=profil_former"><button><i class="fa-regular fa-circle-user"></i><span class="aut">Mon profil</span></button></a></li>
 </ul>
     </div>

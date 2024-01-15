@@ -5,20 +5,16 @@
 
         if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "client") {
             foreach($printab as $cle => $val) {
-                echo "<tr><td> <a href=?controller=message_customer&action=envoyer_message_customer&id=" . $val['id_utilisateur'] . ">" . $val['nom'] . "</a>" . "</td><td>" . $val['prenom'] . "</td></tr>";
+                echo "<tr><td> <a href=?controller=message_customer&action=envoyer_message_customer&id=" . $val['id_utilisateur'] . ">" . $val['nom'] . "   " . $val['prenom'] . " " . $val['mail'] . "</a></td></tr>";
             }
         }
 
         if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "formateur") {
-            foreach($printab as $cle => $val) {
-                echo "<tr><td> <a href=?controller=former_list&action=former_information_former&id=" . $val['id_utilisateur'] . ">" . $val['nom'] . "</a>" . "</td><td>" . $val['prenom'] . "</td></tr>";
-            }
+            header("Location: ?controller=home_former&action=home_former");
         }
 
         if (!isset($_SESSION['idutilisateur'])) {
-            foreach($printab as $cle => $val) {
-                echo "<tr><td> <a href=?controller=former_list&action=former_information_no_login&id=" . $val['id_utilisateur'] . ">" . $val['nom'] . "</a>" . "</td><td>" . $val['prenom'] . "</td></tr>";
-            }
+            header("Location: ?controller=home&action=home");
         }
 
         ?>

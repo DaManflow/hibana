@@ -54,12 +54,14 @@ CREATE TABLE discussion(
 CREATE TABLE message(
    id_message SERIAL,
    id_discussion INTEGER,
+   id_utilisateur INTEGER,
    texte VARCHAR(1500),
    date_heure TIMESTAMP NOT NULL,
    valideM BOOLEAN NOT NULL,
    lu BOOLEAN NOT NULL,
    PRIMARY KEY(id_message, id_discussion),
-   FOREIGN KEY(id_discussion) REFERENCES discussion(id_discussion)
+   FOREIGN KEY(id_discussion) REFERENCES discussion(id_discussion),
+   FOREIGN KEY(id_utilisateur) REFERENCES utilisateur(id_utilisateur)
 );
 
 CREATE TABLE activite(
@@ -137,3 +139,32 @@ CREATE TABLE aExperiencePeda(
    FOREIGN KEY(idT) REFERENCES theme(idT),
    FOREIGN KEY(id_formateur) REFERENCES formateur(id_formateur)
 );
+
+
+/*
+
+Requête pour créer un administrateur dans la base de donnée :
+
+-- Assurez-vous d'avoir activé l'extension pgcrypto (une seule fois)
+CREATE EXTENSION IF NOT EXISTS pgcrypto;
+
+DO $$
+DECLARE
+    random_salt VARCHAR(32);
+    raw_password VARCHAR(255) := 'test';
+    encrypted_password VARCHAR(255);
+
+BEGIN
+
+	-- Générer un sel aléatoire pour chaque utilisateur
+    random_salt := gen_salt('md5');
+
+    -- Chiffrage du mot de passe avec SHA-256 et le sel
+    encrypted_password := crypt(raw_password, random_salt);
+
+
+	-- Insertion de l'utilisateur dans la base de données avec le mot de passe chiffré et le sel
+	INSERT INTO utilisateur (nom, prenom, mail, password, telephone, role, est_affranchi)
+	VALUES ('Guillauby', 'Djibryl', 'DA@gmail.com', encrypted_password, 123456789, 'administrateur', TRUE);
+
+END $$;

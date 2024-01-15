@@ -1,17 +1,13 @@
 <?php require "view_begin.php";
-if (isset($_POST)) {
-    var_dump($_POST);
-    var_dump($_SESSION);
-}
 ?>
 
-<h1> Envoyer un message à <?= $infos[0]['nom'] . " " .  $infos[0]['prenom'] ?></h1>
+<h1> Envoyer un message à <?= $infos[0]['nom'] . " " .  $infos[0]['prenom'] . " " . $infos[0]['mail'] ?></h1>
 
 <form action="?controller=message_customer&action=send_message" method="POST">
     
     <p> <label> <input type="hidden" name="date_msg" value="<?= currentTime() ?>" /></label> </p>
     <p> <label> <input type="hidden" name="id_former" value="<?= $_GET["id"]?>" /></label> </p>
-    <p> <label> <textarea name="message" placeholder="Ecrivez votre message"></textarea> </label> </p>
+    <p> <label> <textarea name="message" placeholder="Ecrivez votre message" required=""></textarea> </label> </p>
 
     <p> <label> <input required="" type="submit" name="submit" value="Envoyer"> </label> </p>
 
