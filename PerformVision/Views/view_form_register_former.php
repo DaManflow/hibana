@@ -1,7 +1,8 @@
-
 <?php require "view_begin.php";
-require_once "./Utils/functions.php" ;
-
+require_once "./Utils/functions.php" ; 
+$_SESSION['themes'] = $themes ; 
+$_SESSION['public'] = $public ; 
+$_SESSION['levels'] = $levels ; 
 ?>
 
 <h1> S'incrire </h1>
@@ -41,25 +42,33 @@ require_once "./Utils/functions.php" ;
                 <label for="theme${experienceCounter}">Expérience :</label>
                 <select name="theme${experienceCounter}">
                     <?php
+                            foreach ($themes as $id_theme => $themeData) {
+                                $categorie = $themeData['categorie'];
+                                $sous_categorie = $themeData['sous_categorie'];
+                                $theme = $themeData['theme'];
 
-                    foreach ($themes as $row) {
-                        if ($currentCategory !== $row['categorie']) {
+                                if ($currentCategory !== $categorie) {
+                                    if ($currentCategory !== null) {
+                                        echo '</optgroup>';
+                                    }
+                                    echo '<optgroup label="' . e($categorie) . '">';
+                                    $currentCategory = $categorie;
+                                }
+                                
+                                echo '<option value="' . e($id_theme) . '">' . e($sous_categorie) . ' : ' . e($theme) . '</option>';
+                            }
+
                             if ($currentCategory !== null) {
                                 echo '</optgroup>';
                             }
-                            echo '<optgroup label="' . e($row['categorie']) . '">';
-                            $currentCategory = $row['categorie'];
-                        }
-                        echo '<option value="' . e($row['id_theme']) . '">' . e($row['sous_categorie']) . ' : ' . e($row['theme']) . '</option>';
-                }
                     ?>
                 </select>
 </br>
                 <label for="expertise${experienceCounter}">Expertise Professionnelle :</label>
                 <select name="expertise${experienceCounter}">
                 <?php
-                foreach ($levels as $col) {
-                    echo '<option value="' . e($col['idn']) . '">' . e($col['libelle']). '</option>' ;
+                foreach ($levels as $id => $col) {
+                    echo '<option value="' . e($id) . '">' . e($col['libelle']). '</option>';
                 }
                 ?>
                 </select>
@@ -72,8 +81,8 @@ require_once "./Utils/functions.php" ;
                 <label for="expePeda${experienceCounter}">Experience Padagogique :</label>
                 <select name="expePeda${experienceCounter}">
                 <?php
-                foreach ($public as $val) {
-                    echo '<option value="' . e($val['idp']) . '">' . e($val['libellep']). '</option>' ;
+                foreach ($public as $id => $val) {
+                    echo '<option value="' . e($id) . '">' . e($val['libellep']). '</option>';
                 }
                 ?>
                 </select>
@@ -91,14 +100,51 @@ require_once "./Utils/functions.php" ;
             experiencesContainer.appendChild(newExperienceDiv);
             experienceCounter++;
         }
-        if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])) {
-    
-    // Store values from experiences (adjust the variable names accordingly)
-   
-}
-
-
     </script>
 </form>
+
 <?php 
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])) {
+    var_dump($_POST) ; 
+    $experienceIndex = 1;
+    while (isset($_POST['theme' . $experienceIndex])) {
+        $themeKey = 'theme' . $experienceIndex;
+        $expertiseKey = 'expertise' . $experienceIndex;
+        $dureeExpertiseKey = 'dureeExpertise' . $experienceIndex;
+        $commentaireExpertiseKey = 'commentaireExpertise' . $experienceIndex;
+        $expePedaKey = 'expePeda' . $experienceIndex;
+        $VolumeHMoyenSessionKey = 'VolumeHMoyenSession' . $experienceIndex;
+        $nbSessionKey = 'nbSession' . $experienceIndex;
+        $commentaireExpePedaKey = 'commentaireExpePeda' . $experienceIndex;
+
+        if (
+            isset($_POST[$themeKey]) && isset($_POST[$expertiseKey]) &&
+            isset($_POST[$dureeExpertiseKey]) && isset($_POST[$commentaireExpertiseKey]) &&
+            isset($_POST[$expePedaKey]) && isset($_POST[$VolumeHMoyenSessionKey]) &&
+            isset($_POST[$nbSessionKey]) && isset($_POST[$commentaireExpePedaKey])
+        ) {
+            // Traitement de chaque expérience et ajout à $infos
+            $theme = $_POST[$themeKey];
+            $expertise = $_POST[$expertiseKey];
+            $dureeExpertise = $_POST[$dureeExpertiseKey];
+            $commentaireExpertise = $_POST[$commentaireExpertiseKey];
+            $expePeda = $_POST[$expePedaKey];
+            $VolumeHMoyenSession = $_POST[$VolumeHMoyenSessionKey];
+            $nbSession = $_POST[$nbSessionKey];
+            $commentaireExpePeda = $_POST[$commentaireExpePedaKey];
+
+            // Effectuez ici vos vérifications et traitements spécifiques
+/*
+            // Ajoutez les données au tableau $infos
+            $_SESSION[$themeKey] = $themes[$theme]['theme'];
+            $_SESSION[$expertiseKey] = $levels[$expertise]['libelle'];
+            $_SESSION[$expePedaKey] = $public[$expePeda]['libellep'];
+            */
+        }
+        
+
+        $experienceIndex++;
+    } 
+    
+}
 require "view_end.php";?>

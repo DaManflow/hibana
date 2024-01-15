@@ -320,12 +320,13 @@ function generatePDF($id_formateur, $name, $surname, $email, $phone, $linkedin, 
     $pdf->MultiCell(100, 20,'Linkedin: ' . $linkedin);
 
     $pdf->Cell(100, 10, 'Vos Formations : ', 0, 1);
-    for ($i = 1; isset($_POST['theme' . $i]); $i++) {
-        $theme = $_POST['theme' . $i];
-        $expertise = $_POST['expertise' . $i];
+    for ($i = 1; isset($_SESSION['theme' . $i]); $i++) {
+        
+        $theme = $_SESSION[$_POST['theme' . $i]]['theme'];
+        $expertise = $_SESSION[$_POST['expertise' . $i]]['libelle'];
         $duree = $_POST['dureeExpertise' . $i];
         $commentaire = $_POST['commentaireExpertise' . $i];
-        $expePeda = $_POST['expePeda' . $i];
+        $expertise = $_SESSION[$_POST['expePeda' . $i]]['libellep'];
         $volumeHMoyenSession = $_POST['VolumeHMoyenSession' . $i];
         $nbSession = $_POST['nbSession' . $i];
         $commentaireExpePeda = $_POST['commentaireExpePeda' . $i];

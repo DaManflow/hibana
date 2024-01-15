@@ -21,6 +21,7 @@ class Model
         
         include "credentials.php";
         $this->bd = new PDO($dsn, $login, $mdp);
+        $this->bd->exec("SET NAMES 'utf8'");
         $this->bd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $this->bd->query("SET nameS 'utf8'");
     }
@@ -671,24 +672,48 @@ LEFT JOIN
 WHERE 
     c1.idC_mere IS NOT NULL;
 ') ;
-        $req->execute() ;
-        return $req->fetchAll(PDO::FETCH_ASSOC);
+$req->execute();
+    $themes = $req->fetchAll(PDO::FETCH_ASSOC);
+
+    $result = array();
+    foreach ($themes as $theme) {
+        $id_theme = $theme['id_theme'];
+        unset($theme['id_theme']);
+        $result[$id_theme] = $theme;
+    }
+
+    return $result;
 
     } 
-    public function seeLevel(){
-        $req = $this->bd->prepare('SELECT * FROM niveau') ;
-        $req->execute() ; 
-        return $req->fetchAll(PDO::FETCH_ASSOC);
+    public function seeLevel()
+{
+    $req = $this->bd->prepare('SELECT * FROM niveau');
+    $req->execute();
+    $levels = $req->fetchAll(PDO::FETCH_ASSOC);
+
+    $result = array();
+    foreach ($levels as $level) {
+        $id = $level['idn'];
+        unset($level['idn']);
+        $result[$id] = $level;
     }
-    public function seePublic(){
-        $req = $this->bd->prepare('SELECT * FROM public') ;
-        $req->execute() ; 
-        return $req->fetchAll(PDO::FETCH_ASSOC);
+
+    return $result;
+}
+public function seePublic()
+{
+    $req = $this->bd->prepare('SELECT * FROM public');
+    $req->execute();
+    $publics = $req->fetchAll(PDO::FETCH_ASSOC);
+
+    $result = array();
+    foreach ($publics as $public) {
+        $id = $public['idp'];
+        unset($public['idp']);
+        $result[$id] = $public;
     }
-    public function selectTheme($id_t){
-        $req->$this->bd->prepare('SELECT nomc from theme WHERE idt=:idt');
-        $req->bindValue(':idt', $id_t) ; 
-        $req->execute();
-        return $req->fetchAll(PDO::FETCH_ASSOC);
-        }
+
+    return $result;
+}
+
 }
