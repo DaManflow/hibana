@@ -27,6 +27,8 @@ if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "administrateur") 
                     <ul><a href="#" id="link">Activité 3</a></ul>
                 </ul>
             </li>
+            <a class="connect" href="?controller=proposer_theme&action=proposer_theme">
+                <button><i class="fa-regular fa-message"></i><span class="aut">Proposer un thème</span></button></a></li>
             <a class="connect" href="?controller=message_former&action=mes_messages">
                 <button><i class="fa-regular fa-message"></i><span class="aut">Mes discussions</span></button></a></li>
             <a class="connect" href="?controller=profil_former&action=profil_former">
