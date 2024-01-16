@@ -38,8 +38,7 @@ $_SESSION['levels'] = $levels ;
             // Ajoute le HTML du menu déroulant au nouvel élément div
            
             newExperienceDiv.innerHTML = `
-            <br>
-            <br>
+            <br> <h1>Informations sur l'Expérience</h1>
                 <label for="theme${experienceCounter}">Expérience :</label>
                 <select name="theme${experienceCounter}">
                     <?php
