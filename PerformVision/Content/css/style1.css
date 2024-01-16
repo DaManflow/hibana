@@ -549,3 +549,20 @@ div.divchoice p{
     background-color: #265587;
     transform: scale(1.05);
 }
+
+.experienceDropdown{
+    width: 1500px;
+    text-align: left;
+    list-style: none;
+    padding: 8px;
+    background-color: #2671a7; /* Bleu foncé */
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: bold;
+    margin: 4px 0 3% 5%;
+    font-family: Roboto, sans-serif;
+    font-size: large;
+    transition: 0.3s;
+}
