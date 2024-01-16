@@ -7,19 +7,30 @@
 
         if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "client") {
             foreach($printab as $cle => $val) {
-                echo "<tr><td> <a href=?controller=former_list&action=former_information_customer&id=" . $val['id_utilisateur'] . ">" . $val['nom'] . "</a>" . "</td><td>" . $val['prenom'] . "</td></tr>";
+                echo "<tr><td> <a href=?controller=former_list&action=former_information_customer&id=" . $val['id_utilisateur'] . ">" . $val['nom'] . " " . $val['prenom'] . " " . $val['mail'] . "</a></td></tr>";
             }
         }
 
         if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "formateur") {
             foreach($printab as $cle => $val) {
-                echo "<tr><td> <a href=?controller=former_list&action=former_information_former&id=" . $val['id_utilisateur'] . ">" . $val['nom'] . "</a>" . "</td><td>" . $val['prenom'] . "</td></tr>";
+                echo "<tr><td> <a href=?controller=former_list&action=former_information_former&id=" . $val['id_utilisateur'] . ">" . $val['nom'] . " "  . $val['prenom'] . " " . $val['mail'] . "</a></td></tr>";
             }
         }
 
         if (!isset($_SESSION['idutilisateur'])) {
             foreach($printab as $cle => $val) {
-                echo "<tr><td> <a href=?controller=former_list&action=former_information_no_login&id=" . $val['id_utilisateur'] . ">" . $val['nom'] . "</a>" . "</td><td>" . $val['prenom'] . "</td></tr>";
+                echo "<tr><td> <a href=?controller=former_list&action=former_information_no_login&id=" . $val['id_utilisateur'] . ">" . $val['nom'] . " " . $val['prenom'] . "</a></td></tr>";
+            }
+        }
+        if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "administrateur") {
+            foreach($printab as $cle => $val) {
+                echo "<tr><td> <a href=?controller=former_list&action=former_information_admin&id=" . $val['id_utilisateur'] . ">" . $val['nom'] . " " . $val['prenom'] . " " . $val['mail'] . "</a></td></tr>";
+            }
+        }
+
+        if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "moderateur") {
+            foreach($printab as $cle => $val) {
+                echo "<tr><td> <a href=?controller=former_list&action=former_information_moderator&id=" . $val['id_utilisateur'] . ">" . $val['nom'] . " " . $val['prenom'] . " " . $val['mail'] . "</a></td></tr>";
             }
         }
 

@@ -15,23 +15,25 @@ if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "formateur") {
     <div class="partie-droite">
         <ul class="ul1">
             <li class="formations"><a href="?controller=former_list&action=former_pagination">Formations</a></li>
-            <li class="conseils">Conseils</li>
-            <li class="autres">Autres
+            <li class="conseils"><a href="" id="link">Conseils</a></li>
+            <li class="autres">Autres ▽
                 <ul class="dropdown">
-                    <li>Activité 1</li>
-                    <li>Activité 2</li>
-                    <li>Activité 3</li>
+                    <ul><a href="#" id="link">Activité 1</a></ul>
+                    <ul><a href="#" id="link">Activité 2</a></ul>
+                    <ul><a href="#" id="link">Activité 3</a></ul>
                 </ul>
             </li>
-            <li class="connect"><a href="?controller=message_customer&action=discussion"><button><span class="aut">Mes discussions</span></button></a></li>
-            <li class="connect"><a href="?controller=profil_customer&action=profil_customer"><button><i class="fa-regular fa-circle-user"></i><span class="aut">Mon Profil</span></button></a></li>
+            <a class="connect" href="?controller=message_customer&action=discussion">
+                <button><i class="fa-regular fa-message"></i><span class="aut">Mes discussions</span></button></a>
+            <a class="connect" href="?controller=profil_customer&action=profil_customer">
+                <button><i class="fa-regular fa-circle-user"></i><span class="aut">Mon Profil</span></button></a>
         </ul>
     </div>
 </div>
 
 <div class="titles">
     <h2 class="h2">Bienvenue chez</h2>
-    <h1 class="h1">PerformVision Formations</h1>
+    <h1 class="h1">PerformVision Training & Consulting</h1>
     </br>
     <a href="?controller=&action=formateur"><button class="form-title">Découvrir les Formations</button></a>
 </div>
@@ -39,12 +41,12 @@ if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "formateur") {
     <div class="centre">
         <div class="conteneur1">
             <div class="img1">
-                <img src="./Content/images/ProgrammeurQuiFaitDuC.jpg"/>
+                <img src="./Content/images/ProgrammeurQuiFaitDuC.jpg" alt="img"/>
             </div>
         </div>
         <div class="conteneur2">
             <div class="img2">
-                <img src="./Content/images/HommeQuiEstHeureuxDeTravailler.jpg"/>
+                <img src="./Content/images/HommeQuiEstHeureuxDeTravailler.jpg" alt="img"/>
             </div>
             <div class="text">
                 Que vous soyez en autodidacte, salarié(e) ou en reconvresion professionnelle,<span> PerformVision</span> vous propose<span> la formation qu'il vous faut</span>
@@ -52,7 +54,7 @@ if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "formateur") {
         </div>
         <div class="conteneur3">
             <div class="img3">
-                <img src="./Content/images/HommeQuiEstHeureuxDeTravailler.jpg"/>
+                <img src="./Content/images/HommeQuiEstHeureuxDeTravailler.jpg" alt="img"/>
             </div>
             <div class="text2">
                 Devenez <span>développeur informatique</span><br/>Suivez des cours auprès de formateurs <span>expérimentés</span>, apprenez le python, C, C++, Java, SQL et bien d'autres !

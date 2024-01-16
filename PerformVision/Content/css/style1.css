@@ -1,3 +1,8 @@
+::selection {
+    background-color: rgba(17, 143, 238, 0.5);
+    color: rgb(171, 242, 255);
+}
+
 html {
     background-color: #2E2D33;
 }
@@ -7,7 +12,8 @@ html {
         display: none; /* Cache le texte du bouton sur les écrans plus petits */
     }
     .conteneur2 {
-        width: 1101px;
+        width: 100%;
+        max-width: 1101px;
         margin-top: 0;
         text-align: center;
         background-color: #222425 ;
@@ -362,9 +368,11 @@ input[type=text]:focus,input[type=password]:focus {
 }
 .bodyform {
     background-color: #39383F;
+    min-height: 10vh;
+    top: 10vh;
 }
 
-input[type=submit], a.lienbtn {
+input[type=submit], a.lienbtn, button {
     list-style: none;
     padding: 8px;
     background-color: #2671a7; /* Bleu foncé */
@@ -379,12 +387,31 @@ input[type=submit], a.lienbtn {
     transition: 0.3s;
 }
 
-input[type=submit]:hover, a.lienbtn:hover {
+input[type=submit]:hover, a.lienbtn:hover, button:hover {
     background-color: #217EC2;
-    letter-spacing: 0.2px;
+    /*letter-spacing: 0.2px;*/
     transition: 0.3s;
     box-shadow: 0 0 5px #66BCFF;
     color: white;
+}
+input[type=submit]:hover{
+    letter-spacing: 0.2px;
+}
+.divchoice a.lienbtn {
+    display: inline-block;
+    min-width: 0;
+    max-width: 80%;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+}
+
+select {
+    padding: 16px 20px;
+    border: none;
+    border-radius: 4px;
+    background-color: #f1f1f1;
 }
 
 /* Style pour le span dans le texte */
@@ -414,6 +441,7 @@ footer {
     display : block ;
     text-align: center;
     margin-right : 2%;
+    margin-bottom: -5px;
 }
 /*
 .partie-gauche{
@@ -481,13 +509,17 @@ a:hover, .ul1 li:hover {
 div.divchoice {
     width: 30%;
     padding: 8px 20px;
-    margin: 24px -20px;
     box-shadow: none;
-    margin-left: 41%;
 }
-div.divchoice p{
-    text-align: left;
+div.divchoice p {
+    text-align: center;
     color: #D9EEFF;
+}
+.centerform {
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
 }
 
 /*profil de lutilisateur*/
@@ -496,7 +528,7 @@ div.divchoice p{
     width : 50% ;
     margin: auto;
     text-align: center;
-    background-color: #eeeeee ;
+    background-color: #333339 ;
     border: 3px solid black ;
     border-radius: 20px;
     box-shadow: #333333;
@@ -522,4 +554,42 @@ div.divchoice p{
     transition : all 1s ;
     background-color: #265587;
     transform: scale(1.05);
+}
+
+.experienceDropdown{
+    border : solid;
+    width: 1500px;
+    text-align: left;
+    padding: 20px;
+    border-radius: 10px;
+    font-weight: bold;
+    margin: 10px 5% 10px 5%;
+    font-family: Roboto, sans-serif;
+    font-size: large;
+    transition: 0.3s;
+}
+
+.experienceDropdown select{
+    border : solid #A8D0FF;
+    height: 30px;
+    width: 200px;
+    border-radius: 10px;
+    margin: 10px 5% 5px 1%;
+    font-family: Roboto, sans-serif;
+    font-size: medium;
+    transition: 0.3s;
+    background-color: #333333;
+}
+
+textarea {
+    color: white;
+    width : 500px;
+    height : 30px;
+    border : solid #A8D0FF;
+    border-radius: 10px;
+    margin: 10px 5% 5px 1%;
+    font-family: Roboto, sans-serif;
+    font-size: medium;
+    transition: 0.3s;
+    background-color: #333333;
 }

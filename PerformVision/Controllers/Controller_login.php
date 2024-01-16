@@ -28,6 +28,9 @@ class Controller_login extends Controller{
         if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "formateur") {
             header("Location: ?controller=home_former&action=home_former");
         }
+        if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "administrateur") {
+            header("Location: /hibana-main/PerformVision/?controller=home_former&action=home_former");
+        }
 
         if (isset($_POST['submit'])) {
             $m = Model::getModel();
@@ -59,6 +62,17 @@ class Controller_login extends Controller{
                     header("Location: ?controller=home_former&action=home_former");
                     exit;
                 }
+
+                if ($_SESSION['role'] == "administrateur") {
+                    header("Location: /hibana-main/PerformVision/?controller=home_admin&action=home_admin");
+                    exit;
+                }
+
+                if ($_SESSION['role'] == "moderateur") {
+                    header("Location: /hibana-main/PerformVision/?controller=home_moderator&action=home_moderator");
+                    exit;
+                }
+
 
                 
 

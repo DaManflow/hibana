@@ -22,7 +22,9 @@ function currentTime() {
 }
 
 
-function data_message() {
+
+
+function data_message_customer() {
 
     $infos = [];
 
@@ -37,6 +39,26 @@ function data_message() {
 
     $infos['date_msg'] = $_POST['date_msg'];
     $infos['id_former'] = $_POST['id_former'];
+
+    return $infos;
+
+}
+
+function data_message_former() {
+
+    $infos = [];
+
+    if (isset($_POST['message'])) {
+        $msg = trim($_POST['message']);
+        if (!empty($msg)) {
+            $infos['message'] = e($msg);
+        } else {
+            $infos['message'] = "false";
+        }
+    }
+
+    $infos['date_msg'] = $_POST['date_msg'];
+    $infos['id_client'] = $_POST['id_client'];
 
     return $infos;
 

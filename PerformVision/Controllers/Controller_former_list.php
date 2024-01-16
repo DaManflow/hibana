@@ -141,6 +141,73 @@ class Controller_former_list extends Controller{
     }
 
 
+    public function action_former_information_admin() {
+
+        if (isset($_SESSION['role']) && $_SESSION['role'] == "formateur") {
+            header("Location: /hibana-main/PerformVision/?controller=home_former&action=home_former");
+        }
+
+        if (!isset($_SESSION['idutilisateur'])) {
+            header("Location: /hibana-main/PerformVision/?controller=former_list&action=former_information_no_login");
+        }
+
+        if (isset($_GET['id']) && preg_match("/^[1-9][0-9]*$/", $_GET['id'])) {
+            
+                
+            $m = Model::getModel();
+            $data = [
+                'infos' => $m->getFormerInformations($_GET['id']),
+            ];
+            if ($data['infos']) {
+                
+                
+                $this->render("former_information_admin", $data);
+            }
+            else {
+                $this->action_error("L'identifiant n'existe pas !");
+            }
+            
+    }
+    else {
+        $this->action_error("Aucun identifiant renseigné !");
+    }
+
+    }
+
+    public function action_former_information_moderator() {
+
+        if (isset($_SESSION['role']) && $_SESSION['role'] == "formateur") {
+            header("Location: /hibana-main/PerformVision/?controller=home_former&action=home_former");
+        }
+
+        if (!isset($_SESSION['idutilisateur'])) {
+            header("Location: /hibana-main/PerformVision/?controller=former_list&action=former_information_no_login");
+        }
+
+        if (isset($_GET['id']) && preg_match("/^[1-9][0-9]*$/", $_GET['id'])) {
+            
+                
+            $m = Model::getModel();
+            $data = [
+                'infos' => $m->getFormerInformations($_GET['id']),
+            ];
+            if ($data['infos']) {
+                
+                
+                $this->render("former_information_moderator", $data);
+            }
+            else {
+                $this->action_error("L'identifiant n'existe pas !");
+            }
+            
+    }
+    else {
+        $this->action_error("Aucun identifiant renseigné !");
+    }
+
+    }
+
+
     
 
 
