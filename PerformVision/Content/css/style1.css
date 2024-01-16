@@ -563,7 +563,7 @@ div.divchoice p {
 }
 
 .experienceDropdown{
-    border : solid;
+    border : solid #A8D0FF;
     width: 1500px;
     text-align: left;
     padding: 20px;
@@ -573,6 +573,11 @@ div.divchoice p {
     font-family: Roboto, sans-serif;
     font-size: large;
     transition: 0.3s;
+    color : white;
+}
+
+.experienceDropdown h1{
+    color : #A8D0FF;
 }
 
 .experienceDropdown select{
@@ -584,9 +589,9 @@ div.divchoice p {
     font-family: Roboto, sans-serif;
     font-size: medium;
     transition: 0.3s;
-    background-color: #333333;
+    background-color: #2E2D33;
+    color : white;
 }
-
 textarea {
     color: white;
     width : 500px;
@@ -597,5 +602,18 @@ textarea {
     font-family: Roboto, sans-serif;
     font-size: medium;
     transition: 0.3s;
-    background-color: #333333;
+    background-color: #2E2D33;
+}
+.exp input{
+    border : solid #A8D0FF;
+    border-radius: 10px;
+    color: white;
+    width : 500px;
+    height : 30px;
+    
+    margin: 10px 5% 5px 1%;
+    font-family: Roboto, sans-serif;
+    font-size: medium;
+    transition: 0.3s;
+    background-color: #2E2D33;
 }
