@@ -134,6 +134,26 @@ function check_data_customer() {
     
     return $infos;
 }
+function checkTheme(){
+    $themes = [] ; 
+    if (isset($_POST['theme_contenu'])) {
+        $theme = trim($_POST['theme_contenu']);
+        if (!empty($theme)) {
+            $themes['theme_contenu'] = e($theme);
+        } else {
+            $themes['theme_contenu'] = "false";
+        }
+    }
+    if (isset($_POST['sous_categorie'])) {
+        $categorie = trim($_POST['sous_categorie']);
+        if (!empty($categorie) ) {
+            $themes['sous_categorie'] = e($categorie);
+        } else {
+            $themes['sous_categorie'] = "false";
+        }
+    }
+    return $themes ; 
+}
 
 function check_data_former() {
     $infos = [];

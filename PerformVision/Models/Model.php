@@ -1272,8 +1272,9 @@ JOIN
 LEFT JOIN 
     categorie c2 ON c1.idC_mere = c2.idC
 WHERE 
-    c1.idC_mere IS NOT NULL;
+    c1.idC_mere IS NOT NULL and valideT = :true ;
 ') ;
+$req->bindValue(':true' , 'true') ; 
 $req->execute();
     $themes = $req->fetchAll(PDO::FETCH_ASSOC);
 
@@ -1317,8 +1318,38 @@ public function seePublic()
 
     return $result;
 }
+public function seeCategories(){
+    $req = $this->bd->prepare('SELECT 
+        c.idC AS id_categorie,
+        c.nomC AS categorie,
+        c2.nomC AS categorie_mere
+    FROM 
+        categorie c
+    LEFT JOIN 
+        categorie c2 ON c.idC_mere = c2.idC
+    WHERE 
+        c.idC_mere IS NOT NULL;
+    ') ;
+    $req->execute();
+    $categories = $req->fetchAll(PDO::FETCH_ASSOC);
 
+    $result = array();
+    foreach ($categories as $categorie) {
+        $id_categorie = $categorie['id_categorie'];
+        unset($categorie['id_categorie']);
+        $result[$id_categorie] = $categorie;
+    }
 
-
+    return $result;
+}
+public function createTheme($tab){
+    $req= $this->bd->prepare('INSERT INTO theme(nomT , valideT , idC) 
+    VALUES (:nomTheme, :valideT , :idC)') ; 
+    $req->bindValue(':nomTheme',$tab['theme_contenu']) ; 
+    $req->bindValue(':valideT','false') ; 
+    $req->bindValue(':idC',$tab['sous_categorie']) ; 
+    $req->execute() ; 
+    
+}
 
 }
