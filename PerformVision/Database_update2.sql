@@ -120,7 +120,7 @@ CREATE TABLE aExpertiseProfessionnelle(
    id_formateur SMALLINT,
    dureeMExperience SMALLINT NOT NULL,
    commentaire_expertise VARCHAR(255),
-   PRIMARY KEY(idN, idT, id_formateur),
+   PRIMARY KEY(idN,idT, id_formateur),
    FOREIGN KEY(idN) REFERENCES niveau(idN),
    FOREIGN KEY(idT) REFERENCES theme(idT),
    FOREIGN KEY(id_formateur) REFERENCES formateur(id_formateur)
@@ -131,7 +131,7 @@ CREATE TABLE aExperiencePeda(
    id_formateur SMALLINT,
    idT SERIAL,
    idP SERIAL,
-   volumeHMoyenSession SMALLINT NOT NULL,
+   volumeHMoyenSession TIME NOT NULL,
    nbSessionEffectuee SMALLINT NOT NULL,
    commentaire VARCHAR(255),
    PRIMARY KEY(id_formateur, idT, idP),

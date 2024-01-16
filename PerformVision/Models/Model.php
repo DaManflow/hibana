@@ -1,5 +1,10 @@
 <?php
 
+
+
+
+
+
 class Model
 {
     /**
@@ -21,6 +26,7 @@ class Model
         
         include "credentials.php";
         $this->bd = new PDO($dsn, $login, $mdp);
+        $this->bd->exec("SET NAMES 'utf8'");
         $this->bd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $this->bd->query("SET nameS 'utf8'");
     }
@@ -78,15 +84,6 @@ class Model
 
                 $this->bd->commit();
 
-                if (session_status() == PHP_SESSION_NONE) {
-                    // Si la session n'est pas démarrée, alors on la démarre
-                    session_start();
-                }
-                else {
-                    session_destroy();
-                    session_start();
-                }
-
 
                 $_SESSION['idutilisateur'] = $id_client;
                 $_SESSION['name'] = $infos['name'];
@@ -124,11 +121,7 @@ class Model
     public function createFormer($infos) {
         if (! $infos) {return false;}
 
-        $erreur_type = [];
-
-        
-
-
+        $erreur_type = []; 
 
         $req_admin = $this->bd->prepare('SELECT * FROM utilisateur');
         $req_admin->execute();
@@ -149,6 +142,7 @@ class Model
             // Récupérer l'idUtilisateur généré
             $id_formateur = $this->bd->lastInsertId();
 
+            
 
             // Deuxième partie : insertion dans la table Formateur
             $req3 = $this->bd->prepare('
@@ -199,6 +193,43 @@ class Model
 
             $req3->execute();
 
+            //Insertion des experiences 
+            $nombre_experiences = 0;
+
+            foreach ($_POST as $key => $value) {
+                // Vérifiez si la clé est associée à une expérience
+                if (strpos($key, 'theme') !== false) {
+                    $nombre_experiences++;
+                }
+            }
+
+        for ($i = 1; $i <= $nombre_experiences; $i++) {
+            // Préparation et insertion des données dans aExpertiseProfessionnelle
+            $reqExpertise = $this->bd->prepare('
+                INSERT INTO aExpertiseProfessionnelle(idn, idt, id_formateur, dureeMExperience, commentaire_expertise)
+                VALUES (:idn, :idt, :id_formateur, :duree, :commentaire)
+            ');
+            $reqExpertise->bindValue(':idn', $infos['expertise' . $i]);
+            $reqExpertise->bindValue(':idt', $infos['theme' . $i]);
+            $reqExpertise->bindValue(':id_formateur', $id_formateur);
+            $reqExpertise->bindValue(':duree', $infos['dureeExpertise' . $i]);
+            $reqExpertise->bindValue(':commentaire', $infos['commentaireExpertise' . $i]);
+            $reqExpertise->execute();
+        
+            // Préparation et insertion des données dans aExperiencePeda
+            $reqPeda = $this->bd->prepare('
+                INSERT INTO aExperiencePeda(id_formateur, idt, idp, volumeHMoyenSession, nbSessionEffectuee, commentaire)
+                VALUES (:id_formateur, :idt, :idp, :volumeHMoyenSession, :nbSessionEffectuee, :commentaire)
+            ');
+            $reqPeda->bindValue(':id_formateur', $id_formateur);
+            $reqPeda->bindValue(':idt', $infos['theme' . $i]);
+            $reqPeda->bindValue(':idp', $infos['expePeda' . $i]);
+            $reqPeda->bindValue(':volumeHMoyenSession', $infos['VolumeHMoyenSession' . $i]);
+            $reqPeda->bindValue(':nbSessionEffectuee', $infos['nbSession' . $i]);
+            $reqPeda->bindValue(':commentaire', $infos['commentaireExpePeda' . $i]);
+            $reqPeda->execute();
+        }
+
             file_put_contents($filePath, $pdfContent);
 
         }else {
@@ -243,12 +274,10 @@ class Model
                 $erreur_type[] = "none";
                 return $erreur_type;
     }
-        
 
-        
-        else {
+    else {
 
-        
+    
 
         $req_verif = $this->bd->prepare('SELECT COUNT(*) AS count FROM UTILISATEUR WHERE mail = :email OR telephone = :phone');
         $req_verif->bindValue(":email", $infos['email']);
@@ -261,8 +290,8 @@ class Model
 
                 
 
+
                 $this->bd->beginTransaction();
-                
                 
             
                 // Première partie : insertion dans la table Utilisateur
@@ -276,8 +305,7 @@ class Model
             
                 // Récupérer l'idUtilisateur généré
                 $id_formateur = $this->bd->lastInsertId();
-
-
+         
                 // Deuxième partie : insertion dans la table Formateur
                 $req3 = $this->bd->prepare('
                 INSERT INTO Formateur (id_formateur, linkedin, date_signature, cv, declaration)
@@ -325,7 +353,47 @@ class Model
 
                 $req3->bindValue(':declaration', $filePath);
 
+
+
+
                 $req3->execute();
+
+                                //Insertion des experiences 
+                                $nombre_experiences = 0;
+
+                                foreach ($_POST as $key => $value) {
+                                    // Vérifiez si la clé est associée à une expérience
+                                    if (strpos($key, 'theme') !== false) {
+                                        $nombre_experiences++;
+                                    }
+                                }
+                
+                                for ($i = 1; $i <= $nombre_experiences; $i++) {
+                                // Préparation et insertion des données dans aExpertiseProfessionnelle
+                                $reqExpertise = $this->bd->prepare('
+                                    INSERT INTO aExpertiseProfessionnelle(idn, idt, id_formateur, dureeMExperience, commentaire_expertise)
+                                    VALUES (:idn, :idt, :id_formateur, :duree, :commentaire)
+                                ');
+                                $reqExpertise->bindValue(':idn', $infos['expertise' . $i]);
+                                $reqExpertise->bindValue(':idt', $infos['theme' . $i]);
+                                $reqExpertise->bindValue(':id_formateur', $id_formateur);
+                                $reqExpertise->bindValue(':duree', $infos['dureeExpertise' . $i]);
+                                $reqExpertise->bindValue(':commentaire', $infos['commentaireExpertise' . $i]);
+                                $reqExpertise->execute();
+                
+                                // Préparation et insertion des données dans aExperiencePeda
+                                $reqPeda = $this->bd->prepare('
+                                    INSERT INTO aExperiencePeda(id_formateur, idt, idp, volumeHMoyenSession, nbSessionEffectuee, commentaire)
+                                    VALUES (:id_formateur, :idt, :idp, :volumeHMoyenSession, :nbSessionEffectuee, :commentaire)
+                                ');
+                                $reqPeda->bindValue(':id_formateur', $id_formateur);
+                                $reqPeda->bindValue(':idt', $infos['theme' . $i]);
+                                $reqPeda->bindValue(':idp', $infos['expePeda' . $i]);
+                                $reqPeda->bindValue(':volumeHMoyenSession', $infos['VolumeHMoyenSession' . $i]);
+                                $reqPeda->bindValue(':nbSessionEffectuee', $infos['nbSession' . $i]);
+                                $reqPeda->bindValue(':commentaire', $infos['commentaireExpePeda' . $i]);
+                                $reqPeda->execute();
+                                }
 
                 file_put_contents($filePath, $pdfContent);
 
@@ -386,9 +454,9 @@ class Model
             $erreur_type[] = "id_already_take";
             return $erreur_type;
         }
-
-        }
     }
+    }
+
 
     public function getFormersWithLimit($offset = 0, $limit = 25) {
 
@@ -415,14 +483,13 @@ class Model
 
     public function getNbFormer()
     {
-        $req = $this->bd->prepare('SELECT COUNT(*) FROM utilisateur WHERE role = :formateur OR role = :moderateur OR role = :admin');
+        $req = $this->bd->prepare('SELECT COUNT(*) FROM utilisateur WHERE role = :formateur');
         $req->bindValue(':formateur', "formateur");
-        $req->bindValue(':moderateur', "moderateur");
-        $req->bindValue(':admin', "administrateur");
         $req->execute();
         $tab = $req->fetch(PDO::FETCH_NUM);
         return $tab[0];
     }
+
 
     public function getThemes($idsc = 0){
         if (isset($_POST['theme'])) {
@@ -439,74 +506,26 @@ class Model
         return $req->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function getCategories(){
-        $req = $this->bd->prepare('SELECT c1.nomC, c1.idc, c2.nomc as idc_mere FROM Categorie as c1 left outer join categorie as c2 on c2.idc = c1.idc_mere where c2.validec = true order by idc'); // A revoir
+    public function getSousCategories($cat = 0){
+        if($cat == 0){
+            $req = $this->bd->prepare('SELECT c1.nomC, c1.idc, c2.nomc as nomc_mere, c2.idc_mere FROM Categorie as c1 left outer join categorie as c2 on c2.idc = c1.idc_mere where c2.validec = true order by idc');
+
+        }else{
+            $res = "''";
+            foreach ($cat as $c){
+                $res .= ",'".$c."'";
+                $req = $this->bd->prepare('SELECT c1.nomC, c1.idc, c2.nomc as nomc_mere, c2.idc_mere FROM Categorie as c1 left outer join categorie as c2 on c2.idc = c1.idc_mere where c2.validec = true and c2.nomc IN('.$res.') order by idc');
+            }
+        }
         $req->execute();          // nomC, idc, idc_mere FROM Categorie where validec = true order by idc_mere
         return $req->fetchAll(PDO::FETCH_ASSOC);
     }
-    public function getCategorie($idc){
-        $req = $this->bd->prepare('SELECT idc , nomc  from categorie where idc is not null and idc=:idc') ; 
-        $req->bindValue(':idc',$idc) ;
-        $req->execute() ; 
-        $result = $req->fetchAll(PDO::FETCH_ASSOC);
-        $categories = array();
-        foreach ($result as $categorie) {
-            $categories[$categorie['idc']] = $categorie['nomc'];
-        }
-    
-        return $categories;
-    }
+
     public function getCategoriesMeres(){
-        $req = $this->bd->prepare('SELECT idc, nomc FROM categorie WHERE idC_mere IS NULL');
-        $req->execute();
-        
-        $result = $req->fetchAll(PDO::FETCH_ASSOC);
-        
-    
-        // Crée un tableau associatif avec 'idc' comme clé et 'nomc' comme valeur
-        $categoriesMeres = array();
-        foreach ($result as $categorie) {
-            $categoriesMeres[$categorie['idc']] = $categorie['nomc'];
-        }
-    
-        return $categoriesMeres;
+        $req  = $this->bd->prepare('SELECT * FROM categorie WHERE validec = true and idC_mere IS NULL') ;
+        $req->execute() ; 
+        return $req->fetchAll(PDO::FETCH_ASSOC);
     }
-    public function getCategoriesWithSubcategoriesAndThemes2()
-    {
-        $req = $this->bd->prepare('SELECT idc,nomc from categorie WHERE idc_mere IS NULL'); 
-        $req->execute();
-        $tab = $req->fetchAll(PDO::FETCH_ASSOC);
-        $tabC = [];
-        foreach($tab as $val) {
-            $tabC[] = $val['nomc'];
-        }
-        
-
-        
-        return $tabC;
-    }
-
-    public function getCategoriesWithSubcategoriesAndThemes(){
-        $req= $this->bd-> prepare("SELECT 
-        ");
-
-        $req->execute();
-
-        $tableau_final = array();
-
-    // Parcourez les résultats
-    while ($row = $req->fetch(PDO::FETCH_ASSOC)) {
-        // Ajoutez chaque ligne au tableau associatif
-        $tableau_final[$row['cle_principale']] = array(
-            'tableau_idC_mere' => $row['tableau_idC_mere'],
-            'tableau_themes' => $row['tableau_themes']
-        );
-    }
-
-    return $tableau_final;
-
-    }
-
 
     public function getFormateurs($cat="", $scat="", $th=""){
         $req = $this->bd->prepare('select formateur.id_formateur, nom, prenom, volumehmoyensession, nbsessioneffectuee, commentaire, nomt, theme.idt from formateur
@@ -1240,6 +1259,65 @@ inner join utilisateur on formateur.id_formateur = utilisateur.id_utilisateur');
         }
 
     }
+
+    public function seeThemes(){
+        $req = $this->bd->prepare('SELECT 
+    t.idT AS id_theme,
+    t.nomT AS theme,
+    c1.nomC AS sous_categorie,
+    c2.nomC AS categorie
+FROM 
+    theme t
+JOIN 
+    categorie c1 ON t.idC = c1.idC
+LEFT JOIN 
+    categorie c2 ON c1.idC_mere = c2.idC
+WHERE 
+    c1.idC_mere IS NOT NULL;
+') ;
+$req->execute();
+    $themes = $req->fetchAll(PDO::FETCH_ASSOC);
+
+    $result = array();
+    foreach ($themes as $theme) {
+        $id_theme = $theme['id_theme'];
+        unset($theme['id_theme']);
+        $result[$id_theme] = $theme;
+    }
+
+    return $result;
+
+    } 
+    public function seeLevel()
+{
+    $req = $this->bd->prepare('SELECT * FROM niveau');
+    $req->execute();
+    $levels = $req->fetchAll(PDO::FETCH_ASSOC);
+
+    $result = array();
+    foreach ($levels as $level) {
+        $id = $level['idn'];
+        unset($level['idn']);
+        $result[$id] = $level;
+    }
+
+    return $result;
+}
+public function seePublic()
+{
+    $req = $this->bd->prepare('SELECT * FROM public');
+    $req->execute();
+    $publics = $req->fetchAll(PDO::FETCH_ASSOC);
+
+    $result = array();
+    foreach ($publics as $public) {
+        $id = $public['idp'];
+        unset($public['idp']);
+        $result[$id] = $public;
+    }
+
+    return $result;
+}
 
 
 

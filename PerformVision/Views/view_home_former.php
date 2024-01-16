@@ -1,19 +1,16 @@
 <?php require_once "view_begin.php";
 
 if (!isset($_SESSION['idutilisateur'])) {
-    header("Location: /hibana-main/PerformVision/?controller=home&action=home");
+    header("Location: ?controller=home&action=home");
 }
 
 if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "client") {
-    header("Location: /hibana-main/PerformVision/?controller=home_customer&action=home_customer");
+    header("Location: ?controller=home_customer&action=home_customer");
 }
 
 if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "administrateur") {
     header("Location: /hibana-main/PerformVision/?controller=home_admin&action=home_admin");
 }
-
-
-
 
 
 ?>
@@ -39,33 +36,33 @@ if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "administrateur") 
 <div class="titles">
     <h2 class="h2">Bienvenue chez</h2>
     <h1 class="h1">PerformVision Formations</h1>
-</br>
-<a href="/hibana-main/PerformVision/?controller=&action=formateur"><button class="form-title">Découvrir les Formations</button></a>
+    </br>
+    <a href="?controller=&action=formateur"><button class="form-title">Découvrir les Formations</button></a>
 </div>
 <div class="reste">
-<div class="centre">
-    <div class="conteneur1">
-    <div class="img1">
-        <img src="/hibana-main/PerformVision/Content/images/ProgrammeurQuiFaitDuC.jpg"/>
-    </div>
-    </div>
+    <div class="centre">
+        <div class="conteneur1">
+            <div class="img1">
+                <img src="./Content/images/ProgrammeurQuiFaitDuC.jpg"/>
+            </div>
+        </div>
         <div class="conteneur2">
             <div class="img2">
-                <img src="/hibana-main/PerformVision/Content/images/HommeQuiEstHeureuxDeTravailler.jpg"/>
+                <img src="./Content/images/HommeQuiEstHeureuxDeTravailler.jpg"/>
+            </div>
+            <div class="text">
+                Que vous soyez en autodidacte, salarié(e) ou en reconvresion professionnelle,<span> PerformVision</span> vous propose<span> la formation qu'il vous faut</span>
+            </div>
         </div>
-        <div class="text">
-            Que vous soyez en autodidacte, salarié(e) ou en reconvresion professionnelle,<span> PerformVision</span> vous propose<span> la formation qu'il vous faut</span>
+        <div class="conteneur3">
+            <div class="img3">
+                <img src="./Content/images/HommeQuiEstHeureuxDeTravailler.jpg"/>
+            </div>
+            <div class="text2">
+                Devenez <span>développeur informatique</span><br/>Suivez des cours auprès de formateurs <span>expérimentés</span>, apprenez le python, C, C++, Java, SQL et bien d'autres !
+            </div>
         </div>
-        </div>
-    <div class="conteneur3">
-        <div class="img3">
-            <img src="/hibana-main/PerformVision/Content/images/HommeQuiEstHeureuxDeTravailler.jpg"/>
-        </div>
-    <div class="text2">
-        Devenez <span>développeur informatique</span><br/>Suivez des cours auprès de formateurs <span>expérimentés</span>, apprenez le python, C, C++, Java, SQL et bien d'autres !
-    </div> 
-</div>
-</div>
+    </div>
 </div>
 <footer>
     <div class="partie1">
