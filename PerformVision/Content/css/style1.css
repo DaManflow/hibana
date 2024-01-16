@@ -368,6 +368,8 @@ input[type=text]:focus,input[type=password]:focus {
 }
 .bodyform {
     background-color: #39383F;
+    min-height: 10vh;
+    top: 10vh;
 }
 
 input[type=submit], a.lienbtn, button {
@@ -387,19 +389,22 @@ input[type=submit], a.lienbtn, button {
 
 input[type=submit]:hover, a.lienbtn:hover, button:hover {
     background-color: #217EC2;
-    letter-spacing: 0.2px;
+    /*letter-spacing: 0.2px;*/
     transition: 0.3s;
     box-shadow: 0 0 5px #66BCFF;
     color: white;
 }
+input[type=submit]:hover{
+    letter-spacing: 0.2px;
+}
 .divchoice a.lienbtn {
     display: inline-block;
-    min-width: 60%;
-    max-width: 70%;
+    min-width: 0;
+    max-width: 80%;
     text-align: center;
     align-items: center;
     justify-content: center;
-    margin:0;
+    margin: 0;
 }
 
 select {
@@ -436,6 +441,7 @@ footer {
     display : block ;
     text-align: center;
     margin-right : 2%;
+    margin-bottom: -5px;
 }
 /*
 .partie-gauche{
@@ -505,11 +511,11 @@ div.divchoice {
     padding: 8px 20px;
     box-shadow: none;
 }
-div.divchoice p{
+div.divchoice p {
     text-align: center;
     color: #D9EEFF;
 }
-.centerform{
+.centerform {
     display: flex;
     text-align: center;
     align-items: center;

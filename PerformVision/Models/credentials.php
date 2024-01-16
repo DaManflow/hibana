@@ -1,6 +1,6 @@
 <?php
 
-$dsn = "pgsql:host=localhost;dbname=SAES301v2";
+$dsn = "pgsql:host=localhost;dbname=postgres";
 $login = "postgres";
 $mdp = "1234";
 
