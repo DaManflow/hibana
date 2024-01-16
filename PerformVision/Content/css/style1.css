@@ -63,61 +63,8 @@ html {
         text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
         font-weight: bold;
     }
-    
-    .experienceDropdown{
-        border : solid #A8D0FF;
-        width: 18em;
-
-        text-align: left;
-        padding: 15px;
-        border-radius: 15px;
-        font-weight: bold;
-        margin-left: auto;
-        margin-right: auto;
-        font-family: Roboto, sans-serif;
-        font-size: medium;
-        transition: 0.3s;
-        color : white;
-    }
-        .experienceDropdown select{
-        border : solid #A8D0FF;
-        height: 25px;
-        width: 200px;
-        border-radius: 10px;
-        margin: 1px 0.5% 0.5px 0.1%;
-        font-family: Roboto, sans-serif;
-        font-size: medium;
-        transition: 0.3s;
-        background-color: #2E2D33;
-        color : white;
-    }
-    textarea {
-        color: white;
-        width : 200px;
-        height : 25px;
-        border : solid #A8D0FF;
-        border-radius: 10px;
-        margin: 1px 0.5% 0.5px 0.1%;
-        font-family: Roboto, sans-serif;
-        font-size: medium;
-        transition: 0.3s;
-        background-color: #2E2D33;
-    }
-    .exp input{
-        border : solid #A8D0FF;
-        border-radius: 10px;
-        color: white;
-        width : 200px;
-        height : 25px;
-
-        margin: 1px 0.5% 0.5px 0.1%;
-        font-family: Roboto, sans-serif;
-        font-size: medium;
-        transition: 0.3s;
-        background-color: #2E2D33;
-    }
-
 }
+
 @media only screen and (min-width: 770px) {
     .connect i {
         display: none; /* Cache le texte du bouton sur les écrans plus petits */
@@ -181,61 +128,8 @@ html {
         font-weight: bold;
         margin-left: 0;
     }
-  
-    .experienceDropdown{
-        border : solid #A8D0FF;
-        width: 50em;
-
-        text-align: left;
-        padding: 20px;
-        border-radius: 10px;
-        font-weight: bold;
-        margin-left: auto;
-        margin-right: auto;
-        font-family: Roboto, sans-serif;
-        font-size: large;
-        transition: 0.3s;
-        color : white;
-    }
-    .experienceDropdown select{
-        border : solid #A8D0FF;
-        height: 30px;
-        width: 200px;
-        border-radius: 10px;
-        margin: 10px 5% 5px 1%;
-        font-family: Roboto, sans-serif;
-        font-size: medium;
-        transition: 0.3s;
-        background-color: #2E2D33;
-        color : white;
-    }
-    textarea {
-        color: white;
-        width : 500px;
-        height : 30px;
-        border : solid #A8D0FF;
-        border-radius: 10px;
-        margin: 10px 5% 5px 1%;
-        font-family: Roboto, sans-serif;
-        font-size: medium;
-        transition: 0.3s;
-        background-color: #2E2D33;
-    }
-    .exp input{
-        border : solid #A8D0FF;
-        border-radius: 10px;
-        color: white;
-        width : 500px;
-        height : 30px;
-
-        margin: 10px 5% 5px 1%;
-        font-family: Roboto, sans-serif;
-        font-size: medium;
-        transition: 0.3s;
-        background-color: #2E2D33;
-    }
-    
 }
+
 .connect i {
     font-size: large;
     padding : 0;
@@ -452,7 +346,7 @@ a {
     max-width: 100%; /* Assurez-vous que l'image ne dépasse pas la largeur du conteneur */
     height: auto; /* Évitez la déformation de l'image */
     margin-top: -105px;
-    background-color: #ff0000;
+    background-color: rgba(0, 0, 0, 0);
     padding: 0;
 }
 .img1{
@@ -462,8 +356,8 @@ a {
     border-top-right-radius: 30px;*/
 }
 
-input[type=text],input[type=password] {
-    width: 30%;
+input[type=text],input[type=password],input[type=number],input[type=time],textarea,select {
+    width: 25%;
     min-width: 20%;
     padding: 7px 8px;
     /*border-radius: 5px;*/
@@ -480,6 +374,7 @@ input[type=text],input[type=password] {
     outline: none;
     border-image: linear-gradient(to right, #C2DEFF, #0092ff) 1;
 }
+
 input[type=text]:focus,input[type=password]:focus {
     /*border: 1px solid #66BCFF;*/
     /*border-radius: 5px;*/
@@ -532,12 +427,12 @@ input:-webkit-autofill{
     background-image: none !important;
 }
 
-select {
-    padding: 16px 20px;
-    border: none;
-    border-radius: 4px;
-    background-color: #f1f1f1;
-}
+/*select {*/
+/*    padding: 16px 20px;*/
+/*    border: none;*/
+/*    border-radius: 4px;*/
+/*    background-color: #f1f1f1;*/
+/*}*/
 
 /* Style pour le span dans le texte */
 .text span  , .text2 span{
@@ -681,10 +576,53 @@ div.divchoice p {
     transform: scale(1.05);
 }
 
-.experienceDropdown h1{
-    color : #A8D0FF;
-}
+.experienceDropdown {
+    border-left: solid #A8D0FF;
+    width: 32em;
+    text-align: left;
+    padding: 10px 25px;
+    font-weight: bold;
+    margin-left: auto;
+    margin-right: auto;
+    font-family: Roboto, sans-serif;
+    font-size: medium;
+    transition: 0.3s;
+    color: white;
 
-.experienceDropdown .titre-exp{
-    color : #A8D0FF;
+    /*select {*/
+    /*    border-bottom: solid #A8D0FF;*/
+    /*    height: 25px;*/
+    /*    width: 200px;*/
+    /*    border-radius: 10px;*/
+    /*    margin: 1px 0.5% 0.5px 0.1%;*/
+    /*    font-family: Roboto, sans-serif;*/
+    /*    font-size: medium;*/
+    /*    transition: 0.3s;*/
+    /*    background-color: #2E2D33;*/
+    /*    color: white;*/
+    /*}*/
+
+    /*.exp input {*/
+    /*    border: solid #A8D0FF;*/
+    /*    border-radius: 10px;*/
+    /*    color: white;*/
+    /*    width: 200px;*/
+    /*    height: 25px;*/
+
+    /*    margin: 1px 0.5% 0.5px 0.1%;*/
+    /*    font-family: Roboto, sans-serif;*/
+    /*    font-size: medium;*/
+    /*    transition: 0.3s;*/
+    /*    background-color: #2E2D33;*/
+    /*}*/
+    .input[type=number],input[type=number],input[type=time]{
+        width: 50%;
+        min-width: 50%;
+    }
+
+    .input[type=time]{
+        width: 10%;!important;
+        min-width: 10%;!important;
+    }
+
 }

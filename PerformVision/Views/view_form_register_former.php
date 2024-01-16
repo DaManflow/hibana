@@ -1,5 +1,6 @@
 <?php require "view_begin.php";
-require_once "./Utils/functions.php" ;  
+require_once "../Utils/functions.php" ;
+require_once "../Utils/functions.php" ;
 
 $_SESSION['themes'] = $themes ; 
 $_SESSION['public'] = $public ; 
@@ -40,9 +41,9 @@ $_SESSION['levels'] = $levels ;
             newExperienceDiv.innerHTML = `
             <h1>Informations sur l'Expérience ${experienceCounter}</h1>
 
-                <div class="exp">
-                    <label for="theme${experienceCounter}" class="titre-exp">Expérience :</label>
-                    <select name="theme${experienceCounter}" class="exp-select">
+                <div>
+                    <label for="theme${experienceCounter}">Expérience :</label>
+                    <select name="theme${experienceCounter}">
                         <?php
                                 foreach ($themes as $id_theme => $themeData) {
                                     $categorie = $themeData['categorie'];
@@ -68,9 +69,9 @@ $_SESSION['levels'] = $levels ;
                 </div>
                 </br>
 
-                <div class="exp">
-                    <label for="expertise${experienceCounter}" class="titre-exp">Expertise Professionnelle :</label>
-                    <select name="expertise${experienceCounter}" class="exp-select">
+                <div>
+                    <label for="expertise${experienceCounter}">Expertise Professionnelle :</label>
+                    <select name="expertise${experienceCounter}">
                     <?php
                     foreach ($levels as $id => $col) {
                         echo '<option value="' . e($id) . '">' . e($col['libelle']). '</option>';
@@ -79,21 +80,21 @@ $_SESSION['levels'] = $levels ;
                     </select>
                 </div>
                 </br>
-                <div class="exp">
-                    <label for="dureeExpertise${experienceCounter}" class="titre-exp">Durée de l'expertise :</label>
-                    <input type="number" name="dureeExpertise${experienceCounter}" placeholder="Saisissez le nombre d'années d'expertise" required="">
+                <div>
+                    <label for="dureeExpertise${experienceCounter}">Durée de l'expertise :</label>
+                    <input type="number" name="dureeExpertise${experienceCounter}" placeholder="Saisissez le nombre d'années" required="">
                 </div>
                 </br>
-                <div class="exp">
-                    <label for="commentaireExpertise${experienceCounter}" class="exp titre-exp">Commentaire :</label>
+                <div>
+                    <label for="commentaireExpertise${experienceCounter}">Commentaire :</label>
                     </br>
                     <textarea name="commentaireExpertise${experienceCounter}" placeholder="Ajoutez un commentaire"></textarea>
                 </div>
                 </br>
-                <div class="exp">
-                    <label for="expePeda${experienceCounter}" class="exp titre-exp" >Experience Padagogique :</label>
+                <div>
+                    <label for="expePeda${experienceCounter}">Experience Padagogique :</label>
                     </br>
-                    <select name="expePeda${experienceCounter}" class="exp-select">
+                    <select name="expePeda${experienceCounter}">
                     <?php
                     foreach ($public as $id => $val) {
                         echo '<option value="' . e($id) . '">' . e($val['libellep']). '</option>';
@@ -102,17 +103,17 @@ $_SESSION['levels'] = $levels ;
                     </select>
                 </div>
                 </br>
-                <div class="exp">
-                    <label for="VolumeHMoyenSession${experienceCounter}" class="titre-exp">Volume horaire d'une session :</label></br>
+                <div>
+                    <label for="VolumeHMoyenSession${experienceCounter}">Volume horaire d'une session :</label></br>
                     <input type="time" name="VolumeHMoyenSession${experienceCounter}" placeholder="Saisissez le nombre d'années d'expertise" required="" step=1>
                 </div>
-                <div class="exp">
-                    <label for="nbSession${experienceCounter}" class="titre-exp">Nombre de sessions :</label></br>
+                <div>
+                    <label for="nbSession${experienceCounter}">Nombre de sessions :</label></br>
                     <input type="number" name="nbSession${experienceCounter}" placeholder="Saisissez le nombre de sessions" required="">
                 </div>
-                <div class="exp">
+                <div>
                     </br>
-                    <label for="commentaireExpePeda${experienceCounter}" class="exp-select titre-exp">Commentaire :</label>
+                    <label for="commentaireExpePeda${experienceCounter}">Commentaire :</label>
                     </br>
                     <textarea name="commentaireExpePeda${experienceCounter}" placeholder="Ajoutez un commentaire"></textarea>
                 </div>
