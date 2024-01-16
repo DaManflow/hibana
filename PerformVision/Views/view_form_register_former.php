@@ -38,62 +38,84 @@ $_SESSION['levels'] = $levels ;
             // Ajoute le HTML du menu déroulant au nouvel élément div
            
             newExperienceDiv.innerHTML = `
-            <br> <h1>Informations sur l'Expérience</h1>
-                <label for="theme${experienceCounter}">Expérience :</label>
-                <select name="theme${experienceCounter}">
-                    <?php
-                            foreach ($themes as $id_theme => $themeData) {
-                                $categorie = $themeData['categorie'];
-                                $sous_categorie = $themeData['sous_categorie'];
-                                $theme = $themeData['theme'];
+            <h1>Informations sur l'Expérience ${experienceCounter}</h1>
 
-                                if ($currentCategory !== $categorie) {
-                                    if ($currentCategory !== null) {
-                                        echo '</optgroup>';
+                <div class="exp">
+                    <label for="theme${experienceCounter}">Expérience :</label>
+                    <select name="theme${experienceCounter}" class="exp-select">
+                        <?php
+                                foreach ($themes as $id_theme => $themeData) {
+                                    $categorie = $themeData['categorie'];
+                                    $sous_categorie = $themeData['sous_categorie'];
+                                    $theme = $themeData['theme'];
+
+                                    if ($currentCategory !== $categorie) {
+                                        if ($currentCategory !== null) {
+                                            echo '</optgroup>';
+                                        }
+                                        echo '<optgroup label="' . e($categorie) . '">';
+                                        $currentCategory = $categorie;
                                     }
-                                    echo '<optgroup label="' . e($categorie) . '">';
-                                    $currentCategory = $categorie;
+                                    
+                                    echo '<option value="' . e($id_theme) . '">' . e($sous_categorie) . ' : ' . e($theme) . '</option>';
                                 }
-                                
-                                echo '<option value="' . e($id_theme) . '">' . e($sous_categorie) . ' : ' . e($theme) . '</option>';
-                            }
 
-                            if ($currentCategory !== null) {
-                                echo '</optgroup>';
-                            }
-                    ?>
-                </select>
-</br>
-                <label for="expertise${experienceCounter}">Expertise Professionnelle :</label>
-                <select name="expertise${experienceCounter}">
-                <?php
-                foreach ($levels as $id => $col) {
-                    echo '<option value="' . e($id) . '">' . e($col['libelle']). '</option>';
-                }
-                ?>
-                </select>
-                <label for="dureeExpertise${experienceCounter}">Durée de l'expertise :</label>
-                <input type="number" name="dureeExpertise${experienceCounter}" placeholder="Saisissez le nombre d'années d'expertise" required="">
-
-                <label for="commentaireExpertise${experienceCounter}">Commentaire :</label>
-                <textarea name="commentaireExpertise${experienceCounter}" placeholder="Ajoutez un commentaire"></textarea>
+                                if ($currentCategory !== null) {
+                                    echo '</optgroup>';
+                                }
+                        ?>
+                    </select>
+                </div>
                 </br>
-                <label for="expePeda${experienceCounter}">Experience Padagogique :</label>
-                <select name="expePeda${experienceCounter}">
-                <?php
-                foreach ($public as $id => $val) {
-                    echo '<option value="' . e($id) . '">' . e($val['libellep']). '</option>';
-                }
-                ?>
-                </select>
-                <label for="VolumeHMoyenSession${experienceCounter}">Volume horaire d'une session :</label>
-                <input type="time" name="VolumeHMoyenSession${experienceCounter}" placeholder="Saisissez le nombre d'années d'expertise" required="" step=1>
 
-                <label for="nbSession${experienceCounter}">Nombre de sessions :</label>
-                <input type="number" name="nbSession${experienceCounter}" placeholder="Saisissez le nombre de sessions" required="">
-
-                <label for="commentaireExpePeda${experienceCounter}">Commentaire :</label>
-                <textarea name="commentaireExpePeda${experienceCounter}" placeholder="Ajoutez un commentaire"></textarea>
+                <div class="exp">
+                    <label for="expertise${experienceCounter}">Expertise Professionnelle :</label>
+                    <select name="expertise${experienceCounter}" class="exp-select">
+                    <?php
+                    foreach ($levels as $id => $col) {
+                        echo '<option value="' . e($id) . '">' . e($col['libelle']). '</option>';
+                    }
+                    ?>
+                    </select>
+                </div>
+                </br>
+                <div class="exp">
+                    <label for="dureeExpertise${experienceCounter}">Durée de l'expertise :</label>
+                    <input type="number" name="dureeExpertise${experienceCounter}" placeholder="Saisissez le nombre d'années d'expertise" required="">
+                </div>
+                </br>
+                <div class="exp">
+                    <label for="commentaireExpertise${experienceCounter}" class="exp">Commentaire :</label>
+                    </br>
+                    <textarea name="commentaireExpertise${experienceCounter}" placeholder="Ajoutez un commentaire"></textarea>
+                </div>
+                </br>
+                <div class="exp">
+                    <label for="expePeda${experienceCounter}" class="exp">Experience Padagogique :</label>
+                    </br>
+                    <select name="expePeda${experienceCounter}" class="exp-select">
+                    <?php
+                    foreach ($public as $id => $val) {
+                        echo '<option value="' . e($id) . '">' . e($val['libellep']). '</option>';
+                    }
+                    ?>
+                    </select>
+                </div>
+                </br>
+                <div class="exp">
+                    <label for="VolumeHMoyenSession${experienceCounter}">Volume horaire d'une session :</label></br>
+                    <input type="time" name="VolumeHMoyenSession${experienceCounter}" placeholder="Saisissez le nombre d'années d'expertise" required="" step=1>
+                </div>
+                <div class="exp">
+                    <label for="nbSession${experienceCounter}">Nombre de sessions :</label></br>
+                    <input type="number" name="nbSession${experienceCounter}" placeholder="Saisissez le nombre de sessions" required="">
+                </div>
+                <div class="exp">
+                    </br>
+                    <label for="commentaireExpePeda${experienceCounter}" class="exp-select"">Commentaire :</label>
+                    </br>
+                    <textarea name="commentaireExpePeda${experienceCounter}" placeholder="Ajoutez un commentaire"></textarea>
+                </div>
             `;
 
             // Ajoute le nouvel élément div au conteneur
