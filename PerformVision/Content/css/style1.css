@@ -569,8 +569,27 @@ div.divchoice p {
     transition: 0.3s;
 }
 
-textarea {
-    width : 500px;
-    height : 20px;
+.experienceDropdown select{
+    border : solid #A8D0FF;
+    height: 30px;
+    width: 200px;
+    border-radius: 10px;
+    margin: 10px 5% 5px 1%;
+    font-family: Roboto, sans-serif;
+    font-size: medium;
+    transition: 0.3s;
+    background-color: #333333;
 }
 
+textarea {
+    color: white;
+    width : 500px;
+    height : 30px;
+    border : solid #A8D0FF;
+    border-radius: 10px;
+    margin: 10px 5% 5px 1%;
+    font-family: Roboto, sans-serif;
+    font-size: medium;
+    transition: 0.3s;
+    background-color: #333333;
+}
