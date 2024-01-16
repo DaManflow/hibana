@@ -16,15 +16,17 @@ if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "formateur") {
         <ul class="ul1">
             <li class="formations"><a href="?controller=former_list&action=former_pagination">Formateurs</a></li>
             <li class="conseils">Conseils</li>
-            <li class="autres">Autres
+            <li class="autres">Autres ▽
                 <ul class="dropdown">
-                    <li>Activité 1</li>
-                    <li>Activité 2</li>
-                    <li>Activité 3</li>
+                    <ul><a href="#" id="link">Activité 1</a></ul>
+                    <ul><a href="#" id="link">Activité 2</a></ul>
+                    <ul><a href="#" id="link">Activité 3</a></ul>
                 </ul>
             </li>
-            <li class="connect"><a href="?controller=message_customer&action=discussion"><button><span class="aut">Mes discussions</span></button></a></li>
-            <li class="connect"><a href="?controller=profil_customer&action=profil_customer"><button><i class="fa-regular fa-circle-user"></i><span class="aut">Mon Profil</span></button></a></li>
+            <a class="connect" href="../?controller=message_customer&action=discussion">
+                <button><span class="aut">Mes discussions</span></button></a>
+            <a class="connect" href="../?controller=profil_customer&action=profil_customer">
+                <button><i class="fa-regular fa-circle-user"></i><span class="aut">Mon Profil</span></button></a>
         </ul>
     </div>
 </div>

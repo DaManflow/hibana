@@ -1,3 +1,8 @@
+::selection {
+    background-color: rgba(17, 143, 238, 0.5);
+    color: rgb(171, 242, 255);
+}
+
 html {
     background-color: #2E2D33;
 }
@@ -7,7 +12,8 @@ html {
         display: none; /* Cache le texte du bouton sur les écrans plus petits */
     }
     .conteneur2 {
-        width: 1101px;
+        width: 100%;
+        max-width: 1101px;
         margin-top: 0;
         text-align: center;
         background-color: #222425 ;
@@ -364,7 +370,7 @@ input[type=text]:focus,input[type=password]:focus {
     background-color: #39383F;
 }
 
-input[type=submit], a.lienbtn {
+input[type=submit], a.lienbtn, button {
     list-style: none;
     padding: 8px;
     background-color: #2671a7; /* Bleu foncé */
@@ -379,12 +385,28 @@ input[type=submit], a.lienbtn {
     transition: 0.3s;
 }
 
-input[type=submit]:hover, a.lienbtn:hover {
+input[type=submit]:hover, a.lienbtn:hover, button:hover {
     background-color: #217EC2;
     letter-spacing: 0.2px;
     transition: 0.3s;
     box-shadow: 0 0 5px #66BCFF;
     color: white;
+}
+.divchoice a.lienbtn {
+    display: inline-block;
+    min-width: 60%;
+    max-width: 70%;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    margin:0;
+}
+
+select {
+    padding: 16px 20px;
+    border: none;
+    border-radius: 4px;
+    background-color: #f1f1f1;
 }
 
 /* Style pour le span dans le texte */
@@ -481,13 +503,17 @@ a:hover, .ul1 li:hover {
 div.divchoice {
     width: 30%;
     padding: 8px 20px;
-    margin: 24px -20px;
     box-shadow: none;
-    margin-left: 41%;
 }
 div.divchoice p{
-    text-align: left;
+    text-align: center;
     color: #D9EEFF;
+}
+.centerform{
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
 }
 
 /*profil de lutilisateur*/

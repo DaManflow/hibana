@@ -6,7 +6,7 @@ $_SESSION['public'] = $public ;
 $_SESSION['levels'] = $levels ;
 ?>
 
-<h1> S'incrire </h1>
+<h1> S'inscrire </h1>
 
 <form id="former-form" action="?controller=register_former&action=register_former" method="POST" enctype="multipart/form-data">
     
@@ -16,8 +16,8 @@ $_SESSION['levels'] = $levels ;
     <p> <label> <input required="" type="text" name="phone" placeholder="Téléphone"/> </label> </p>
     <p> <label> <input required="" type="password" name="password" placeholder="Mot De Passe"/> </label> </p>
     <p> <label> <input required="" type="text" name="linkedin" placeholder="Lien de votre page Linkedin"/> </label> </p>
-    <p> <label> <input required="" type="file" name="cv"/> </label> </p>
-     <button type="button" onclick="ajouterExperience()" required="">Ajouter une expérience</button>
+    <p> <label> <input required="" type="file" name="cv" class="lienbtn"/> </label> </p>
+     <button type="button" onclick="ajouterExperience()" required="" class="lienbtn">Ajouter une expérience</button>
 
 <!-- Conteneur pour les expériences -->
 <div id="experiencesContainer"></div>

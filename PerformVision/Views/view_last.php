@@ -29,16 +29,16 @@ foreach ($listSousCategories as $sc){
 //echo var_dump($sousCategories);
 
 // Créer un tableau des formateurs avec un tableau pour chaque compétence
-
-$formateur = [];
-foreach ($formateurs as $f){
-    if(!(key_exists($f['id_formateur'], $formateur))) {
-        $formateur[$f['id_formateur']] = [$f['nom'], $f['prenom']];
-    }
-    $formateur[$f['id_formateur']][2][$f['idt']][] = $f['volumehmoyensession'];
-    $formateur[$f['id_formateur']][2][$f['idt']][] = $f['nbsessioneffectuee'];
-    $formateur[$f['id_formateur']][2][$f['idt']][] = $f['nomt'];
-}
+//
+//$formateur = [];
+//foreach ($formateurs as $f){
+//    if(!(key_exists($f['id_formateur'], $formateur))) {
+//        $formateur[$f['id_formateur']] = [$f['nom'], $f['prenom']];
+//    }
+//    $formateur[$f['id_formateur']][2][$f['idt']][] = $f['volumehmoyensession'];
+//    $formateur[$f['id_formateur']][2][$f['idt']][] = $f['nbsessioneffectuee'];
+//    $formateur[$f['id_formateur']][2][$f['idt']][] = $f['nomt'];
+//}
 
 ?>
 
@@ -51,9 +51,8 @@ foreach ($formateurs as $f){
             <select id="categorie" name="categorie">
                 <!-- Affiche une liste déroulante des catégories -->
                 <option value="" disabled> Categories :</option>
-                <option value="0"> Toutes les catégories </option>
                 <?php foreach($listCategories as $c): ?>
-                    <option class="option" value=<?= $c['nomc'] ?>> <?= $c['nomc'] ?> </option>
+                    <option class="option" value="<?= $c['nomc'] ?>"> <?= $c['nomc'] ?> </option>
                 <?php endforeach;?>
             </select>
 
@@ -61,11 +60,10 @@ foreach ($formateurs as $f){
             <select id="souscategorie" name="souscategorie">
                 <!-- Affiche une liste déroulante des sous catégories en fonction des catégories -->
                 <option value="" disabled> Sous-categories :</option>
-                <option value="0"> Toutes les sous-catégories </option>
                 <?php foreach(array_keys($sousCategories) as $c): ?>
                     <optgroup label="<?= e($c) ?>">
                         <?php foreach($sousCategories[$c] as $sc=>$tabsc):?>
-                            <option class="option" value=<?= $sc ?>> <?= $sc ?> </option>
+                            <option class="option" value="<?= $sc ?>"> <?= $sc ?> </option>
                         <?php endforeach;?>
                     </optgroup>
                 <?php endforeach;?>
@@ -75,13 +73,12 @@ foreach ($formateurs as $f){
             <select id="theme" name="theme">
                 <!-- Affiche une liste déroulante des sous catégories en fonction des catégories -->
                 <option value="" disabled> Themes :</option>
-                <option value="0"> Touts les thèmes </option>
                 <?php foreach(array_keys($sousCategories) as $c): ?>
                     <optgroup label="<?= e($c) ?>">
                         <?php foreach($sousCategories[$c] as $sc=>$tabsc):?>
                             <optgroup label="<?= e($sc) ?>">
                                 <?php foreach ($tabsc as $t):?>
-                                    <option class="option" value=<?= $t['nomt'] ?>><?= $t['nomt'] ?></option>
+                                    <option class="option" value="<?= $t['nomt'] ?>"><?= $t['nomt'] ?></option>
                                 <?php endforeach ?>
                             </optoption>
                         <?php endforeach ?>
@@ -92,18 +89,26 @@ foreach ($formateurs as $f){
 
             <!-- Renvoi dans le formulaire la valeur de l'ancien filtre de chaque type si il existe-->
 
-            <?php if (isset($filtre['categorie'])) :?>
+            <!--<?php /*if (isset($filtre['categorie'])) :?>
             <input type="hidden" name="filtrecategorie" value=<?= serialize($filtre['categorie']) ?>>
             <?php endif ?>
 
             <?php if (isset($filtre['souscategorie'])) :?>
+                <?= serialize($filtre['souscategorie']) ?>
                 <input type="hidden" name="filtresouscategorie" value=<?= serialize($filtre['souscategorie']) ?>>
             <?php endif ?>
 
             <?php if (isset($filtre['theme'])) :?>
                 <input type="hidden" name="filtretheme" value=<?= serialize($filtre['theme']) ?>>
-            <?php endif ?>
+            <?php endif */?>-->
 
+            <?php $tab = []; if (isset($filtre['categorie'])) : if(count($filtre['categorie']) != 0) :
+                foreach ($filtre['categorie'] as $c) :
+                    $tab[] = $c
+                ?>
+            <?php endforeach;endif;endif; ?>
+            <?php echo serialize($tab) ?>
+            <input type="hidden" name="filtrecategorie" value=<?= serialize($tab) ?>>
 
         </form>
 
