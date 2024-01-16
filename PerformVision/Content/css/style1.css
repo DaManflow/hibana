@@ -223,7 +223,6 @@ a {
     transform: scaleX(1);
 }
 
-
 .formations a {
     text-decoration: none;
     color : #A8D0FF;
@@ -351,19 +350,22 @@ a {
 input[type=text],input[type=password] {
     width: 30%;
     min-width: 20%;
-    padding: 8px 10px;
-    border-radius: 5px;
+    padding: 7px 8px;
+    /*border-radius: 5px;*/
     margin: 15px 0;
     box-sizing: border-box;
-    border: 3px solid rgb(194, 222, 255);
-    background-color: #333333;
+    border: none;
+    border-bottom: 3px solid rgb(194, 222, 255);
+    background-color: rgba(51, 51, 51, 0);
     color: white;
     -webkit-transition: 0.5s;
     transition: 0.5s;
     outline: none;
 }
 input[type=text]:focus,input[type=password]:focus {
-    border: 3px solid #66BCFF;
+    /*border: 1px solid #66BCFF;*/
+    /*border-radius: 5px;*/
+    border-bottom: 3px solid #66BCFF;
     box-shadow: 0 0 10px #66BCFF;
 }
 .bodyform {
@@ -405,6 +407,10 @@ input[type=submit]:hover{
     align-items: center;
     justify-content: center;
     margin: 0;
+}
+input:-webkit-autofill{
+    background-color: rgba(102, 188, 255, 0.25) !important;
+    background-image: none !important;
 }
 
 select {
