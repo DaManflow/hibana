@@ -69,7 +69,7 @@ $_SESSION['levels'] = $levels ;
                 </br>
 
                 <div class="exp">
-                    <label for="expertise${experienceCounter}">Expertise Professionnelle :</label>
+                    <label for="expertise${experienceCounter}" class="titre-exp">Expertise Professionnelle :</label>
                     <select name="expertise${experienceCounter}" class="exp-select">
                     <?php
                     foreach ($levels as $id => $col) {
@@ -80,18 +80,18 @@ $_SESSION['levels'] = $levels ;
                 </div>
                 </br>
                 <div class="exp">
-                    <label for="dureeExpertise${experienceCounter}">Durée de l'expertise :</label>
+                    <label for="dureeExpertise${experienceCounter}" class="titre-exp">Durée de l'expertise :</label>
                     <input type="number" name="dureeExpertise${experienceCounter}" placeholder="Saisissez le nombre d'années d'expertise" required="">
                 </div>
                 </br>
                 <div class="exp">
-                    <label for="commentaireExpertise${experienceCounter}" class="exp">Commentaire :</label>
+                    <label for="commentaireExpertise${experienceCounter}" class="exp" class="titre-exp">Commentaire :</label>
                     </br>
                     <textarea name="commentaireExpertise${experienceCounter}" placeholder="Ajoutez un commentaire"></textarea>
                 </div>
                 </br>
                 <div class="exp">
-                    <label for="expePeda${experienceCounter}" class="exp">Experience Padagogique :</label>
+                    <label for="expePeda${experienceCounter}" class="exp titre-exp" >Experience Padagogique :</label>
                     </br>
                     <select name="expePeda${experienceCounter}" class="exp-select">
                     <?php
@@ -103,16 +103,16 @@ $_SESSION['levels'] = $levels ;
                 </div>
                 </br>
                 <div class="exp">
-                    <label for="VolumeHMoyenSession${experienceCounter}">Volume horaire d'une session :</label></br>
+                    <label for="VolumeHMoyenSession${experienceCounter}" class="titre-exp">Volume horaire d'une session :</label></br>
                     <input type="time" name="VolumeHMoyenSession${experienceCounter}" placeholder="Saisissez le nombre d'années d'expertise" required="" step=1>
                 </div>
                 <div class="exp">
-                    <label for="nbSession${experienceCounter}">Nombre de sessions :</label></br>
+                    <label for="nbSession${experienceCounter}" class="titre-exp">Nombre de sessions :</label></br>
                     <input type="number" name="nbSession${experienceCounter}" placeholder="Saisissez le nombre de sessions" required="">
                 </div>
                 <div class="exp">
                     </br>
-                    <label for="commentaireExpePeda${experienceCounter}" class="exp-select"">Commentaire :</label>
+                    <label for="commentaireExpePeda${experienceCounter}" class="exp-select titre-exp">Commentaire :</label>
                     </br>
                     <textarea name="commentaireExpePeda${experienceCounter}" placeholder="Ajoutez un commentaire"></textarea>
                 </div>
