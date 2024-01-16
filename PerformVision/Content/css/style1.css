@@ -51,7 +51,7 @@ html {
         width : 80% ;
         text-align: center;
         color : lightgrey ;
-        margin: 5%;
+        margin: 0 5% 5% 5%;
         text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
         font-weight: bold;
     }
@@ -63,8 +63,8 @@ html {
         text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
         font-weight: bold;
     }
-
 }
+
 @media only screen and (min-width: 770px) {
     .connect i {
         display: none; /* Cache le texte du bouton sur les écrans plus petits */
@@ -129,6 +129,7 @@ html {
         margin-left: 0;
     }
 }
+
 .connect i {
     font-size: large;
     padding : 0;
@@ -222,7 +223,6 @@ a {
 #link:hover::after {
     transform: scaleX(1);
 }
-
 
 .formations a {
     text-decoration: none;
@@ -337,7 +337,7 @@ a {
 
 .conteneur1 {
     text-align: center;
-    height: 509.2px;
+
 }
 
 .img1 img {
@@ -346,34 +346,52 @@ a {
     max-width: 100%; /* Assurez-vous que l'image ne dépasse pas la largeur du conteneur */
     height: auto; /* Évitez la déformation de l'image */
     margin-top: -105px;
+    background-color: rgba(0, 0, 0, 0);
+    padding: 0;
+}
+.img1{
+    /*background-color: #222425;
+    max-height: 100%;
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;*/
 }
 
-input[type=text],input[type=password] {
-    width: 30%;
+input[type=text],input[type=password],textarea,select {
+    width: 25%;
     min-width: 20%;
-    padding: 8px 10px;
-    border-radius: 5px;
+    padding: 7px 8px;
+    /*border-radius: 5px;*/
     margin: 15px 0;
     box-sizing: border-box;
-    border: 3px solid rgb(194, 222, 255);
-    background-color: #333333;
+    border: none;
+    border-bottom: 3px solid /*rgb(194, 222, 255)*/;
+    /*#C2DEFF, #0095ff*/
+    /*border-bottom: linear-gradient(white, white);*/
+    background-color: rgba(51, 51, 51, 0);
     color: white;
     -webkit-transition: 0.5s;
     transition: 0.5s;
     outline: none;
+    border-image: linear-gradient(to right, #C2DEFF, #0092ff) 1;
 }
+
 input[type=text]:focus,input[type=password]:focus {
-    border: 3px solid #66BCFF;
+    /*border: 1px solid #66BCFF;*/
+    /*border-radius: 5px;*/
+    border-bottom: 3px solid;
+    border-image: linear-gradient(to right, #98c5ff, #0093ff) 1;
     box-shadow: 0 0 10px #66BCFF;
 }
 .bodyform {
     background-color: #39383F;
+    min-height: 10vh;
+    top: 10vh;
 }
 
 input[type=submit], a.lienbtn, button {
     list-style: none;
     padding: 8px;
-    background-color: #2671a7; /* Bleu foncé */
+    background-image: linear-gradient(45deg, #2671a7 0%, #0095ff 100%);
     color: white;
     border: none;
     border-radius: 10px;
@@ -386,28 +404,35 @@ input[type=submit], a.lienbtn, button {
 }
 
 input[type=submit]:hover, a.lienbtn:hover, button:hover {
-    background-color: #217EC2;
-    letter-spacing: 0.2px;
+    background-image: linear-gradient(45deg, #6696b9 0%, #46b1ff 100%);
+    /*letter-spacing: 0.2px;*/
     transition: 0.3s;
     box-shadow: 0 0 5px #66BCFF;
     color: white;
 }
+input[type=submit]:hover{
+    letter-spacing: 0.2px;
+}
 .divchoice a.lienbtn {
     display: inline-block;
-    min-width: 60%;
-    max-width: 70%;
+    min-width: 0;
+    max-width: 80%;
     text-align: center;
     align-items: center;
     justify-content: center;
-    margin:0;
+    margin: 0;
+}
+input:-webkit-autofill{
+    background-color: rgba(102, 188, 255, 0.25) !important;
+    background-image: none !important;
 }
 
-select {
-    padding: 16px 20px;
-    border: none;
-    border-radius: 4px;
-    background-color: #f1f1f1;
-}
+/*select {*/
+/*    padding: 16px 20px;*/
+/*    border: none;*/
+/*    border-radius: 4px;*/
+/*    background-color: #f1f1f1;*/
+/*}*/
 
 /* Style pour le span dans le texte */
 .text span  , .text2 span{
@@ -436,6 +461,7 @@ footer {
     display : block ;
     text-align: center;
     margin-right : 2%;
+    margin-bottom: -5px;
 }
 /*
 .partie-gauche{
@@ -505,11 +531,11 @@ div.divchoice {
     padding: 8px 20px;
     box-shadow: none;
 }
-div.divchoice p{
+div.divchoice p {
     text-align: center;
     color: #D9EEFF;
 }
-.centerform{
+.centerform {
     display: flex;
     text-align: center;
     align-items: center;
@@ -548,4 +574,63 @@ div.divchoice p{
     transition : all 1s ;
     background-color: #265587;
     transform: scale(1.05);
+}
+
+.experienceDropdown {
+    border-left: solid #A8D0FF;
+    width: 32em;
+    text-align: left;
+    padding: 10px 25px;
+    font-weight: bold;
+    margin-left: auto;
+    margin-right: auto;
+    font-family: Roboto, sans-serif;
+    font-size: medium;
+    transition: 0.3s;
+    color: white;
+
+    /*select {*/
+    /*    border-bottom: solid #A8D0FF;*/
+    /*    height: 25px;*/
+    /*    width: 200px;*/
+    /*    border-radius: 10px;*/
+    /*    margin: 1px 0.5% 0.5px 0.1%;*/
+    /*    font-family: Roboto, sans-serif;*/
+    /*    font-size: medium;*/
+    /*    transition: 0.3s;*/
+    /*    background-color: #2E2D33;*/
+    /*    color: white;*/
+    /*}*/
+
+    /*.exp input {*/
+    /*    border: solid #A8D0FF;*/
+    /*    border-radius: 10px;*/
+    /*    color: white;*/
+    /*    width: 200px;*/
+    /*    height: 25px;*/
+
+    /*    margin: 1px 0.5% 0.5px 0.1%;*/
+    /*    font-family: Roboto, sans-serif;*/
+    /*    font-size: medium;*/
+    /*    transition: 0.3s;*/
+    /*    background-color: #2E2D33;*/
+    /*}*/
+}
+
+.experienceDropdown input {
+    padding: 7px 8px;
+    margin: 15px 0;
+    box-sizing: border-box;
+    border: none;
+    background-color: rgba(51, 51, 51, 0);
+    border-bottom: 3px solid;
+    color: white;
+    -webkit-transition: 0.5s;
+    transition: 0.5s;
+    outline: none;
+    border-image: linear-gradient(to right, #C2DEFF, #0092ff) 1;
+}
+.experienceDropdown input[type=number]{
+    width: 45%;
+    min-width: 45%;
 }

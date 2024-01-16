@@ -6,7 +6,7 @@
     <p> <label> <input required="" type="text" name="name" placeholder="Nom"/> </label> </p>
     <p> <label> <input required="" type="text" name="surname" placeholder="Prénom"/> </label> </p>
     <p> <label> <input required="" type="text" name="email" placeholder="Email"/> </label> </p>
-    <p> <label> <input required="" type="text" name="phone" placeholder="Téléphone"/> </label> </p>
+    <p> <label> <input type="text" name="phone" placeholder="Téléphone"/> </label> </p>
     <p> <label> <input required="" type="text" name="company" placeholder="Société"/> </label> </p>
     <p> <label> <input required="" type="password" name="password" placeholder="Mot De Passe"/> </label> </p>
     <p> <label> <input required="" type="submit" name="submit" value="S'inscrire"> </label> </p>

@@ -305,7 +305,6 @@ class Model
             
                 // Récupérer l'idUtilisateur généré
                 $id_formateur = $this->bd->lastInsertId();
-         
                 // Deuxième partie : insertion dans la table Formateur
                 $req3 = $this->bd->prepare('
                 INSERT INTO Formateur (id_formateur, linkedin, date_signature, cv, declaration)
