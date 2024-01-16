@@ -305,7 +305,7 @@ class Model
             
                 // Récupérer l'idUtilisateur généré
                 $id_formateur = $this->bd->lastInsertId();
-<<<<<<< HEAD
+
          //Insertion des experiences 
          $nombre_experiences = 0;
 
@@ -343,10 +343,6 @@ class Model
          $reqPeda->execute();
      }
 
-
-=======
-         
->>>>>>> a8688c061afbef66338ed50d77cf2bf320300ad7
                 // Deuxième partie : insertion dans la table Formateur
                 $req3 = $this->bd->prepare('
                 INSERT INTO Formateur (id_formateur, linkedin, date_signature, cv, declaration)
