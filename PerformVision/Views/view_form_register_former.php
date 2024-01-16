@@ -41,7 +41,7 @@ $_SESSION['levels'] = $levels ;
             <h1>Informations sur l'Expérience ${experienceCounter}</h1>
 
                 <div class="exp">
-                    <label for="theme${experienceCounter}">Expérience :</label>
+                    <label for="theme${experienceCounter}" class="titre-exp">Expérience :</label>
                     <select name="theme${experienceCounter}" class="exp-select">
                         <?php
                                 foreach ($themes as $id_theme => $themeData) {
@@ -85,7 +85,7 @@ $_SESSION['levels'] = $levels ;
                 </div>
                 </br>
                 <div class="exp">
-                    <label for="commentaireExpertise${experienceCounter}" class="exp" class="titre-exp">Commentaire :</label>
+                    <label for="commentaireExpertise${experienceCounter}" class="exp titre-exp">Commentaire :</label>
                     </br>
                     <textarea name="commentaireExpertise${experienceCounter}" placeholder="Ajoutez un commentaire"></textarea>
                 </div>
