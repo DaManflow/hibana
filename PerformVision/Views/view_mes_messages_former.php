@@ -10,13 +10,11 @@ if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "formateur" || $_S
         
         // Vérifiez si l'utilisateur actuel a envoyé le message
         if ($val['id_utilisateur'] == $_SESSION['idutilisateur']) {
-            echo "Moi : ";
+            echo "Moi : " . $val['texte'] . "</td><td>" . " à " . $val['date_heure'] . "</td></tr></br>";
         }
-        else {
-            echo $val['nom'] . " " . $val['prenom'] . " alias " . $val['mail'] . " vous a envoyé : ";
+        elseif ($val['id_utilisateur'] != $_SESSION['idutilisateur'] && $val['validem'] == 'true') {
+            echo "Message reçu : " . $val['texte'] . "</td><td>" . " à " . $val['date_heure'] . "</td></tr></br>";
         }
-
-        echo $val['texte'] . "</td><td>" . " à " . $val['date_heure'] . "</td></tr></br>";
     }
 }
 ?>

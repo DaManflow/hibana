@@ -712,6 +712,68 @@ inner join utilisateur on formateur.id_formateur = utilisateur.id_utilisateur');
         return $erreur_type;
     }
 
+    public function add_discussion_message_customer_affranchi($infos) {
+
+        if (! $infos) {return false;}
+
+        $erreur_type = [];
+
+        try {
+
+            $this->bd->beginTransaction();
+
+
+            $req_verif = $this->bd->prepare('SELECT * FROM discussion WHERE id_client = :id_client AND id_formateur = :id_formateur');
+            $req_verif->bindValue(':id_client', $_SESSION['idutilisateur']);
+            $req_verif->bindValue(':id_formateur', $infos['id_former']);
+            $req_verif->execute();
+
+            
+
+            if ($req_verif->rowCount() == 0) {
+
+
+                $req = $this->bd->prepare('INSERT INTO discussion(id_client,id_formateur) VALUES(:id_client, :id_formateur)');
+                $req->bindValue(':id_client', $_SESSION['idutilisateur']);
+                $req->bindValue(':id_formateur', $infos['id_former']);
+                $req->execute();
+
+            }
+
+            $req_verif = $this->bd->prepare('SELECT * FROM discussion WHERE id_client = :id_client AND id_formateur = :id_formateur');
+            $req_verif->bindValue(':id_client', $_SESSION['idutilisateur']);
+            $req_verif->bindValue(':id_formateur', $infos['id_former']);
+            $req_verif->execute();
+
+            $req_verif_tab = $req_verif->fetch(PDO::FETCH_ASSOC);
+
+            
+
+            $req2 = $this->bd->prepare('INSERT INTO message(id_discussion, id_utilisateur, texte,date_heure,valideM,lu) VALUES(:id_discussion, :id_utilisateur, :texte, :date_heure, :valideM, :lu)');
+            $req2->bindValue(':id_discussion', $req_verif_tab['id_discussion']);
+            $req2->bindValue(':id_utilisateur', $_SESSION['idutilisateur']);
+            $req2->bindValue(':texte', $infos['message']);
+            $req2->bindValue(':date_heure', $infos['date_msg']);
+            $req2->bindValue(':valideM', "true");
+            $req2->bindValue(':lu', "false");
+            $req2->execute();
+
+            $this->bd->commit();
+
+
+        }catch (PDOException $e) {
+            // En cas d'erreur, annuler la transaction
+            $this->bd->rollBack();
+
+            echo "Erreur : " . $e->getMessage();
+            $erreur_type[] = "error_db";
+            return $erreur_type;
+        }
+
+        $erreur_type[] = "none";
+        return $erreur_type;
+    }
+
 
     public function add_discussion_message_former($infos) {
 
@@ -775,6 +837,133 @@ inner join utilisateur on formateur.id_formateur = utilisateur.id_utilisateur');
         return $erreur_type;
     }
 
+
+    public function add_discussion_message_former_affranchi($infos) {
+
+        if (! $infos) {return false;}
+
+        $erreur_type = [];
+
+        try {
+
+            $this->bd->beginTransaction();
+
+
+            $req_verif = $this->bd->prepare('SELECT * FROM discussion WHERE id_client = :id_client AND id_formateur = :id_formateur');
+            $req_verif->bindValue(':id_formateur', $_SESSION['idutilisateur']);
+            $req_verif->bindValue(':id_client', $infos['id_client']);
+            $req_verif->execute();
+
+            
+
+            if ($req_verif->rowCount() == 0) {
+
+
+                $req = $this->bd->prepare('INSERT INTO discussion(id_client,id_formateur) VALUES(:id_client, :id_formateur)');
+                $req->bindValue(':id_formateur', $_SESSION['idutilisateur']);
+                $req->bindValue(':id_client', $infos['id_client']);
+                $req->execute();
+
+            }
+
+            $req_verif = $this->bd->prepare('SELECT * FROM discussion WHERE id_client = :id_client AND id_formateur = :id_formateur');
+            $req_verif->bindValue(':id_formateur', $_SESSION['idutilisateur']);
+            $req_verif->bindValue(':id_client', $infos['id_client']);
+            $req_verif->execute();
+
+            $req_verif_tab = $req_verif->fetch(PDO::FETCH_ASSOC);
+
+            
+
+            $req2 = $this->bd->prepare('INSERT INTO message(id_discussion, id_utilisateur, texte,date_heure,valideM,lu) VALUES(:id_discussion, :id_utilisateur, :texte, :date_heure, :valideM, :lu)');
+            $req2->bindValue(':id_discussion', $req_verif_tab['id_discussion']);
+            $req2->bindValue(':id_utilisateur', $_SESSION['idutilisateur']);
+            $req2->bindValue(':texte', $infos['message']);
+            $req2->bindValue(':date_heure', $infos['date_msg']);
+            $req2->bindValue(':valideM', "true");
+            $req2->bindValue(':lu', "false");
+            $req2->execute();
+
+            $this->bd->commit();
+
+
+        }catch (PDOException $e) {
+            // En cas d'erreur, annuler la transaction
+            $this->bd->rollBack();
+
+            echo "Erreur : " . $e->getMessage();
+            $erreur_type[] = "error_db";
+            return $erreur_type;
+        }
+
+        $erreur_type[] = "none";
+        return $erreur_type;
+    }
+    
+
+    public function add_discussion_message_former_admin_moderator($infos) {
+
+        if (! $infos) {return false;}
+
+        $erreur_type = [];
+
+        try {
+
+            $this->bd->beginTransaction();
+
+
+            $req_verif = $this->bd->prepare('SELECT * FROM discussion WHERE id_client = :id_client AND id_formateur = :id_formateur');
+            $req_verif->bindValue(':id_formateur', $_SESSION['idutilisateur']);
+            $req_verif->bindValue(':id_client', $infos['id_client']);
+            $req_verif->execute();
+
+            
+
+            if ($req_verif->rowCount() == 0) {
+
+
+                $req = $this->bd->prepare('INSERT INTO discussion(id_client,id_formateur) VALUES(:id_client, :id_formateur)');
+                $req->bindValue(':id_formateur', $_SESSION['idutilisateur']);
+                $req->bindValue(':id_client', $infos['id_client']);
+                $req->execute();
+
+            }
+
+            $req_verif = $this->bd->prepare('SELECT * FROM discussion WHERE id_client = :id_client AND id_formateur = :id_formateur');
+            $req_verif->bindValue(':id_formateur', $_SESSION['idutilisateur']);
+            $req_verif->bindValue(':id_client', $infos['id_client']);
+            $req_verif->execute();
+
+            $req_verif_tab = $req_verif->fetch(PDO::FETCH_ASSOC);
+
+            
+
+            $req2 = $this->bd->prepare('INSERT INTO message(id_discussion, id_utilisateur, texte,date_heure,valideM,lu) VALUES(:id_discussion, :id_utilisateur, :texte, :date_heure, :valideM, :lu)');
+            $req2->bindValue(':id_discussion', $req_verif_tab['id_discussion']);
+            $req2->bindValue(':id_utilisateur', $_SESSION['idutilisateur']);
+            $req2->bindValue(':texte', $infos['message']);
+            $req2->bindValue(':date_heure', $infos['date_msg']);
+            $req2->bindValue(':valideM', "true");
+            $req2->bindValue(':lu', "false");
+            $req2->execute();
+
+            $this->bd->commit();
+
+
+        }catch (PDOException $e) {
+            // En cas d'erreur, annuler la transaction
+            $this->bd->rollBack();
+
+            echo "Erreur : " . $e->getMessage();
+            $erreur_type[] = "error_db";
+            return $erreur_type;
+        }
+
+        $erreur_type[] = "none";
+        return $erreur_type;
+    }
+
+
     public function list_discussions_customers() {
 
         try {
@@ -809,15 +998,21 @@ inner join utilisateur on formateur.id_formateur = utilisateur.id_utilisateur');
 
             $this->bd->beginTransaction();
 
-            $req = $this->bd->prepare('SELECT message.id_utilisateur, prenom, nom ,mail, texte, date_heure, role
-            FROM message
-            JOIN discussion USING (id_discussion)
-            JOIN utilisateur ON id_formateur = utilisateur.id_utilisateur
-            WHERE id_formateur = :id_formateur AND id_client = :id_client AND validem = :vrai
-            ORDER BY date_heure');
+            $req = $this->bd->prepare('
+
+        SELECT message.id_utilisateur, prenom, nom, mail, texte, date_heure, role, validem
+        FROM message
+        JOIN discussion USING (id_discussion)
+        JOIN utilisateur ON id_client = utilisateur.id_utilisateur
+        WHERE id_formateur = :id_formateur AND id_client = :id_client AND validem = :vrai OR validem = :faux AND role = :client ORDER BY date_heure
+');
+
+
             $req->bindValue(':id_client', $_SESSION['idutilisateur']);
             $req->bindValue(':id_formateur', $id_formateur);
             $req->bindValue(':vrai', 'true');
+            $req->bindValue(':faux', 'false');
+            $req->bindValue(':client', 'client');
             $req->execute();
 
 
@@ -868,14 +1063,18 @@ inner join utilisateur on formateur.id_formateur = utilisateur.id_utilisateur');
 
             $this->bd->beginTransaction();
 
-            $req = $this->bd->prepare('SELECT message.id_utilisateur, prenom, nom, mail, texte, date_heure, role
-            FROM message
-            JOIN discussion USING (id_discussion)
-            JOIN utilisateur ON id_client = utilisateur.id_utilisateur
-            WHERE id_formateur = :id_formateur AND id_client = :id_client AND validem = :vrai
-            ORDER BY date_heure');
+            $req = $this->bd->prepare('
+
+        SELECT message.id_utilisateur, prenom, nom, mail, texte, date_heure, role, validem
+        FROM message
+        JOIN discussion USING (id_discussion)
+        JOIN utilisateur ON id_formateur = utilisateur.id_utilisateur
+        WHERE id_formateur = :id_formateur AND id_client = :id_client AND validem = :vrai OR validem = :faux AND role = :formateur ORDER BY date_heure
+');
             $req->bindValue(':id_formateur', $_SESSION['idutilisateur']);
             $req->bindValue(':id_client', $id_client);
+            $req->bindValue(':faux', 'false');
+            $req->bindValue(':formateur', 'formateur');
             $req->bindValue(':vrai', 'true');
             $req->execute();
 
@@ -1166,16 +1365,21 @@ inner join utilisateur on formateur.id_formateur = utilisateur.id_utilisateur');
     public function messageList($id_discussion) {
     
         $req = $this->bd->prepare('SELECT
+        C.est_affranchi AS client_affranchi,
+        F.est_affranchi AS formateur_affranchi,
         M.id_message AS id_message,
+        M.id_utilisateur AS id_utilisateur,
         D.id_discussion AS id_discussion,
         D.id_formateur AS id_formateur,
         F.nom AS formateur_nom,
         F.prenom AS formateur_prenom,
         F.mail AS formateur_mail,
+        F.role AS formateur_role,
         D.id_client AS id_client,
         C.nom AS client_nom,
         C.prenom AS client_prenom,
         C.mail AS client_mail,
+        C.role AS client_role,
         M.texte AS message_texte,
         M.date_heure AS message_date_heure,
         M.valideM AS message_valideM

@@ -13,7 +13,7 @@ require_once "Models/Model.php";
 require_once "Controllers/Controller.php";
 
 //Liste des contrôleurs
-$controllers = ["home", "register_customer","register_former","choice", "member_choice_admin", "member_choice_moderator", "former_list", "discussion_list", "message_list", "former_list_admin", "former_list_moderator", "admin_list", "moderator_list", "customer_list", "est_affranchi_true_list_moderator", "est_affranchi_true_list_admin", "est_affranchi_false_list_admin", "est_affranchi_false_list_moderator", "validem_true", "validem_false", "home_former", "home_customer", "home_admin", "home_moderator", "profil_customer", "profil_former", "login", "logout", "list", "message_former","message_customer","list_former_pagination_customer", "promote", "unpromote", "free", "unfree"];
+$controllers = ["home", "register_customer","register_former", "member_choice_admin", "member_choice_moderator", "former_list", "list_theme", "discussion_list", "message_list", "former_list_admin", "former_list_moderator", "admin_list", "moderator_list", "customer_list", "est_affranchi_true_list_moderator", "est_affranchi_true_list_admin", "est_affranchi_false_list_admin", "est_affranchi_false_list_moderator", "validem_true", "validem_false", "home_former", "home_customer", "home_admin", "home_moderator", "profil_customer", "profil_former", "login_customer", "login_former", "logout", "list", "message_former","message_customer","list_former_pagination_customer", "promote", "unpromote", "free", "unfree"];
 //Nom du contrôleur par défaut
 $controller_default = "home";
 

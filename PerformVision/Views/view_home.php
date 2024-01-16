@@ -13,7 +13,7 @@ if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "client") {
     <div class="partie-gauche">PerformVision Training & Consulting</div>
     <div class="partie-droite">
         <ul class="ul1">
-        <li class="formations"><a href="?controller=former_list&action=former_pagination" id="link">Formateurs</a></li>
+        <li class="formations"><a href="?controller=list_theme&action=list_theme" id="link">Liste des thèmes</a></li>
         <li class="conseils"><a href="" id="link">Conseils</a></li>
         <li class="autres">Autres ▽
             <ul class="dropdown">
@@ -22,9 +22,9 @@ if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "client") {
             <ul><a href="#" id="link">Activité 3</a></ul>
             </ul>
         </li>
-            <a class="connect" href="?controller=login&action=login">
+            <a class="connect" href="?controller=login_former&action=form_login_former">
                 <button>
-                    <i class="fa-regular fa-circle-user"></i><span class="aut">Se connecter</span>
+                    <i class="fa-regular fa-circle-user"></i><span class="aut">Nous rejoindre ?</span>
                 </button>
             </a>
         </ul>

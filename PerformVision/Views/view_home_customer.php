@@ -23,9 +23,9 @@ if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "formateur") {
                     <ul><a href="#" id="link">Activité 3</a></ul>
                 </ul>
             </li>
-            <a class="connect" href="../?controller=message_customer&action=discussion">
+            <a class="connect" href="?controller=message_customer&action=discussion">
                 <button><span class="aut">Mes discussions</span></button></a>
-            <a class="connect" href="../?controller=profil_customer&action=profil_customer">
+            <a class="connect" href="?controller=profil_customer&action=profil_customer">
                 <button><i class="fa-regular fa-circle-user"></i><span class="aut">Mon Profil</span></button></a>
         </ul>
     </div>

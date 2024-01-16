@@ -1,7 +1,7 @@
 <?php
 require_once "Controller.php";
-class Controller_login extends Controller{
-    public function action_login(){
+class Controller_login_customer extends Controller{
+    public function action_login_customer(){
 
         if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "client") {
             header("Location: ?controller=home_customer&action=home_customer");
@@ -11,12 +11,12 @@ class Controller_login extends Controller{
             header("Location: ?controller=home_former&action=home_former");
         }
         
-        $this->render("form_login");
+        $this->render("form_login_customer");
 
     }
 
     public function action_default(){
-        $this->action_login();
+        $this->action_login_customer();
     }
 
     public function action_connectUser() {
