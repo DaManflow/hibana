@@ -5,7 +5,7 @@ $_SESSION['public'] = $public ;
 $_SESSION['levels'] = $levels ; 
 ?>
 
-<h1> S'incrire </h1>
+<h1> S'inscrire </h1>
 
 <form id="former-form" action="?controller=register_former&action=register_former" method="POST" enctype="multipart/form-data">
     
