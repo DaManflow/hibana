@@ -65,7 +65,85 @@ class Controller_message_former extends Controller{
             
         }
 
-        $rep = $m->add_discussion_message_former($tab);
+        if ($_SESSION['est_affranchi'] == false ) {
+            $rep = $m->add_discussion_message_former($tab);
+
+        if (in_array("none",$rep)) {
+
+             header("Location: ?controller=message_former&action=mes_discussions");
+             exit;
+             
+         }
+         else {
+
+             if (in_array("error_db",$rep)) {
+                 echo "La transaction à été annulée";
+                 $this->render("form_send_message_former");
+             }
+        }
+
+        }
+        else {
+            $rep = $m->add_discussion_message_former_affranchi($tab);
+
+            if (in_array("none",$rep)) {
+
+                header("Location: ?controller=message_former&action=mes_discussions");
+                exit;
+                
+            }
+            else {
+
+                if (in_array("error_db",$rep)) {
+                    echo "La transaction à été annulée";
+                    $this->render("form_send_message_former");
+                }
+            }
+        }
+
+        
+        }
+        else {
+            if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "client") {
+                header("Location: ?controller=home_customer&action=home_customer");
+            }
+
+            if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "formateur") {
+                header("Location: /hibana-main/PerformVision/?controller=home_former&action=home_former");
+            }
+        
+            if (!isset($_SESSION['idutilisateur'])) {
+                header("Location: /hibana-main/PerformVision/?controller=home&action=home");
+            }
+
+        }
+    }
+
+
+    public function action_send_message_admin_moderator() {
+
+
+        if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "client") {
+            header("Location: ?controller=home_customer&action=home_customer");
+        }
+
+        if (!isset($_SESSION['idutilisateur'])) {
+            header("Location: ?controller=home&action=home");
+        }
+
+        if (isset($_POST['submit'])) {
+
+        $m = Model::getModel();
+
+        $tab = data_message_former();
+
+        if ($tab['message'] == 'false') {
+            echo "Le msg est vide !";
+            $this->render("form_send_message_former");
+            
+        }
+
+        $rep = $m->add_discussion_message_former_admin_moderator($tab);
 
         if (in_array("none",$rep)) {
 
@@ -130,14 +208,43 @@ class Controller_message_former extends Controller{
         else {
             $this->render("mes_messages_former", $data);
         }
+    }
+
+    public function action_list_messages_former_admin_former() {
+
+        if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "client") {
+            header("Location: ?controller=home_customer&action=home_customer");
+        }
+
+        if (!isset($_SESSION['idutilisateur'])) {
+            header("Location: ?controller=home&action=home");
+        }
+
+
+
+        $m = Model::getModel();
+        $data = [
+            'messages' => $m->list_messages_formers($_GET['id']),
+        ];
+        if (empty($data['messages'])) {
             
 
-        
-
-
-
-
+                $data = [
+                    'title' => "Liste messages",
+                    'message' => "La modération n'a pas encore validé vos messages !",
+                ];
+    
+                $this->render("message", $data);
+    
+            }
+        else {
+            $this->render("mes_messages_admin_moderator", $data);
+        }
     }
+
+
+
+
 }
 
 ?>

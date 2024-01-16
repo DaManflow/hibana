@@ -26,7 +26,7 @@ if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "administrateur") 
 
 if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "moderateur") {
     foreach($list_discussions_customers as $cle => $val) {
-        echo "<tr><td> <a href=?controller=message_former&action=list_messages_former&id=" . $val['id_client'] . ">" . $val['nom'] ." ".$val['prenom'] . " " . $val['mail'] . "</a></td></tr> </br>";
+        echo "<tr><td> <a href=?controller=message_former&action=list_messages_former_admin_former&id=" . $val['id_client'] . ">" . $val['nom'] ." ".$val['prenom'] . " " . $val['mail'] . "</a></td></tr> </br>";
     }
 }
 

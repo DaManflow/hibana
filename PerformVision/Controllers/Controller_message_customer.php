@@ -98,6 +98,8 @@ class Controller_message_customer extends Controller{
 
     public function action_send_message() {
 
+        
+
         if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "formateur") {
             header("Location: /hibana-main/PerformVision/?controller=home_former&action=home_former");
         }
@@ -120,25 +122,55 @@ class Controller_message_customer extends Controller{
             
         }
 
-        $rep = $m->add_discussion_message_customer($tab);
+        if ($_SESSION['est_affranchi'] == false) {
 
-        if (in_array("none",$rep)) {
+            $rep = $m->add_discussion_message_customer($tab);
 
-             header("Location: ?controller=message_customer&action=dicussion");
-             exit;
-             
-         }
-         else {
+            if (in_array("none",$rep)) {
 
-             if (in_array("error_db",$rep)) {
-                 echo "La transaction à été annulée";
-                 $this->render("form_send_message_customer");
-             }
-
-
+                header("Location: ?controller=message_customer&action=dicussion");
+                exit;
+                
+            }
+            else {
+   
+                if (in_array("error_db",$rep)) {
+                    echo "La transaction à été annulée";
+                    $this->render("form_send_message_customer");
+                }
+   
+   
+   
+           }
+   
+    
+           
 
         }
+        else {
 
+            $rep = $m->add_discussion_message_customer_affranchi($tab);
+
+            if (in_array("none",$rep)) {
+
+                header("Location: ?controller=message_customer&action=dicussion");
+                exit;
+                
+            }
+            else {
+   
+                if (in_array("error_db",$rep)) {
+                    echo "La transaction à été annulée";
+                    $this->render("form_send_message_customer");
+                }
+   
+   
+   
+           }
+   
+           }
+           
+            
         }
         else {
             if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "client") {
@@ -155,12 +187,9 @@ class Controller_message_customer extends Controller{
 
         }
 
-
-
-
-
-
+        
     }
+
 
 
     public function action_list_messages_customer() {
