@@ -51,7 +51,7 @@ html {
         width : 80% ;
         text-align: center;
         color : lightgrey ;
-        margin: 5%;
+        margin: 0 5% 5% 5%;
         text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
         font-weight: bold;
     }
@@ -443,7 +443,7 @@ a {
 
 .conteneur1 {
     text-align: center;
-    height: 509.2px;
+
 }
 
 .img1 img {
@@ -452,6 +452,14 @@ a {
     max-width: 100%; /* Assurez-vous que l'image ne dépasse pas la largeur du conteneur */
     height: auto; /* Évitez la déformation de l'image */
     margin-top: -105px;
+    background-color: #ff0000;
+    padding: 0;
+}
+.img1{
+    /*background-color: #222425;
+    max-height: 100%;
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;*/
 }
 
 input[type=text],input[type=password] {
@@ -462,17 +470,21 @@ input[type=text],input[type=password] {
     margin: 15px 0;
     box-sizing: border-box;
     border: none;
-    border-bottom: 3px solid rgb(194, 222, 255);
+    border-bottom: 3px solid /*rgb(194, 222, 255)*/;
+    /*#C2DEFF, #0095ff*/
+    /*border-bottom: linear-gradient(white, white);*/
     background-color: rgba(51, 51, 51, 0);
     color: white;
     -webkit-transition: 0.5s;
     transition: 0.5s;
     outline: none;
+    border-image: linear-gradient(to right, #C2DEFF, #0092ff) 1;
 }
 input[type=text]:focus,input[type=password]:focus {
     /*border: 1px solid #66BCFF;*/
     /*border-radius: 5px;*/
-    border-bottom: 3px solid #66BCFF;
+    border-bottom: 3px solid;
+    border-image: linear-gradient(to right, #98c5ff, #0093ff) 1;
     box-shadow: 0 0 10px #66BCFF;
 }
 .bodyform {
@@ -484,7 +496,7 @@ input[type=text]:focus,input[type=password]:focus {
 input[type=submit], a.lienbtn, button {
     list-style: none;
     padding: 8px;
-    background-color: #2671a7; /* Bleu foncé */
+    background-image: linear-gradient(45deg, #2671a7 0%, #0095ff 100%);
     color: white;
     border: none;
     border-radius: 10px;
@@ -497,7 +509,7 @@ input[type=submit], a.lienbtn, button {
 }
 
 input[type=submit]:hover, a.lienbtn:hover, button:hover {
-    background-color: #217EC2;
+    background-image: linear-gradient(45deg, #6696b9 0%, #46b1ff 100%);
     /*letter-spacing: 0.2px;*/
     transition: 0.3s;
     box-shadow: 0 0 5px #66BCFF;
