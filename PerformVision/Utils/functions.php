@@ -380,6 +380,7 @@ function decrypt_biblio($str) {
     openssl_private_decrypt(base64_decode($str), $decrypted, $privateKey);
     return $decrypted;
 }
+//RSA : génération des  clés et ensuite chiffrer et déchiffrer le message 
 //troisieme essai pour le coup 
 function generateRSAKeys($bitLength) {
     $p = generatePrime($bitLength);
@@ -407,7 +408,7 @@ function generatePrime($bitLength) {
 }
 //trouver un nombre premier $e avec $phi 
 function findCoprime($phi) {
-    $e = gmp_init(65537); //valeur par défaut 
+    $e = gmp_init(5); //valeur par défaut 
     $phi = gmp_intval($phi);
     
     while (gmp_cmp(gmp_gcd($e, gmp_init($phi)), 1) != 0) {
@@ -420,266 +421,75 @@ function findCoprime($phi) {
 function modInverse($a, $m) {
     return gmp_intval(gmp_invert($a, $m));
 }
-/*
-//chiffrer et déchiffrer
-function encryptRSA($message, $publicKey) {
-    return base64_encode(numberToString(modPow(stringToNumber($message), $publicKey['e'], $publicKey['n'])));
+function crypt_manuel($message) {
+    $e = gmp_init(5);
+    $n = gmp_init("3890858955378152207");
+    $blocks = convertMessageToBlocks($message);
+    $encryptedBlocks = [];
+
+    foreach ($blocks as $block) {
+        $encryptedBlock = gmp_powm($block, $e, $n);
+        $encryptedBlocks[] = $encryptedBlock;
+    }
+    return convertBlocksToPassword($encryptedBlocks) ; 
 }
 
-function decryptRSA($encryptedMessage, $privateKey) {
-    return numberToString(modPow(stringToNumber(base64_decode($encryptedMessage)), $privateKey['d'], $privateKey['n']));
-}
-function stringToNumber($string) {
-    $result = '0';
-    $length = strlen($string);
-
-    for ($i = 0; $i < $length; $i++) {
-        $result = bcmul($result, '256');
-        $result = bcadd($result, sprintf('%03d', ord($string[$i])));
+function convertMessageToBlocks($message) {
+    $blocks = [];
+    for ($i = 0; $i < strlen($message); $i++) {
+        $blocks[] = gmp_init(ord($message[$i])); 
     }
-
-    return $result;
-}
-function modPow($base, $exponent, $modulus) {
-    $result = gmp_powm($base, $exponent, $modulus);
-    return gmp_intval($result);
-}
-function numberToString($number) {
-    $result = '';
-
-    while (strlen($number) > 0) {
-        $byte = substr($number, -3);
-        $result = chr((int)$byte) . $result;
-        $number = substr($number, 0, -3);
-    }
-
-    return $result;
+    return $blocks;
 }
 
-/*
-//deuxieme essai :(
-    //en premier generer la cle rsa 
-    function generateRSAKeys($bitLength){
-        //generer cdeux nombres premiers aléatoirements 
-        $p= generatePrime($bitLength) ;
-        $q= generatePrime($bitLength) ;
-        // le n et le fi , calcul basique
-        $n = gmp_mul($p, $q);
-        $phi = gmp_mul(gmp_sub($p, 1), gmp_sub($q, 1));
-        //le fonction findCoprime trouve un nombre premier avec fi avec la méthode Euler
-        $e= findCoprime($fi) ;
-        //calculer l'inverse de $e modulo fi
-        $d=modInverse($e,$fi) ;
-        //retourner les valeurs tableau composé
-        return [
-            'publicKey' => compact('e', 'n'),
-            'privateKey' => compact('d', 'n')
-        ];
+// Fonction pour convertir des blocs de nombres en message
+function convertBlocksToMessage($blocks) {
+    $message = '';
+    foreach ($blocks as $block) {
+    // Afficher la valeur numérique du bloc déchiffré
+        $message .= chr(gmp_intval($block)); 
     }
-    function saveKeysToFile($filename, $keys) {
-        $data = json_encode($keys);
-        file_put_contents($filename, $data);
+     // Nouvelle ligne pour la clarté dans l'affichage
+    return $message;
+}
+function convertBlocksToPassword($blocks){
+    $message = '';
+    foreach ($blocks as $block) {
+    // Afficher la valeur numérique du bloc déchiffré
+        $message .= gmp_intval($block).' '; 
     }
-    //en deux le chiffrement 
-    function encryptRSA($str , $publicKey){
-        //convertir le message en entier , 
-        return base64_encode(numberToString(modPow(stringToNumber($str),$publicKey['e'] , $publicKey['n'])));
-    }
-    //en trois dechiffrement 
-    function decryptRSA($encryptedMessage, $privateKey) {
-        return numberToString(modPow(stringToNumber(base64_decode($encryptedMessage)), $privateKey['d'], $privateKey['n']));
-    }
-
-    //ensuite c'et le code des fonctions de math qui sont pas disponibles sur php qui sont pas nécessaires daprès moi a comprendre a part si vous voulez vous casser la tête
-    //gmp bibliothèque maths
-    function generatePrime($bitLength) {
-        do {
-            $randomNumber = gmp_random_bits($bitLength);
-        } while (!gmp_prob_prime($randomNumber, 50));
-    
-        return gmp_strval($randomNumber);
-    }
-    function modPow($base, $exponent, $modulus) {
-        $result = gmp_powm($base, $exponent, $modulus);
-        return gmp_intval($result);
-    }
-    function modInverse($a, $m) {
-        return gmp_intval(gmp_invert($a, $m));
-    }
-    function stringToNumber($string) {
-        $result = '0';
-        $length = strlen($string);
-    
-        for ($i = 0; $i < $length; $i++) {
-            $result = bcmul($result, '256');
-            $result = bcadd($result, sprintf('%03d', ord($string[$i])));
-        }
-    
-        return $result;
-    }
-    
-    function numberToString($number) {
-        $result = '';
-        
-        while (strlen($number) > 0) {
-            $byte = substr($number, -3);  // Récupère les trois derniers chiffres
-    
-            // Ajoute le caractère seulement si le byte n'est pas composé de zéros
-            if ($byte !== '000') {
-                $result = chr((int)$byte) . $result;  // Convertit en caractère ASCII et ajoute au résultat
-            }
-    
-            $number = substr($number, 0, -3);  // Retire les trois derniers chiffres
-        }
-    
-        return $result !== '' ? $result : '0';
-    }
-    
-    function findCoprime($phi) {
-        $e = gmp_init(65537); // Une valeur couramment utilisée pour e (peut être modifié)
-        $phi = intval($phi);
-        while (gmp_cmp(gmp_gcd($e, gmp_init($phi)), 1) != 0) {
-            $e = gmp_add($e, 1);
-        }
-    
-        return gmp_strval($e);
-    }
-*/
-/*
-// Fonction pour générer une paire de clés RSA
-function generateRSAKeys($bitLength) {
-    $p = generatePrime($bitLength);
-    $q = generatePrime($bitLength);
-
-    $n = $p * $q;
-    $phi = ($p - 1) * ($q - 1);
-
-    $e = findCoprime($phi);
-    $d = modInverse($e, $phi);
-
-    return [
-        'publicKey' => compact('e', 'n'),
-        'privateKey' => compact('d', 'n')
-    ];
+     // Nouvelle ligne pour la clarté dans l'affichage
+    return trim($message);
 }
 
-function encryptRSA($message, $publicKey) {
-    return numberToString(modPow(stringToNumber($message), $publicKey['e'], $publicKey['n']));
-}
+// Fonction pour déchiffrer un message chiffré
+function decrypt_manuel($encryptedMessage) {
+    $d = gmp_init("3112687161145476077");
+    $n = gmp_init("3890858955378152207");
+    // Convertir la chaîne de caractères en blocs de nombres
+    $encryptedBlocks = convertPasswordToBlocks($encryptedMessage);
 
-function decryptRSA($encryptedMessage, $privateKey) {
-    return numberToString(modPow(stringToNumber($encryptedMessage), $privateKey['d'], $privateKey['n']));
-}
+    $decryptedBlocks = [];
 
-function generatePrime($bitLength) {
-    // Utilisez une boucle pour générer un nombre premier
-    do {
-        $randomNumber = random_int(0, intval(bcpow(2, $bitLength)));
-    } while (!gmp_prob_prime(gmp_init($randomNumber, 10), 50)); // Utilisez la bibliothèque GMP pour tester la primalité
-
-    return $randomNumber;
-}
-
-function findCoprime($phi) {
-    $e = gmp_init(65537);
-
-    while (gmp_cmp(gmp_gcd($e, gmp_init($phi)), 1) != 0) {
-        $e = gmp_add($e, 1);
+    // Déchiffrer chaque bloc
+    foreach ($encryptedBlocks as $block) {
+        $decryptedBlock = gmp_powm($block, $d, $n);
+        $decryptedBlocks[] = $decryptedBlock;
     }
 
-    return intval(gmp_strval($e));
+    // Retourner le message déchiffré
+    return convertBlocksToMessage($decryptedBlocks);
 }
 
-function gcd($a, $b) {
-    while (gmp_cmp($b, 0) != 0) {
-        $temp = $b;
-        $b = gmp_mod($a, $b);
-        $a = $temp;
+// Fonction pour convertir une chaîne de caractères en blocs de nombres
+function convertPasswordToBlocks($password) {
+    $blocks = [];
+    $numbers = explode(' ', trim($password));
+
+    foreach ($numbers as $number) {
+        $blocks[] = gmp_init($number);
     }
 
-    return $a;
+    return $blocks;
 }
-
-function modInverse($a, $m) {
-    $m0 = $m;
-    $x0 = 0;
-    $x1 = 1;
-
-    while ($a > 1) {
-        $q = intdiv($a, $m);
-        $t = $m;
-
-        $m = $a % $m;
-        $a = $t;
-        $t = $x0;
-
-        $x0 = $x1 - $q * $x0;
-        $x1 = $t;
-    }
-
-    if ($x1 < 0) {
-        $x1 += $m0;
-    }
-
-    return $x1;
-}
-
-function modPow($base, $exponent, $modulus) {
-    $result = '1';
-
-    $base = bcmod($base, $modulus);
-
-    while (bccomp($exponent, '0') > 0) {
-        if (bcmod($exponent, '2') == '1') {
-            $result = bcmul($result, $base);
-            $result = bcmod($result, $modulus);
-        }
-
-        $exponent = bcdiv($exponent, '2');
-        $base = bcmul($base, $base);
-        $base = bcmod($base, $modulus);
-    }
-
-    return intval($result);
-}
-
-function stringToNumber($string) {
-    $result = '0';
-    $length = strlen($string);
-
-    for ($i = 0; $i < $length; $i++) {
-        $result = bcmul($result, '256');
-        $result = bcadd($result, ord($string[$i]));
-    }
-
-    return $result;
-}
-
-function numberToString($number) {
-    $result = '';
-
-    while ($number > 0) {
-        $byte = bcmod($number, '256');
-        $result = chr((int)$byte) . $result;
-        $number = bcdiv($number, '256', 0);
-    }
-
-    return $result;
-}*/
-/*
-$keys = generateRSAKeys(256);
-$publicKey = $keys['publicKey'];
-$privateKey = $keys['privateKey'];
-
-$message = "Bonjour, ceci est un exemple de message.";
-
-$encryptedMessage = encryptRSA($message, $publicKey);
-echo "Message chiffré : " . $encryptedMessage . PHP_EOL;
-
-$decryptedMessage = decryptRSA($encryptedMessage, $privateKey);
-echo "Message déchiffré : " . $decryptedMessage . PHP_EOL;
-*/
-        ?>
-        
-        
-
+?>

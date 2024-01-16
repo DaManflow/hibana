@@ -6,7 +6,7 @@ CREATE TABLE utilisateur(
    prenom VARCHAR(255) NOT NULL,
    mail VARCHAR(255) NOT NULL,
    password TEXT NOT NULL,
-   telephone INTEGER NOT NULL,
+   telephone INTEGER,
    role VARCHAR(50) NOT NULL,
    est_affranchi boolean NOT NULL,
    PRIMARY KEY(id_utilisateur)

@@ -144,6 +144,42 @@ class Model
             
                 // Récupérer l'idUtilisateur généré
                 $id_formateur = $this->bd->lastInsertId();
+         //Insertion des experiences 
+         $nombre_experiences = 0;
+
+         foreach ($_POST as $key => $value) {
+             // Vérifiez si la clé est associée à une expérience
+             if (strpos($key, 'theme') !== false) {
+                 $nombre_experiences++;
+             }
+         }
+
+     for ($i = 1; $i <= $nombre_experiences; $i++) {
+         // Préparation et insertion des données dans aExpertiseProfessionnelle
+         $reqExpertise = $this->bd->prepare('
+             INSERT INTO aExpertiseProfessionnelle(idn, idt, id_formateur, dureeMExperience, commentaire_expertise)
+             VALUES (:idn, :idt, :id_formateur, :duree, :commentaire)
+         ');
+         $reqExpertise->bindValue(':idn', $infos['expertise' . $i]);
+         $reqExpertise->bindValue(':idt', $infos['theme' . $i]);
+         $reqExpertise->bindValue(':id_formateur', $id_formateur);
+         $reqExpertise->bindValue(':duree', $infos['dureeExpertise' . $i]);
+         $reqExpertise->bindValue(':commentaire', $infos['commentaireExpertise' . $i]);
+         $reqExpertise->execute();
+     
+         // Préparation et insertion des données dans aExperiencePeda
+         $reqPeda = $this->bd->prepare('
+             INSERT INTO aExperiencePeda(id_formateur, idt, idp, volumeHMoyenSession, nbSessionEffectuee, commentaire)
+             VALUES (:id_formateur, :idt, :idp, :volumeHMoyenSession, :nbSessionEffectuee, :commentaire)
+         ');
+         $reqPeda->bindValue(':id_formateur', $id_formateur);
+         $reqPeda->bindValue(':idt', $infos['theme' . $i]);
+         $reqPeda->bindValue(':idp', $infos['expePeda' . $i]);
+         $reqPeda->bindValue(':volumeHMoyenSession', $infos['VolumeHMoyenSession' . $i]);
+         $reqPeda->bindValue(':nbSessionEffectuee', $infos['nbSession' . $i]);
+         $reqPeda->bindValue(':commentaire', $infos['commentaireExpePeda' . $i]);
+         $reqPeda->execute();
+     }
 
 
                 // Deuxième partie : insertion dans la table Formateur
