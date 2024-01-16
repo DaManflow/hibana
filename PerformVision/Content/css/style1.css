@@ -63,6 +63,59 @@ html {
         text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
         font-weight: bold;
     }
+    
+    .experienceDropdown{
+        border : solid #A8D0FF;
+        width: 18em;
+
+        text-align: left;
+        padding: 15px;
+        border-radius: 15px;
+        font-weight: bold;
+        margin-left: auto;
+        margin-right: auto;
+        font-family: Roboto, sans-serif;
+        font-size: medium;
+        transition: 0.3s;
+        color : white;
+    }
+        .experienceDropdown select{
+        border : solid #A8D0FF;
+        height: 25px;
+        width: 200px;
+        border-radius: 10px;
+        margin: 1px 0.5% 0.5px 0.1%;
+        font-family: Roboto, sans-serif;
+        font-size: medium;
+        transition: 0.3s;
+        background-color: #2E2D33;
+        color : white;
+    }
+    textarea {
+        color: white;
+        width : 200px;
+        height : 25px;
+        border : solid #A8D0FF;
+        border-radius: 10px;
+        margin: 1px 0.5% 0.5px 0.1%;
+        font-family: Roboto, sans-serif;
+        font-size: medium;
+        transition: 0.3s;
+        background-color: #2E2D33;
+    }
+    .exp input{
+        border : solid #A8D0FF;
+        border-radius: 10px;
+        color: white;
+        width : 200px;
+        height : 25px;
+
+        margin: 1px 0.5% 0.5px 0.1%;
+        font-family: Roboto, sans-serif;
+        font-size: medium;
+        transition: 0.3s;
+        background-color: #2E2D33;
+    }
 
 }
 @media only screen and (min-width: 770px) {
@@ -128,6 +181,60 @@ html {
         font-weight: bold;
         margin-left: 0;
     }
+  
+    .experienceDropdown{
+        border : solid #A8D0FF;
+        width: 50em;
+
+        text-align: left;
+        padding: 20px;
+        border-radius: 10px;
+        font-weight: bold;
+        margin-left: auto;
+        margin-right: auto;
+        font-family: Roboto, sans-serif;
+        font-size: large;
+        transition: 0.3s;
+        color : white;
+    }
+    .experienceDropdown select{
+        border : solid #A8D0FF;
+        height: 30px;
+        width: 200px;
+        border-radius: 10px;
+        margin: 10px 5% 5px 1%;
+        font-family: Roboto, sans-serif;
+        font-size: medium;
+        transition: 0.3s;
+        background-color: #2E2D33;
+        color : white;
+    }
+    textarea {
+        color: white;
+        width : 500px;
+        height : 30px;
+        border : solid #A8D0FF;
+        border-radius: 10px;
+        margin: 10px 5% 5px 1%;
+        font-family: Roboto, sans-serif;
+        font-size: medium;
+        transition: 0.3s;
+        background-color: #2E2D33;
+    }
+    .exp input{
+        border : solid #A8D0FF;
+        border-radius: 10px;
+        color: white;
+        width : 500px;
+        height : 30px;
+
+        margin: 10px 5% 5px 1%;
+        font-family: Roboto, sans-serif;
+        font-size: medium;
+        transition: 0.3s;
+        background-color: #2E2D33;
+    }
+    
 }
 .connect i {
     font-size: large;
@@ -562,58 +669,10 @@ div.divchoice p {
     transform: scale(1.05);
 }
 
-.experienceDropdown{
-    border : solid #A8D0FF;
-    width: 1500px;
-    text-align: left;
-    padding: 20px;
-    border-radius: 10px;
-    font-weight: bold;
-    margin: 10px 5% 10px 5%;
-    font-family: Roboto, sans-serif;
-    font-size: large;
-    transition: 0.3s;
-    color : white;
-}
-
 .experienceDropdown h1{
     color : #A8D0FF;
 }
 
-.experienceDropdown select{
-    border : solid #A8D0FF;
-    height: 30px;
-    width: 200px;
-    border-radius: 10px;
-    margin: 10px 5% 5px 1%;
-    font-family: Roboto, sans-serif;
-    font-size: medium;
-    transition: 0.3s;
-    background-color: #2E2D33;
-    color : white;
-}
-textarea {
-    color: white;
-    width : 500px;
-    height : 30px;
-    border : solid #A8D0FF;
-    border-radius: 10px;
-    margin: 10px 5% 5px 1%;
-    font-family: Roboto, sans-serif;
-    font-size: medium;
-    transition: 0.3s;
-    background-color: #2E2D33;
-}
-.exp input{
-    border : solid #A8D0FF;
-    border-radius: 10px;
-    color: white;
-    width : 500px;
-    height : 30px;
-    
-    margin: 10px 5% 5px 1%;
-    font-family: Roboto, sans-serif;
-    font-size: medium;
-    transition: 0.3s;
-    background-color: #2E2D33;
+.experienceDropdown .titre-exp{
+    color : #A8D0FF;
 }
