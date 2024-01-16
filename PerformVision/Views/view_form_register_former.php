@@ -92,7 +92,7 @@ $_SESSION['levels'] = $levels ;
                 </div>
                 </br>
                 <div>
-                    <label for="expePeda${experienceCounter}">Experience Padagogique :</label>
+                    <label for="expePeda${experienceCounter}">Experience Pédagogique :</label>
                     </br>
                     <select name="expePeda${experienceCounter}">
                     <?php
