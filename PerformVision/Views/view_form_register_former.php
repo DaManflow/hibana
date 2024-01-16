@@ -1,6 +1,6 @@
 <?php require "view_begin.php";
 require_once "../Utils/functions.php" ;
-require_once "../Utils/functions.php" ;
+
 
 $_SESSION['themes'] = $themes ; 
 $_SESSION['public'] = $public ; 
