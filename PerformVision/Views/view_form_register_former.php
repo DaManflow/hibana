@@ -15,8 +15,8 @@ $_SESSION['levels'] = $levels ;
     <p> <label> <input required="" type="text" name="phone" placeholder="Téléphone"/> </label> </p>
     <p> <label> <input required="" type="password" name="password" placeholder="Mot De Passe"/> </label> </p>
     <p> <label> <input required="" type="text" name="linkedin" placeholder="Lien de votre page Linkedin"/> </label> </p>
-    <p> <label> <input required="" type="file" name="cv"/> </label> </p>
-     <button type="button" onclick="ajouterExperience()" required="">Ajouter une expérience</button>
+    <p> <label> <input required="" type="file" name="cv" class="lienbtn"/> </label> </p>
+     <button type="button" onclick="ajouterExperience()" required="" class="lienbtn">Ajouter une expérience</button>
 
 <!-- Conteneur pour les expériences -->
 <div id="experiencesContainer"></div>
