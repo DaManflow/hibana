@@ -16,11 +16,11 @@ $_SESSION['levels'] = $levels ;
     <p> <label> <input required="" type="password" name="password" placeholder="Mot De Passe"/> </label> </p>
     <p> <label> <input required="" type="text" name="linkedin" placeholder="Lien de votre page Linkedin"/> </label> </p>
     <p> <label> <input required="" type="file" name="cv" class="lienbtn"/> </label> </p>
-     <button type="button" onclick="ajouterExperience()" required="" class="lienbtn">Ajouter une expérience</button>
-
+    <br>
 <!-- Conteneur pour les expériences -->
 <div id="experiencesContainer"></div>
-<br>
+<button type="button" onclick="ajouterExperience()" required="" class="lienbtn">Ajouter une expérience</button>
+
 
     <p> <label> <input required="" type="radio" name="date_signature" value="<?= currentTime() ?>"/> Signature</label> </p>
     <p> <label> <input required="" type="submit" name="submit" value="S'inscrire"> </label> </p>
@@ -103,7 +103,7 @@ $_SESSION['levels'] = $levels ;
                 </br>
                 <div>
                     <label for="VolumeHMoyenSession${experienceCounter}">Volume horaire d'une session :</label></br>
-                    <input type="time" name="VolumeHMoyenSession${experienceCounter}" placeholder="Saisissez le nombre d'années d'expertise" required="" step=1>
+                    <input name="VolumeHMoyenSession${experienceCounter}" placeholder="00:00" required="" step=1 pattern="[0-9]{2}:[0-9]{2}">
                 </div>
                 <div>
                     <label for="nbSession${experienceCounter}">Nombre de sessions :</label></br>

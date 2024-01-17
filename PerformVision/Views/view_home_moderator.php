@@ -39,7 +39,6 @@ if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "client") {
     <h2 class="h2">Bienvenue chez</h2>
     <h1 class="h1">PerformVision Formations</h1>
 </br>
-<a href="/hibana-main/PerformVision/?controller=&action=formateur"><button class="form-title">Découvrir les Formations</button></a>
 </div>
 <div class="reste">
 <div class="centre">

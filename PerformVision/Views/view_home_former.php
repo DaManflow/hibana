@@ -18,7 +18,6 @@ if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "administrateur") 
     <div class="partie-gauche">PerformVision Training & Consulting</div>
     <div class="partie-droite">
         <ul class="ul1">
-            <li class="formations"><a href="?controller=former_list&action=former_pagination">Formateurs</a></li>
             <li class="conseils"><a href="" id="link">Conseils</a></li>
             <li class="autres">Autres
                 <ul class="dropdown">
@@ -41,7 +40,6 @@ if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "administrateur") 
     <h2 class="h2">Bienvenue chez</h2>
     <h1 class="h1">PerformVision Training & Consulting</h1>
     </br>
-    <a href="?controller=&action=formateur"><button class="form-title">Découvrir les Formations</button></a>
 </div>
 <div class="reste">
     <div class="centre">
