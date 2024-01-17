@@ -69,16 +69,7 @@ class Controller_list extends Controller{
                 unset($filtre[$_POST['deleteLockerKind']][array_search($_POST['deleteLockerValue'], $filtre[$_POST['deleteLockerKind']])]);
             }else{
                 $_POST['deleteLockerValue'] = trim(explode(':', $_POST['deleteLockerValue'])[1]);
-                /* if($_POST['deleteLockerKind'] == 'souscategorie'){
-                foreach($filtre['souscategorie'] as $cle => $c){
-                    foreach($c as $sc){
-                        unset($sc)
-                    }
-                }*/
-                echo var_dump($filtre[$_POST['deleteLockerKind']]);
-                echo $_POST['deleteLockerSubval'];
-                echo var_dump($filtre[$_POST['deleteLockerKind']][$_POST['deleteLockerSubval']]);
-                echo $_POST['deleteLockerValue'];
+                
                 unset($filtre[$_POST['deleteLockerKind']][$_POST['deleteLockerSubval']][array_search($_POST['deleteLockerValue'], $filtre[$_POST['deleteLockerKind']][$_POST['deleteLockerSubval']])]);     // supprime la valeur dans le bon type
             }
         }
@@ -91,16 +82,6 @@ class Controller_list extends Controller{
             $valPourRequetecat = $filtre['categorie'];
         }
 
-        /*if(count($filtre['souscategorie']) == 0){
-            $valPourRequetesouscat = 'tout';
-        }else{
-            $valPourRequetesouscat = "''";
-            foreach ($filtre['theme'] as $sc){
-                foreach ($sc as $t){
-                    $valPourRequetesouscat .= ",'".$t."'";
-                }
-            }
-        }*/
 
         if(count($filtre['theme']) == 0){
             $valPourRequetetheme = 'tout';
