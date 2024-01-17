@@ -34,7 +34,7 @@ if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "client") {
     <h2 class="h2">Bienvenue chez</h2>
     <h1 class="h1">PerformVision Training & Consulting</h1>
     <br>
-    <a href="?controller=list_theme&action=list_theme"><button class="form-title">Découvrir les Formations</button></a>
+    <a href="?controller=list_theme&action=list_theme"><button class="form-title">Rechercher un Formateur</button></a>
 </div>
 <div class="reste">
     <div class="centre">
@@ -66,7 +66,7 @@ if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "client") {
         <div class="partie1-gauche">
             <h4>Nous contacter</h4>
             <p>06 22 22 22 22</p>
-            <p>hibana.sae103@gmail.com</p>
+            <a href="mailto:hibana.sae103@gmail.com">hibana.sae103@gmail.com</a>
         </div>
         <!--
         <div class="partie1-droite">

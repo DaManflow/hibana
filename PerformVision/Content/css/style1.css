@@ -16,7 +16,7 @@ html {
         max-width: 1101px;
         margin-top: 0;
         text-align: center;
-        background-color: #222425 ;
+        background-color: #122531;
         border-bottom-left-radius: 7%;
         border-bottom-right-radius: 7%;
         padding-bottom: 5%;
@@ -78,7 +78,7 @@ html {
         margin-top: 0;
         text-align: center;
         display: flex;
-        background-color: #222425 ;
+        background-color: #122531;
         border-bottom-left-radius: 30px;
         border-bottom-right-radius: 30px;
     }
@@ -136,7 +136,7 @@ html {
 }
 body {
     /*background-color: #15121E;*/
-    background-color: #39383F;
+    background-color: #28394d;
     color : #A8D0FF;
     margin: 0;
     padding: 0; /* Couleur bleu ciel */
@@ -160,7 +160,8 @@ a {
     justify-content: space-between;
     align-items: center;
     background-color: rgba(1, 74, 126, 0.5);
-    border-top: 4px solid #0d5792; /* Trait bleu en haut */
+    border-top: 4px solid; /* Trait bleu en haut */
+    border-image: linear-gradient(to right, #1a8ada, #1285d9) 1;
     font-size: small;
     backdrop-filter: blur(5px);
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
@@ -191,7 +192,14 @@ a {
     font-weight: bold;
     font-size: large;
 }
-.autres {margin-top:-2px}
+.autres {margin-top:-2px
+}
+.autres #link::after{
+    bottom: 5px;
+    width: 90%;
+    left: -6px;
+    padding: 0;
+}
 
 #link {
     position: relative;
@@ -214,12 +222,7 @@ a {
     transition: transform .3s;
     box-sizing: border-box;
 }
-.autres #link::after{
-    bottom: 5px;
-    width: 90%;
-    left: -6px;
-    padding: 0;
-}
+
 #link:hover::after {
     transform: scaleX(1);
 }
@@ -306,7 +309,7 @@ a {
 .form-title {
     list-style: none ;
     padding: 12px;
-    background-color: #2671a7; /* Bleu foncé */
+    background-color: #1086db; /* Bleu foncé */
     color: white;
     border: none;
     border-radius: 15px;
@@ -337,7 +340,6 @@ a {
 
 .conteneur1 {
     text-align: center;
-
 }
 
 .img1 img {
@@ -348,6 +350,7 @@ a {
     margin-top: -105px;
     background-color: rgba(0, 0, 0, 0);
     padding: 0;
+    margin-bottom: -5px;
 }
 .img1{
     /*background-color: #222425;
@@ -368,6 +371,7 @@ input[type=text],input[type=password],textarea,select {
     /*#C2DEFF, #0095ff*/
     /*border-bottom: linear-gradient(white, white);*/
     background-color: rgba(51, 51, 51, 0);
+    color: white;
     -webkit-transition: 0.5s;
     transition: 0.5s;
     outline: none;
@@ -446,9 +450,9 @@ footer {
     flex-direction: column;
     justify-content: space-between;
     padding: 20px; /* Ajoutez du padding au besoin */
-    background-color: #1C5465; /* Ajoutez une couleur de fond au besoin */
+    background-color: #1c4765; /* Ajoutez une couleur de fond au besoin */
     color: white;
-    border-top: 3px solid #189bf9; /* Ajoutez une couleur de texte au besoin */
+    border-top: 3px solid #0095ff; /* Ajoutez une couleur de texte au besoin */
 }
 /*
 .partie1 {
