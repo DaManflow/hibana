@@ -4,8 +4,6 @@
 
 require "view_begin.php";
 
-//echo var_dump($listSousCategories);
-//echo var_dump($filtre);
 
 // Créer un tableau des catégories avec comme valeurs ses sous-catégories avec comme valeurs de celle-ci les thèmes associés
 
@@ -25,20 +23,7 @@ foreach ($listSousCategories as $sc){
         }
     }
 }
-//echo var_dump($experiences);
-//echo var_dump($sousCategories);
 
-// Créer un tableau des formateurs avec un tableau pour chaque compétence
-//
-//$formateur = [];
-//foreach ($formateurs as $f){
-//    if(!(key_exists($f['id_formateur'], $formateur))) {
-//        $formateur[$f['id_formateur']] = [$f['nom'], $f['prenom']];
-//    }
-//    $formateur[$f['id_formateur']][2][$f['idt']][] = $f['volumehmoyensession'];
-//    $formateur[$f['id_formateur']][2][$f['idt']][] = $f['nbsessioneffectuee'];
-//    $formateur[$f['id_formateur']][2][$f['idt']][] = $f['nomt'];
-//}
 
 ?>
 
@@ -227,8 +212,6 @@ foreach ($listSousCategories as $sc){
                         create_input('addLockerCat', this.options[this.options.selectedIndex].classList[1]);
                         create_input('addLockerSousCat', this.options[this.options.selectedIndex].classList[2]);
                     }
-                    console.log(this.options[this.options.selectedIndex].classList[1]);
-                    console.log(this.options[this.options.selectedIndex].classList[2]);
                     create_input('addLockerName', this.name);// cette input renvoie le select qui a été touché
                     formulaire.submit();
                     isOpen = 1;
@@ -243,14 +226,12 @@ foreach ($listSousCategories as $sc){
 
 
     lis = document.querySelectorAll('.lifiltre');
-    console.log(lis);
     lis.forEach(v=>{
         v.addEventListener('click', function (event) {
             if(event.target.classList.contains('croix')){
                 create_input('deleteLockerValue', this.querySelector('.valeur').textContent);  // Valeur dans la liste du filtre visuel
                 create_input('deleteLockerKind', this.classList[1]) // Type
                 create_input('deleteLockerSubval', this.classList[2])
-                console.log(this.classList[2])
                 formulaire.submit();
             }
         })
