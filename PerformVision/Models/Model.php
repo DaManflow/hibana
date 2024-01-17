@@ -490,19 +490,15 @@ class Model
     }
 
 
-    public function getThemes($idsc = 0){
-        if (isset($_POST['theme'])) {
-            echo $_POST['theme'];
-        }
-        if($idsc != 0){
-            $req = $this->bd->prepare('SELECT DISTINCT nomt, idc FROM THEME natural join categorie where validet = true and validec = true and theme.idc = :idscat');
-            $req->bindValue(':idscat', $idsc);
-        }else{
+    public function getThemes($sc = 'tout'){
+        if($sc == 'tout'){
             $req = $this->bd->prepare('SELECT DISTINCT nomt, nomc, idc FROM THEME natural join categorie where validet = true and validec = true order by idc');
+        }else{
+            $req = $this->bd->prepare('SELECT DISTINCT nomt, idc FROM THEME natural join categorie where validet = true and validec = true and categorie.nomc IN('.$sc.')');
         }
-
         $req->execute();
         return $req->fetchAll(PDO::FETCH_ASSOC);
+
     }
 
     public function getSousCategories($cat){
@@ -513,8 +509,8 @@ class Model
             $res = "''";
             foreach ($cat as $c){
                 $res .= ",'".$c."'";
-                $req = $this->bd->prepare('SELECT c1.nomC, c1.idc, c2.nomc as nomc_mere, c2.idc_mere FROM Categorie as c1 left outer join categorie as c2 on c2.idc = c1.idc_mere where c2.validec = true and c2.nomc IN('.$res.') order by idc');
             }
+            $req = $this->bd->prepare('SELECT c1.nomC, c1.idc, c2.nomc as nomc_mere, c2.idc_mere FROM Categorie as c1 left outer join categorie as c2 on c2.idc = c1.idc_mere where c2.validec = true and c2.nomc IN('.$res.') order by idc');
         }
         $req->execute();          // nomC, idc, idc_mere FROM Categorie where validec = true order by idc_mere
         return $req->fetchAll(PDO::FETCH_ASSOC);
@@ -534,6 +530,18 @@ inner join utilisateur on formateur.id_formateur = utilisateur.id_utilisateur');
         $req->execute();
         return $req->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    public function getExpercienceByTheme($theme){
+        if($theme == 'tout'){
+            $req = $this->bd->prepare('select libellep, nomt, theme.idt, volumehmoyensession, nbsessioneffectuee, commentaire from aexperiencepeda inner join public on aexperiencepeda.idp = public.idp inner join theme on aexperiencepeda.idt = theme.idt order by idt limit 10');
+        }else{
+            $req = $this->bd->prepare('select libellep, nomt, theme.idt, volumehmoyensession, nbsessioneffectuee, commentaire from aexperiencepeda inner join public on aexperiencepeda.idp = public.idp inner join theme on aexperiencepeda.idt = theme.idt where theme.nomt IN('.$theme.') order by idt limit 10');
+        }
+        $req->execute();
+        return $req->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+
 
     public function VerifConnectUser($infos) {
 
