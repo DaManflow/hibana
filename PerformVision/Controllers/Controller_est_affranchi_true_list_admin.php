@@ -18,6 +18,17 @@ class Controller_est_affranchi_true_list_admin extends Controller{
                 if (is_float($pages)) {
                     $pages = ceil($pages);
                 }
+		if ($pages == 0) {
+		$data = [
+                        'title' => 'Message Page',
+                        'message' => "Il n'y pas de membre affranchi !"
+                    ];
+                    $this->render("message", $data);
+                }   
+
+
+
+
                 if ($page > $pages) {
                     // Afficher un message d'erreur si la page demandée dépasse le nombre total de pages
                     $data = [
