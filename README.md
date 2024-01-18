@@ -1,6 +1,10 @@
 # !!! ATTENTION !!!
 
-Pour le bon fonctionnement du site, il est nécessaire de cloner ce dossier : 
+Les fonctions de RSA se trouve au niveau de :
+
+https://gitlab.sorbonne-paris-nord.fr/12203376/hibana/-/tree/main/PerformVision/Utils
+
+## Git le Projet entier
 ```
 git clone https://gitlab.sorbonne-paris-nord.fr/12203376/hibana.git hibana-main
 ```
