@@ -1558,5 +1558,19 @@ public function createTheme($tab){
     $req->execute() ; 
     
 }
+public function seeThemesValides(){
+    $req= $this->bd->prepare('SELECT idt , nomt , validet FROM theme WHERE validet=:true') ; 
+    $req->bindValue(':true','true') ;
+    $req->execute();
+    return $req->fetchAll(PDO::FETCH_ASSOC);
+
+}
+public function seeThemesNonValides(){
+    $req= $this->bd->prepare('SELECT idt , nomt , validet FROM theme WHERE validet=:false') ; 
+    $req->bindValue(':false','false') ;
+    $req->execute();
+    return $req->fetchAll(PDO::FETCH_ASSOC);
+
+}
 
 }

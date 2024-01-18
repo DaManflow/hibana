@@ -9,6 +9,11 @@ if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "formateur") {
 }
 
 ?>
+<style>
+    .profil {
+       top : 10% ;  
+    }
+    </style>
 
 <div class="profil">
 <h1> Mon profil </h1>

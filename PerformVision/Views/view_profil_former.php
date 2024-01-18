@@ -9,6 +9,11 @@ if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "client") {
 }
 
 ?>
+<style>
+    .profil {
+       margin-top : 50px ;  
+    }
+    </style>
 <div class="profil">
 <h1> Mon profil </h1>
 <ul>
