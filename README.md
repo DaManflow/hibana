@@ -1,8 +1,10 @@
 # !!! ATTENTION !!!
 
-Les fonctions de RSA se trouve :
+Les fonctions de RSA se trouve au niveau de :
 
-PerformVision/Utils/
+https://gitlab.sorbonne-paris-nord.fr/12203376/hibana/-/tree/main/PerformVision/Utils
+
+## Git le Projet entier
 ```
 git clone https://gitlab.sorbonne-paris-nord.fr/12203376/hibana.git hibana-main
 ```
