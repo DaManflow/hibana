@@ -19,6 +19,7 @@ if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "client") {
     <div class="partie-gauche">PerformVision Training & Consulting</div>
     <div class="partie-droite">
         <ul class="ul1">
+        <li class="formations"><a href="?controller=list_themes&action=list_themes">Thèmes</a></li>   
         <li class="formations"><a href="?controller=member_choice_moderator&action=member_choice">Membres</a></li>
         <li class="conseils">Conseils</li>
         <li class="autres">Autres        

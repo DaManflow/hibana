@@ -1558,5 +1558,31 @@ public function createTheme($tab){
     $req->execute() ; 
     
 }
+public function seeThemesValides(){
+    $req= $this->bd->prepare('SELECT idt , nomt , validet FROM theme WHERE validet=:true') ; 
+    $req->bindValue(':true','true') ;
+    $req->execute();
+
+    return $req->fetchAll(PDO::FETCH_ASSOC);
+
+}
+public function seeThemesNonValides(){
+    $req= $this->bd->prepare('SELECT idt , nomt , validet FROM theme WHERE validet=:false') ; 
+    $req->bindValue(':false','false') ;
+    $req->execute();
+    return $req->fetchAll(PDO::FETCH_ASSOC);
+
+}
+public function UpdateTheme(){
+    $req= $this->bd->prepare('UPDATE theme SET validet=:true WHERE idt=:idt') ; 
+    $req->bindValue(':idt',$_GET['idt']) ;
+    $req->bindValue(':true','true') ;
+    $req->execute();
+}
+public function DeleteTheme(){
+    $req= $this->bd->prepare('DELETE FROM theme WHERE idt=:idt') ; 
+    $req->bindValue(':idt',$_GET['idt']) ;
+    $req->execute();
+}
 
 }
