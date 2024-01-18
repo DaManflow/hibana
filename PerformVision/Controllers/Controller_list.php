@@ -37,20 +37,18 @@ class Controller_list extends Controller{
         if(isset($_POST['addLockerName'])){
             if(isset($_POST['addLockerCat'])){
                 $_POST['addLockerCat'] = implode(' ', explode('_', $_POST['addLockerCat']));
-                if(isset($_POST['addLockerSousCat'])){
+                if(isset($_POST['addLockerSousCat'])){ // si on veut ajouter un theme
                     $_POST['addLockerSousCat'] = implode(' ', explode('_', $_POST['addLockerSousCat']));
                     if(!in_array($_POST[$_POST['addLockerName']], $filtre[$_POST['addLockerName']])){
-                        $filtre['ajout'][] = $_POST['addLockerSousCat'];
                         $filtre[$_POST['addLockerName']][$_POST['addLockerSousCat']][] = $_POST[$_POST['addLockerName']];
                     }
-                }else{
+                }else{ // si on veut ajouter une sous catégorie
                     if(!in_array($_POST[$_POST['addLockerName']], $filtre[$_POST['addLockerName']])){
-                        $filtre['ajout'][] = $_POST['addLockerCat'];
                         $filtre[$_POST['addLockerName']][$_POST['addLockerCat']][] = $_POST[$_POST['addLockerName']];
                     }
                 }
 
-            }else{
+            }else{ // si on veut ajouter une categorie
                 if(!in_array($_POST[$_POST['addLockerName']], $filtre[$_POST['addLockerName']])){
                     $filtre[$_POST['addLockerName']][] = $_POST[$_POST['addLockerName']];
                 }
@@ -65,12 +63,24 @@ class Controller_list extends Controller{
         if(isset($_POST['deleteLockerValue'])){
             $_POST['deleteLockerSubval'] = implode(' ', explode('_', $_POST['deleteLockerSubval']));
 
-            if($_POST['deleteLockerSubval'] == 0){
-                unset($filtre[$_POST['deleteLockerKind']][array_search($_POST['deleteLockerValue'], $filtre[$_POST['deleteLockerKind']])]);
-            }else{
+            if($_POST['deleteLockerSubval'] == 0){ // si c'est une sous-catégorie à supprimer
+                $idcat = array_search($_POST['deleteLockerValue'], $filtre[$_POST['deleteLockerKind']]);
+                unset($filtre['categorie'][$idcat]); // on supprime la catégorie
+                if(isset($filtre['souscategorie'][$_POST['deleteLockerValue']])){ // si la catégorie existe dans le filtre sous catégorie
+                    foreach ($filtre['souscategorie'][$_POST['deleteLockerValue']] as $sc){
+                        if(in_array($sc, $filtre['theme'])){ // si la sous catégorie existe dans le filtre theme
+                            unset($filtre['theme'][$sc]); // on supprime tous les thèmes des sous catégories de la catégorie à supprimer
+                        }
+                    }
+                    unset($filtre['souscategorie'][$_POST['deleteLockerValue']]); // on supprime les sous catégories de la catégories
+
+                }
+
+
+            }else if($_POST['deleteLockerKind'] == 'souscategorie'){ // si c'est une sous-categorie ou un thème à supprimer
                 $_POST['deleteLockerValue'] = trim(explode(':', $_POST['deleteLockerValue'])[1]);
-                
-                unset($filtre[$_POST['deleteLockerKind']][$_POST['deleteLockerSubval']][array_search($_POST['deleteLockerValue'], $filtre[$_POST['deleteLockerKind']][$_POST['deleteLockerSubval']])]);     // supprime la valeur dans le bon type
+                $idsouscat = array_search($_POST['deleteLockerValue'], $filtre[$_POST['deleteLockerKind']][$_POST['deleteLockerSubval']]);
+                unset($filtre[$_POST['deleteLockerKind']][$_POST['deleteLockerSubval']][$idsouscat]);     // supprime la valeur dans le bon type
             }
         }
 
@@ -82,6 +92,16 @@ class Controller_list extends Controller{
             $valPourRequetecat = $filtre['categorie'];
         }
 
+        if(count($filtre['souscategorie']) == 0){
+            $valPourRequetesc = 'tout';
+        }else{
+            $valPourRequetesc = "''";
+            foreach ($filtre['theme'] as $sc){
+                foreach ($sc as $t){
+                    $valPourRequetesc .= ",'".$t."'";
+                }
+            }
+        }
 
         if(count($filtre['theme']) == 0){
             $valPourRequetetheme = 'tout';
@@ -96,7 +116,7 @@ class Controller_list extends Controller{
 
        $m = Model::getModel();
         $data = [
-            "themes"=>$m->getThemes(/*$valPourRequetesouscat*/),
+            "themes"=>$m->getThemes($valPourRequetesc),
             "listSousCategories"=>$m->getSousCategories($valPourRequetecat), // Une optimisation au niveau des requêtes peut-être envisagé dans listSousCategories pour prendre toutes les catégories mères même si il n'apparait pas dans le filtre
             "listCategories"=>$m->getCategoriesMeres(),
             "experiences"=>$m->getExpercienceByTheme($valPourRequetetheme),

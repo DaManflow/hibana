@@ -2,8 +2,16 @@
 
 <?php
 
-require "view_begin.php";
+// Je tiens à préciser que mon programme n'est pas du tout optimisé et manque beaucoup d'efficacité
+// comme utiliser les ids au lieu des noms de chaque valeur mais manque d'organisation cela s'est fait comme ca
+// Il y aurait en plus d'autres moyens de faire un filtre comme utiliser les cookies.
+// J'ai fais seul cette page et je le regrette car je n'ai pas profiter de l'équipe.
 
+
+
+
+require "view_begin.php";
+echo var_dump($filtre);
 
 // Créer un tableau des catégories avec comme valeurs ses sous-catégories avec comme valeurs de celle-ci les thèmes associés
 
@@ -149,7 +157,7 @@ foreach ($listSousCategories as $sc){
 
     </div>
 
-
+<!-- Affiche les expériences des formateurs pour que le client choisisse et renvoie sur les message pour parler aux formateurs -->
     <p> Experiences des formateurs </p>
 
     <?php if(count($experiences) == 0): ?>
@@ -170,6 +178,8 @@ foreach ($listSousCategories as $sc){
 </center>
 
 <script>
+
+    // Fonction qui ajouter un élément dans le formulaire
 
     const formulaire = document.getElementById("formulaire");
     function create_input(nom, valeur) {
@@ -207,10 +217,10 @@ foreach ($listSousCategories as $sc){
                 if(isOpen === 0) {
 
                     if(locker === 1){
-                        create_input('addLockerCat', this.options[this.options.selectedIndex].classList[1]);
+                        create_input('addLockerCat', this.options[this.options.selectedIndex].classList[1]); // référence de la categorie
                     }else if(locker === 2){
-                        create_input('addLockerCat', this.options[this.options.selectedIndex].classList[1]);
-                        create_input('addLockerSousCat', this.options[this.options.selectedIndex].classList[2]);
+                        create_input('addLockerCat', this.options[this.options.selectedIndex].classList[1]); // référence de la categorie
+                        create_input('addLockerSousCat', this.options[this.options.selectedIndex].classList[2]); // référence de la sous-catégorie
                     }
                     create_input('addLockerName', this.name);// cette input renvoie le select qui a été touché
                     formulaire.submit();
@@ -231,7 +241,7 @@ foreach ($listSousCategories as $sc){
             if(event.target.classList.contains('croix')){
                 create_input('deleteLockerValue', this.querySelector('.valeur').textContent);  // Valeur dans la liste du filtre visuel
                 create_input('deleteLockerKind', this.classList[1]) // Type
-                create_input('deleteLockerSubval', this.classList[2])
+                create_input('deleteLockerSubval', this.classList[2]) // sous categorie
                 formulaire.submit();
             }
         })
