@@ -9,8 +9,13 @@ if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "client") {
 }
 
 if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "administrateur") {
-    header("Location: /hibana-main/PerformVision/?controller=home_admin&action=home_admin");
+    header("Location: ?controller=home_admin&action=home_admin");
 }
+
+if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "moderateur") {
+    header("Location: ?controller=home_moderator&action=home_moderator");
+}
+
 
 
 ?>

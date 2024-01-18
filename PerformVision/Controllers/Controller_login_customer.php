@@ -29,7 +29,7 @@ class Controller_login_customer extends Controller{
             header("Location: ?controller=home_former&action=home_former");
         }
         if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "administrateur") {
-            header("Location: /hibana-main/PerformVision/?controller=home_former&action=home_former");
+            header("Location: ?controller=home_former&action=home_former");
         }
 
         if (isset($_POST['submit'])) {
@@ -39,13 +39,13 @@ class Controller_login_customer extends Controller{
 
             if ($tab['email'] == 'false') {
                 echo "Adresse email non conforme !!";
-                $this->render("form_login");
+                $this->render("form_login_customer");
                 
             }
 
             elseif ($tab['password'] == 'false') {
                 echo "Mot de passe non conforme !!";
-                $this->render("form_login");
+                $this->render("form_login_customer");
                 
             }
 
@@ -64,12 +64,12 @@ class Controller_login_customer extends Controller{
                 }
 
                 if ($_SESSION['role'] == "administrateur") {
-                    header("Location: /hibana-main/PerformVision/?controller=home_admin&action=home_admin");
+                    header("Location: ?controller=home_admin&action=home_admin");
                     exit;
                 }
 
                 if ($_SESSION['role'] == "moderateur") {
-                    header("Location: /hibana-main/PerformVision/?controller=home_moderator&action=home_moderator");
+                    header("Location: ?controller=home_moderator&action=home_moderator");
                     exit;
                 }
 
@@ -81,12 +81,12 @@ class Controller_login_customer extends Controller{
 
                 if (in_array("error_db", $rep)) {
                     echo "La transaction à été annulée";
-                    $this->render("form_login");
+                    $this->render("form_login_customer");
                 }
 
                 if (in_array("mail_mdp_error", $rep)) {
                     echo "Mail ou mot de passe incorrect !";
-                    $this->render("form_login");
+                    $this->render("form_login_customer");
                 }
 
                 
