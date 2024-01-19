@@ -7,7 +7,6 @@ class Model
      */
     private $bd;
     
-
     /**
      * Attribut statique qui contiendra l'unique instance de Model
      */
@@ -38,6 +37,7 @@ class Model
         }
         return self::$instance;
     }
+
 
     /**
     * @param array $infos
@@ -120,6 +120,7 @@ class Model
         
     }
 
+
     /**
     * @param array $infos
     *
@@ -152,8 +153,6 @@ class Model
             // Récupérer l'idUtilisateur généré
             $id_formateur = $this->bd->lastInsertId();
 
-            
-
             // Deuxième partie : insertion dans la table Formateur
             $req3 = $this->bd->prepare('
             INSERT INTO Formateur (id_formateur, linkedin, date_signature, cv, declaration)
@@ -177,8 +176,6 @@ class Model
             $cvUploadPath = $formateurDirectory . $cvFileName;
 
             $req3->bindValue(':cv', $cvUploadPath);
-            
-            
 
             // Déplace le fichier téléchargé vers le répertoire d'upload
 
@@ -466,6 +463,7 @@ class Model
     }
     }
 
+
     /**
     * @param int $offset 
     * @param int $limit
@@ -494,6 +492,7 @@ class Model
 
     }
 
+
     /**
     * @param int $id id_utilisateur de la table utilisateur dans la base de données
     * @return array
@@ -518,6 +517,7 @@ class Model
         return $requete->fetchAll();
     }
 
+
     /**
     * @return int
     *
@@ -533,6 +533,7 @@ class Model
         $tab = $req->fetch(PDO::FETCH_NUM);
         return $tab[0];
     }
+
 
     /**
     * @return int
@@ -552,6 +553,7 @@ class Model
         return $tab[0];
     }
 
+
     /**
     * @param string $sc
     * @return array
@@ -568,6 +570,7 @@ class Model
         return $req->fetchAll(PDO::FETCH_ASSOC);
 
     }
+
 
     /**
     * @param string $cat
@@ -589,8 +592,13 @@ class Model
         return $req->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    /**
+    * @return array
+    *
+    * Methode qui retourne toutes les catégories mères (qui n'ont pas de catégorie mère)
+    */
     public function getCategoriesMeres(){
-        $req  = $this->bd->prepare('SELECT * FROM categorie WHERE validec = true and idC_mere IS NULL') ;
+        $req  = $this->bd->prepare('SELECT * FROM categorie WHERE validec = true and idC_mere IS NULL');
         $req->execute() ; 
         return $req->fetchAll(PDO::FETCH_ASSOC);
     }
@@ -644,21 +652,14 @@ inner join utilisateur on formateur.id_formateur = utilisateur.id_utilisateur');
 
         $erreur_type = [];
 
-        
-
-        
-
         $req = $this->bd->prepare('SELECT id_utilisateur, nom, prenom, mail, telephone, password, role, est_affranchi FROM utilisateur WHERE mail = :mail');
         $req->bindValue(':mail', $infos['email']);
         $req->execute();
-
-        
 
         if ($req->rowCount() > 0) {
 
                 $req_tab = $req->fetch(PDO::FETCH_ASSOC);
                 
-   
                 if ($infos['email'] == $req_tab['mail'] && decrypt_biblio($infos['password']) == decrypt_biblio($req_tab['password'])) {
 
                     try {
@@ -666,13 +667,11 @@ inner join utilisateur on formateur.id_formateur = utilisateur.id_utilisateur');
                         // Vérifie si la session est déjà démarrée
                         if (session_status() == PHP_SESSION_NONE) {
                             // Si la session n'est pas démarrée, alors on la démarre
-                            session_start();
-                            
+                            session_start();   
                         }
                         else {
                             session_destroy();
-                            session_start();
-                            
+                            session_start();  
                         }
 
                         $this->bd->beginTransaction();
@@ -687,7 +686,6 @@ inner join utilisateur on formateur.id_formateur = utilisateur.id_utilisateur');
                         $_SESSION['est_affranchi'] = $req_tab['est_affranchi'];
                     
                     if ($req_tab['role'] == "formateur" || $req_tab['role'] == "administrateur" || $req_tab['role'] == "moderateur") {
-                        
 
                         $req2 = $this->bd->prepare('SELECT linkedin, date_signature, cv, declaration FROM formateur WHERE id_formateur = :id_formateur');
                         $req2->bindValue(':id_formateur', $req_tab['id_utilisateur']);
@@ -695,17 +693,10 @@ inner join utilisateur on formateur.id_formateur = utilisateur.id_utilisateur');
 
                         $req2_tab = $req2->fetch(PDO::FETCH_ASSOC);
 
-
-                        
-
-                        
                         $_SESSION['linkedin'] = $req2_tab['linkedin'];
                         $_SESSION['date_signature'] = $req2_tab['date_signature'];
                         $_SESSION['cv'] = $req2_tab['cv'];
-                        $_SESSION['declaration'] = $req2_tab['declaration'];
-                        
-                        
-                       
+                        $_SESSION['declaration'] = $req2_tab['declaration'];  
                     }
 
                     if ($req_tab['role'] == "client") {
@@ -717,14 +708,8 @@ inner join utilisateur on formateur.id_formateur = utilisateur.id_utilisateur');
                         $req4_tab = $req4->fetch(PDO::FETCH_ASSOC);
 
                         $_SESSION['company'] = $req4_tab['societe'];
-                        
-                    
                     }
 
-                    
-
-                    
-                    
                         $this->bd->commit();
 
                     }catch (PDOException $e) {
@@ -748,8 +733,8 @@ inner join utilisateur on formateur.id_formateur = utilisateur.id_utilisateur');
         }
         $erreur_type[] = "mail_mdp_error";
         return $erreur_type;
-        
     }
+
 
     /**
     * @param array $infos
@@ -775,16 +760,12 @@ inner join utilisateur on formateur.id_formateur = utilisateur.id_utilisateur');
             $req_verif->bindValue(':id_formateur', $infos['id_former']);
             $req_verif->execute();
 
-            
-
             if ($req_verif->rowCount() == 0) {
-
 
                 $req = $this->bd->prepare('INSERT INTO discussion(id_client,id_formateur) VALUES(:id_client, :id_formateur)');
                 $req->bindValue(':id_client', $_SESSION['idutilisateur']);
                 $req->bindValue(':id_formateur', $infos['id_former']);
                 $req->execute();
-
             }
 
             $req_verif = $this->bd->prepare('SELECT * FROM discussion WHERE id_client = :id_client AND id_formateur = :id_formateur');
@@ -793,8 +774,6 @@ inner join utilisateur on formateur.id_formateur = utilisateur.id_utilisateur');
             $req_verif->execute();
 
             $req_verif_tab = $req_verif->fetch(PDO::FETCH_ASSOC);
-
-            
 
             $req2 = $this->bd->prepare('INSERT INTO message(id_discussion, id_utilisateur, texte,date_heure,valideM,lu) VALUES(:id_discussion, :id_utilisateur, :texte, :date_heure, :valideM, :lu)');
             $req2->bindValue(':id_discussion', $req_verif_tab['id_discussion']);
@@ -806,7 +785,6 @@ inner join utilisateur on formateur.id_formateur = utilisateur.id_utilisateur');
             $req2->execute();
 
             $this->bd->commit();
-
 
         }catch (PDOException $e) {
             // En cas d'erreur, annuler la transaction
@@ -820,6 +798,7 @@ inner join utilisateur on formateur.id_formateur = utilisateur.id_utilisateur');
         $erreur_type[] = "none";
         return $erreur_type;
     }
+
 
     /**
     * @param array $infos
@@ -891,6 +870,7 @@ inner join utilisateur on formateur.id_formateur = utilisateur.id_utilisateur');
         return $erreur_type;
     }
 
+
     /**
     * @param array $infos
     * @return boolean | void | array
@@ -960,6 +940,7 @@ inner join utilisateur on formateur.id_formateur = utilisateur.id_utilisateur');
         $erreur_type[] = "none";
         return $erreur_type;
     }
+
 
     /**
     * @param array $infos
@@ -1031,6 +1012,7 @@ inner join utilisateur on formateur.id_formateur = utilisateur.id_utilisateur');
         return $erreur_type;
     }
     
+
     /**
     * @param array $infos
     * @return boolean | void | array
@@ -1096,6 +1078,7 @@ inner join utilisateur on formateur.id_formateur = utilisateur.id_utilisateur');
         return $erreur_type;
     }
 
+
     /**
     * @return array 
     *
@@ -1130,6 +1113,7 @@ inner join utilisateur on formateur.id_formateur = utilisateur.id_utilisateur');
 
     }
 
+
     /**
     * @param int $id_formateur
     * @return array 
@@ -1162,8 +1146,6 @@ inner join utilisateur on formateur.id_formateur = utilisateur.id_utilisateur');
 
             $this->bd->commit();
 
-
-
         }catch (PDOException $e) {
             // En cas d'erreur, annuler la transaction
             $this->bd->rollBack();
@@ -1177,6 +1159,12 @@ inner join utilisateur on formateur.id_formateur = utilisateur.id_utilisateur');
 
     }
     
+
+    /**
+    * @return array 
+    *
+    * Methode qui retourne la liste des discussions du formateur qui se trouve dans la session
+    */
     public function list_discussions_formers(){
         try {
 
@@ -1202,6 +1190,14 @@ inner join utilisateur on formateur.id_formateur = utilisateur.id_utilisateur');
 
         return $req->fetchAll(PDO::FETCH_ASSOC);;
     }
+
+
+    /**
+    * @param int $id_client
+    * @return array
+    * Methode qui retourne la liste des discussions du formateur qui se trouve 
+    * dans la session avec le client dont l'id est en paramètre
+    */
     public function list_messages_formers($id_client) {
 
         try {
@@ -1239,7 +1235,14 @@ inner join utilisateur on formateur.id_formateur = utilisateur.id_utilisateur');
     }
 
 
-
+    /**
+    * @param int $offset
+    * @param int $limit
+    * @return array
+    *
+    * Methode qui retourne les informations sur les administrateurs de la table admin 
+    * dont le numéro de ligne est compris entre $offset et $limit 
+    */
     public function getAdminsWithLimit($offset = 0, $limit = 25) {
         $req = $this->bd->prepare('Select id_utilisateur,nom, prenom, mail from utilisateur WHERE role = :role ORDER BY id_utilisateur DESC LIMIT :limit OFFSET :offset');
         $req->bindValue(':role', "administrateur");
@@ -1249,6 +1252,12 @@ inner join utilisateur on formateur.id_formateur = utilisateur.id_utilisateur');
         return $req->fetchAll(PDO::FETCH_ASSOC);
     }
 
+
+    /**
+    * @return int
+    *
+    * Methode qui retourne le nombre d'administrateurs qui sont dans la table utilisateur
+    */
     public function getNbAdmin()
     {
         $req = $this->bd->prepare('SELECT COUNT(*) FROM utilisateur WHERE role = :admin');
@@ -1257,6 +1266,7 @@ inner join utilisateur on formateur.id_formateur = utilisateur.id_utilisateur');
         $tab = $req->fetch(PDO::FETCH_NUM);
         return $tab[0];
     }
+
 
     public function getModeratorsWithLimit($offset = 0, $limit = 25) {
         $req = $this->bd->prepare('Select id_utilisateur,nom, prenom, mail from utilisateur WHERE role = :role ORDER BY id_utilisateur DESC LIMIT :limit OFFSET :offset');
