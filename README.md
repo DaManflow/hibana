@@ -6,15 +6,15 @@ https://gitlab.sorbonne-paris-nord.fr/12203376/hibana/-/tree/main/PerformVision/
 
 ## Remarque 
 
-La première inscription du site correspond au compte de l'administrateur
+- La première inscription du site correspond au compte de l'administrateur
 
-A l'inscription d'un formateur, il se peut que il y est une erreur disant que : 
+- A l'inscription d'un formateur, il se peut que il y est une erreur disant que : 
 
 mkdir : permission denied ou encore move_uploaded_files : permission denied.
 
-Pour résoudre ce problème nous avons appliqué chmod 755 sur le dossier :
+- Pour résoudre ce problème nous avons appliqué chmod 755 sur le dossier :
 
-### /PerformVision/Content/CV_former/
+`/PerformVision/Content/CV_former/`
 
 
 ## Git le Projet entier
@@ -26,13 +26,13 @@ git clone https://gitlab.sorbonne-paris-nord.fr/12203376/hibana.git hibana-main
 ### Nom du groupe : 
 Hibana
 ### Membres de groupe : 
-Kenza Hatem
+- Kenza Hatem
 
-Djibryl Guillauby
+- Djibryl Guillauby
 
-Manon Glaude 
+- Manon Glaude 
 
-Nathan Boulangeot 
+- Nathan Boulangeot 
 
-Alexandre Meunier
+- Alexandre Meunier
 
