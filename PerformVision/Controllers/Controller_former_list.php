@@ -27,7 +27,7 @@ class Controller_former_list extends Controller{
                     $this->render("message", $data);
                     
                 } else {
-                    // Afficher la page correspondante aux formateurs
+                    // Afficher la page correspondante des formateurs
                     $data = [
                         'printab' => $printab,
                         'page' => $page,
