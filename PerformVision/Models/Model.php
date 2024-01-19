@@ -26,6 +26,9 @@ class Model
         $this->bd->query("SET nameS 'utf8'");
     }
 
+    /**
+    * Méthode permettant de récupérer l'instance de la classe Model
+    */
     public static function getModel()
     {
         if (self::$instance === null) {
@@ -34,15 +37,15 @@ class Model
         return self::$instance;
     }
 
+    /**
+    * Méthode qui ajoute un nouveau client dans les tables utilisateur et client de la base de données à partir des informations       
+    * contenues dans le paramètre $infos
+    * En cas d'erreur, aucune information n'est ajoutée dans la base de données
+    */
     public function createCustomer($infos) {
         if (! $infos) {return false;}
 
         $erreur_type = [];
-
-        
-        
-
-        
 
         $req_verif = $this->bd->prepare('SELECT COUNT(*) AS count FROM UTILISATEUR WHERE mail = :email OR telephone = :phone');
         $req_verif->bindValue(":email", $infos['email']);
@@ -113,6 +116,11 @@ class Model
         
     }
 
+    /**
+    * Méthode qui ajoute un nouveau formateur dans les tables utilisateur et formateur de la base de données à partir des           informations       
+    * contenues dans le paramètre $infos
+    * En cas d'erreur, aucune information n'est ajoutée dans la base de données
+    */
     public function createFormer($infos) {
         if (! $infos) {return false;}
 
@@ -451,7 +459,9 @@ class Model
     }
     }
 
-
+    /**
+    * Méthode qui renvoie un tableau contenant les formateurs dont la ligne est comprise entre les paramètres $offset et $limit
+    */
     public function getFormersWithLimit($offset = 0, $limit = 25) {
 
         $req = $this->bd->prepare('Select id_utilisateur,nom, prenom, mail from utilisateur WHERE role = :formateur OR role = :moderateur OR role = :admin ORDER BY id_utilisateur DESC LIMIT :limit OFFSET :offset');
