@@ -84,11 +84,11 @@ class Controller_former_list_admin extends Controller{
     public function action_former_information_customer() {
 
         if (isset($_SESSION['role']) && $_SESSION['role'] == "formateur") {
-            header("Location: /hibana-main/PerformVision/?controller=home_former&action=home_former");
+            header("Location: ?controller=home_former&action=home_former");
         }
 
         if (!isset($_SESSION['idutilisateur'])) {
-            header("Location: /hibana-main/PerformVision/?controller=former_list&action=former_information_no_login");
+            header("Location: ?controller=former_list&action=former_information_no_login");
         }
 
         if (isset($_GET['id']) && preg_match("/^[1-9][0-9]*$/", $_GET['id'])) {
@@ -117,11 +117,11 @@ class Controller_former_list_admin extends Controller{
     public function action_former_information_former() {
 
         if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "client") {
-            header("Location: /hibana-main/PerformVision/?controller=home_customer&action=home_customer");
+            header("Location: ?controller=home_customer&action=home_customer");
         }
 
         if (!isset($_SESSION['idutilisateur'])) {
-            header("Location: /hibana-main/PerformVision/?controller=former_list&action=former_information_no_login");
+            header("Location: ?controller=former_list&action=former_information_no_login");
         }
 
         if (isset($_GET['id']) && preg_match("/^[1-9][0-9]*$/", $_GET['id'])) {
@@ -151,11 +151,11 @@ class Controller_former_list_admin extends Controller{
     public function action_former_information_admin() {
 
         if (isset($_SESSION['role']) && $_SESSION['role'] == "formateur") {
-            header("Location: /hibana-main/PerformVision/?controller=home_former&action=home_former");
+            header("Location: ?controller=home_former&action=home_former");
         }
 
         if (!isset($_SESSION['idutilisateur'])) {
-            header("Location: /hibana-main/PerformVision/?controller=former_list&action=former_information_no_login");
+            header("Location: ?controller=former_list&action=former_information_no_login");
         }
 
         if (isset($_GET['id']) && preg_match("/^[1-9][0-9]*$/", $_GET['id'])) {
@@ -184,11 +184,11 @@ class Controller_former_list_admin extends Controller{
     public function action_former_information_moderator() {
 
         if (isset($_SESSION['role']) && $_SESSION['role'] == "formateur") {
-            header("Location: /hibana-main/PerformVision/?controller=home_former&action=home_former");
+            header("Location: ?controller=home_former&action=home_former");
         }
 
         if (!isset($_SESSION['idutilisateur'])) {
-            header("Location: /hibana-main/PerformVision/?controller=former_list&action=former_information_no_login");
+            header("Location: ?controller=former_list&action=former_information_no_login");
         }
 
         if (isset($_GET['id']) && preg_match("/^[1-9][0-9]*$/", $_GET['id'])) {
