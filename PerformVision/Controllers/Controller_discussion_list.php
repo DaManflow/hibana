@@ -1,6 +1,8 @@
 <?php
 require_once "Controller.php";
 class Controller_discussion_list extends Controller{
+
+    // Renvoi vers la page de discussion en fonction du role
     public function action_discussion_list(){
 
         if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "client") {
