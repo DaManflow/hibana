@@ -12,7 +12,7 @@ class Controller_former_list extends Controller{
                 $itemsPerPage = 25;
                 $offset = ($page - 1) * $itemsPerPage;
     
-                // Récupération des prix nobels pour la page actuelle
+                // Récupération des formateurs pour la page actuelle
                 $printab = $m->getFormersWithLimit($offset, $itemsPerPage);
                 $pages = $m->getNbFormer()/25;
                 if (is_float($pages)) {
@@ -27,7 +27,7 @@ class Controller_former_list extends Controller{
                     $this->render("message", $data);
                     
                 } else {
-                    // Afficher la page correspondante des prix nobels
+                    // Afficher la page correspondante aux formateurs
                     $data = [
                         'printab' => $printab,
                         'page' => $page,
