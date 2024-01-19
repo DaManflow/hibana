@@ -18,16 +18,16 @@ class Controller_est_affranchi_false_list_moderator extends Controller{
                 if (is_float($pages)) {
                     $pages = ceil($pages);
                 }
-		if ($pages == 0) {
-		$data = [
+            if ($pages == 0) {
+            $data = [
                         'title' => 'Message Page',
-                        'message' => "Il n'y pas de membre affranchi !"
+                        'message' => "Il n'y pas de membre non-affranchi !"
                     ];
                     $this->render("message", $data);
-                }   
+                }
 
 
-}
+
                 if ($page > $pages) {
                     // Afficher un message d'erreur si la page demandée dépasse le nombre total de pages
                     $data = [
@@ -54,6 +54,7 @@ class Controller_est_affranchi_false_list_moderator extends Controller{
             }
 
         }
+        
         else {
             $_GET['start'] = 1;
             header("Location: ?controller=est_affranchi_false_list_moderator&action=est_affranchi_false_pagination_moderator&start=" . $_GET['start']);

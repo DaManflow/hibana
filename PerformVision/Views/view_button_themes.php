@@ -14,7 +14,7 @@
 <div class='theme'>
 <div class="divchoice">
 <p> <a class="lienbtn" href="?controller=list_themes&action=themes_valides">Thèmes validés</a> </p>
-<p> <a class="lienbtn" href="?controller=list_themes&action=themes_non_valides">Thèmes validés</a> </p>
+<p> <a class="lienbtn" href="?controller=list_themes&action=themes_non_valides">Thèmes non-validés</a> </p>
 </div>
 </div>
 <?php require "view_end.php" ?>

@@ -17,6 +17,14 @@ class Controller_discussion_list extends Controller{
             'discussion_list' => $m->discussionList(),
         ];
 
+        if (empty($data['discussion_list'])) {
+            $data = [
+                'title' => 'Message Page',
+                'message' => "Il n'y a pas encore de discussion à modérer !"
+            ];
+            $this->render("message", $data);
+        }
+
 
 
 

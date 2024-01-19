@@ -34,7 +34,7 @@ if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "formateur") {
     <h2 class="h2">Bienvenue chez</h2>
     <h1 class="h1">PerformVision Training & Consulting</h1>
     </br>
-    
+    <a href="?controller=list_theme&action=list_theme_customer"><button class="form-title">Rechercher un Formateur</button></a>
 </div>
 <div class="reste">
     <div class="centre">

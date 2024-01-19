@@ -12,7 +12,7 @@ class Controller_list_former_pagination_customer extends Controller{
     
                 // Récupération des prix nobels pour la page actuelle
                 $printab = $m->getFormersWithLimit($offset, $itemsPerPage);
-                $pages = $m->getNbFormer()/25;
+                $pages = $m->getNbFormerCustomer()/25;
                 if (is_float($pages)) {
                     $pages = ceil($pages);
                 }

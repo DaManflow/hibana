@@ -63,7 +63,13 @@
                             </form>
                             <?php
                             if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])) {
-                                echo "Votre thème a été soumis avec succès, attendez qu'il soit validé par un modérateur" ; 
+                                // Afficher la phrase avec JavaScript après la soumission du formulaire
+                                echo '<script>
+                                        setTimeout(function() {
+                                            alert("Votre thème a été soumis avec succès, attendez qu\'il soit validé par un modérateur");
+                                            window.location.href = "?controller=home_former&action=home_former";
+                                        });
+                                      </script>';
                             }
                             ?>
 

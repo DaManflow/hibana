@@ -484,6 +484,17 @@ class Model
         return $tab[0];
     }
 
+    public function getNbFormerCustomer()
+    {
+        $req = $this->bd->prepare('SELECT COUNT(*) FROM utilisateur WHERE role = :formateur OR role = :moderateur OR role = :admin');
+        $req->bindValue(':formateur', "formateur");
+        $req->bindValue(':moderateur', "moderateur");
+        $req->bindValue(':admin', "administrateur");
+        $req->execute();
+        $tab = $req->fetch(PDO::FETCH_NUM);
+        return $tab[0];
+    }
+
 
     public function getThemes($sc = 'tout'){
         if($sc == 'tout'){
@@ -1006,15 +1017,13 @@ inner join utilisateur on formateur.id_formateur = utilisateur.id_utilisateur');
         FROM message
         JOIN discussion USING (id_discussion)
         JOIN utilisateur ON id_client = utilisateur.id_utilisateur
-        WHERE id_formateur = :id_formateur AND id_client = :id_client AND validem = :vrai OR validem = :faux AND role = :client ORDER BY date_heure
+        WHERE id_formateur = :id_formateur AND id_client = :id_client ORDER BY date_heure
 ');
 
 
             $req->bindValue(':id_client', $_SESSION['idutilisateur']);
             $req->bindValue(':id_formateur', $id_formateur);
-            $req->bindValue(':vrai', 'true');
-            $req->bindValue(':faux', 'false');
-            $req->bindValue(':client', 'client');
+            
             $req->execute();
 
 
@@ -1071,13 +1080,10 @@ inner join utilisateur on formateur.id_formateur = utilisateur.id_utilisateur');
         FROM message
         JOIN discussion USING (id_discussion)
         JOIN utilisateur ON id_formateur = utilisateur.id_utilisateur
-        WHERE id_formateur = :id_formateur AND id_client = :id_client AND validem = :vrai OR validem = :faux AND role = :formateur ORDER BY date_heure
+        WHERE id_formateur = :id_formateur AND id_client = :id_client ORDER BY date_heure
 ');
             $req->bindValue(':id_formateur', $_SESSION['idutilisateur']);
             $req->bindValue(':id_client', $id_client);
-            $req->bindValue(':faux', 'false');
-            $req->bindValue(':formateur', 'formateur');
-            $req->bindValue(':vrai', 'true');
             $req->execute();
 
 
@@ -1276,6 +1282,13 @@ inner join utilisateur on formateur.id_formateur = utilisateur.id_utilisateur');
             $req->bindValue(':vrai', 'true');
             $req->bindValue(':id_utilisateur', $id_utilisateur);
             $req->execute();
+
+            $req2 = $this->bd->prepare('UPDATE message
+            SET validem = :vrai
+            WHERE id_utilisateur = :id_utilisateur');
+            $req2->bindValue(':vrai', 'true');
+            $req2->bindValue(':id_utilisateur', $id_utilisateur);
+            $req2->execute();
 
 
             $this->bd->commit();
@@ -1580,9 +1593,48 @@ public function UpdateTheme(){
     $req->execute();
 }
 public function DeleteTheme(){
-    $req= $this->bd->prepare('DELETE FROM theme WHERE idt=:idt') ; 
-    $req->bindValue(':idt',$_GET['idt']) ;
+
+    $req1 = $this->bd->prepare('DELETE FROM aexpertiseprofessionnelle WHERE idt=:idt') ; 
+    $req1->bindValue(':idt',$_GET['idt']) ;
+    $req1->execute();
+    $req2 = $this->bd->prepare('DELETE FROM aexperiencepeda WHERE idt=:idt') ; 
+    $req2->bindValue(':idt',$_GET['idt']) ;
+    $req2->execute();
+    $req3= $this->bd->prepare('DELETE FROM theme WHERE idt=:idt') ; 
+    $req3->bindValue(':idt',$_GET['idt']) ;
+    $req3->execute();
+}
+
+
+public function ListFormerTheme($id_theme) {
+
+
+    $req = $this->bd->prepare('
+    SELECT
+        utilisateur.id_utilisateur,
+        utilisateur.nom,
+        utilisateur.prenom
+    FROM
+        utilisateur
+    JOIN
+        formateur ON utilisateur.id_utilisateur = formateur.id_formateur
+    WHERE
+        formateur.id_formateur IN (
+            SELECT
+                aExpertiseProfessionnelle.id_formateur
+            FROM
+                aExpertiseProfessionnelle
+            WHERE
+                aExpertiseProfessionnelle.idt = :id_theme
+        )
+');
+    $req->bindValue(':id_theme', $id_theme);
     $req->execute();
+
+
+
+    return $req->fetchAll(PDO::FETCH_ASSOC);
+
 }
 
 }

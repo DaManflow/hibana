@@ -18,6 +18,13 @@ class Controller_customer_list extends Controller{
                 if (is_float($pages)) {
                     $pages = ceil($pages);
                 }
+                if ($pages == 0) {
+                    $data = [
+                                    'title' => 'Message Page',
+                                    'message' => "Il n'y pas de clients !"
+                                ];
+                                $this->render("message", $data);
+                            }
                 if ($page > $pages) {
                     // Afficher un message d'erreur si la page demandée dépasse le nombre total de pages
                     $data = [

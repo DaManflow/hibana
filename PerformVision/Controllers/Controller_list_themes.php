@@ -10,6 +10,16 @@ class Controller_list_themes extends Controller{
             "themesValides"=>$m->seeThemesValides(),
             "themesNonValides"=>$m->seeThemesNonValides(),
         ];
+
+        if (empty($data['themesValides'])) {
+            $data = [
+                        'title' => 'Message Page',
+                        'message' => "Il n'y pas de thèmes validé !"
+                    ];
+                    $this->render("message", $data);
+                }
+
+
         $this->render("themes_valides", $data);
     }
     public function action_themes_non_valides(){
@@ -18,25 +28,34 @@ class Controller_list_themes extends Controller{
             "themesNonValides"=>$m->seeThemesNonValides(),
             "themesNonValides"=>$m->seeThemesNonValides(),
         ];
+
+        if (empty($data['themesNonValides'])) {
+                $data = [
+                            'title' => 'Message Page',
+                            'message' => "Il n'y pas de thèmes non-validé !"
+                        ];
+                        $this->render("message", $data);
+                    }
+
         $this->render("themes_non_valides", $data);
-    }
+        }
+        
+
+
+        
+    
     public function action_valider_theme(){
         $m = Model::getModel();
         $m->UpdateTheme();
-        $data = [
-            "themesValides"=>$m->seeThemesValides(),
-            "themesNonValides"=>$m->seeThemesNonValides(),
-        ];
-        $this->render("themes_non_valides", $data);
+        
+        $this->render("button_themes");
     }   
     public function action_supprimer_theme(){
         $m = Model::getModel();
-        $m->UpdateTheme();
-        $data = [
-            "themesValides"=>$m->DeleteTheme(),
-            "themesNonValides"=>$m->seeThemesNonValides(),
-        ];
-        $this->render("themes_non_valides", $data);
+        $m->DeleteTheme();
+        
+        $this->render("button_themes");
+        
     }      
     public function action_default(){
         $this->action_list_themes();

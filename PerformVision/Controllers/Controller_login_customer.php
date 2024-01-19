@@ -10,6 +10,13 @@ class Controller_login_customer extends Controller{
         if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "formateur") {
             header("Location: ?controller=home_former&action=home_former");
         }
+        if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "moderateur") {
+            header("Location: ?controller=home_moderateur&action=home_moderateur");
+        }
+
+        if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "administrateur") {
+            header("Location: ?controller=home_admin&action=home_admin");
+        }
         
         $this->render("form_login_customer");
 
@@ -29,7 +36,10 @@ class Controller_login_customer extends Controller{
             header("Location: ?controller=home_former&action=home_former");
         }
         if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "administrateur") {
-            header("Location: ?controller=home_former&action=home_former");
+            header("Location: ?controller=home_admin&action=home_admin");
+        }
+        if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "moderateur") {
+            header("Location: ?controller=home_moderator&action=home_moderator");
         }
 
         if (isset($_POST['submit'])) {
@@ -105,6 +115,13 @@ class Controller_login_customer extends Controller{
     
             if (!isset($_SESSION['idutilisateur'])) {
                 header("Location: ?controller=home&action=home");
+            }
+
+            if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "administrateur") {
+                header("Location: ?controller=home_admin&action=home_admin");
+            }
+            if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "moderateur") {
+                header("Location: ?controller=home_moderator&action=home_moderator");
             }
 
         }
