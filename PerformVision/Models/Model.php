@@ -27,6 +27,8 @@ class Model
     }
 
     /**
+    * @return object
+    *
     * Méthode permettant de récupérer l'instance de la classe Model
     */
     public static function getModel()
@@ -38,6 +40,8 @@ class Model
     }
 
     /**
+    * @param array $infos
+    *
     * Méthode qui ajoute un nouveau client dans les tables utilisateur et client de la base de données à partir des informations       
     * contenues dans le paramètre $infos
     * En cas d'erreur, aucune information n'est ajoutée dans la base de données
@@ -47,7 +51,7 @@ class Model
 
         $erreur_type = [];
 
-        $req_verif = $this->bd->prepare('SELECT COUNT(*) AS count FROM UTILISATEUR WHERE mail = :email OR telephone = :phone');  // Requête pour compter le nombre d'utilisateur avec l'email ou le téléphone dans les infos
+        $req_verif = $this->bd->prepare('SELECT COUNT(*) AS count FROM UTILISATEUR WHERE mail = :email OR telephone = :phone');
         $req_verif->bindValue(":email", $infos['email']);
         $req_verif->bindValue(":phone", $infos['phone']);
         $req_verif->execute();
@@ -59,9 +63,8 @@ class Model
 
 
                 $this->bd->beginTransaction();
-                // Créer un nouveau utilisateur à partir des informations données dans la table utilisateur
                 $req1 = $this->bd->prepare('INSERT INTO UTILISATEUR(nom,prenom,mail,password, telephone, role, est_affranchi) VALUES (:name,:surname,:email,:password,:phone,:role,:estaffranchi)');
-                $marqueurs = ['name', 'surname', 'email', 'password', 'phone', "role", "estaffranchi"]; 
+                $marqueurs = ['name', 'surname', 'email', 'password', 'phone', "role", "estaffranchi"];
                 foreach ($marqueurs as $value) {
             
                     $req1->bindValue(':' . $value, $infos[$value]);
@@ -70,7 +73,6 @@ class Model
 
                 $id_client = $this->bd->lastInsertId();
 
-                // Ajoute dans la table client l'utilisateur créé
                 $req2 = $this->bd->prepare('
                     INSERT INTO Client (id_client, societe)
                     VALUES (:id_client,:company)
@@ -119,8 +121,11 @@ class Model
     }
 
     /**
-    * Méthode qui ajoute un nouveau formateur dans les tables utilisateur et formateur de la base de données à partir des informations       
-    * contenues dans le paramètre $infos
+    * @param array $infos
+    *
+    * Méthode qui ajoute un nouveau formateur dans les tables 
+    * utilisateur et formateur de la base de données à partir des informations        
+    * contenues dans le paramètre $infos.
     * En cas d'erreur, aucune information n'est ajoutée dans la base de données
     */
     public function createFormer($infos) {
@@ -133,8 +138,7 @@ class Model
 
         if ($req_admin->rowCount() == 0) {
 
-            // Créer un nouveau utilisateur à partir des informations données dans la table utilisateur
-            $req1 = $this->bd->prepare('INSERT INTO UTILISATEUR(nom,prenom,mail,password, telephone, role, est_affranchi) VALUES (:name,:surname,:email,:password,:phone,:role,:estaffranchi)'); //
+            $req1 = $this->bd->prepare('INSERT INTO UTILISATEUR(nom,prenom,mail,password, telephone, role, est_affranchi) VALUES (:name,:surname,:email,:password,:phone,:role,:estaffranchi)');
             
             $req1->bindValue(':name', $infos['name']);
             $req1->bindValue(':surname', $infos['surname']);
@@ -463,7 +467,18 @@ class Model
     }
 
     /**
-    * Méthode qui renvoie un tableau contenant les formateurs dont la ligne est comprise entre les paramètres $offset et $limit
+    * @param int $offset 
+    * @param int $limit
+    * @return array
+    * 
+    * Méthode qui renvoie un tableau contenant les formateurs 
+    * dont le numéro de ligne est compris entre dans l'intervalle [$offset;$limit]
+    * Le tableau est de la forme :
+    * [
+    *   0 =>["id_utilisateur"=>1, "nom"=>"Nom1", "prenom"=>"Prenom1", "mail"=>"mail1@truc.fr"], 
+    *   1 =>["id_utilisateur"=>2, "nom"=>"Nom2", "prenom"=>"Prenom2", "mail"=>"mail2@truc.fr"],
+    *   ...
+    * ]
     */
     public function getFormersWithLimit($offset = 0, $limit = 25) {
 
@@ -479,7 +494,22 @@ class Model
 
     }
 
-
+    /**
+    * @param int $id id_utilisateur de la table utilisateur dans la base de données
+    * @return array
+    * 
+    * Méthode qui retourne les informations concernant le formateur dont l'id est passé en paramètre
+    * sous la forme d'un tableau 
+    * 
+    * [ 0=>["id_utilisateur"=>id, 
+    * "nom"=>"NomFormateurId", 
+    * "prenom"=>"PrenomFormateurId", 
+    * "mail"=>"mailId@truc.fr", 
+    * "telephone"=>0123456789, 
+    * "est-affranchi"=>"false", 
+    * "cv"=>"cv.pdf"] ]
+    *    
+    */
     public function getFormerInformations($id)
     {
         $requete = $this->bd->prepare('Select id_utilisateur, nom,prenom, mail, telephone, est_affranchi, cv from utilisateur JOIN formateur ON utilisateur.id_utilisateur = formateur.id_formateur WHERE utilisateur.id_utilisateur = :id');
@@ -488,6 +518,13 @@ class Model
         return $requete->fetchAll();
     }
 
+    /**
+    * @return int
+    *
+    * Methode qui retourne le nombre d'utilisateurs de la table utilisateur (int)
+    * dont le role est "formateur"
+    *  
+    */
     public function getNbFormer()
     {
         $req = $this->bd->prepare('SELECT COUNT(*) FROM utilisateur WHERE role = :formateur');
@@ -497,6 +534,13 @@ class Model
         return $tab[0];
     }
 
+    /**
+    * @return int
+    *
+    * Methode qui retourne le nombre d'utilisateurs de la table utilisateur
+    * dont le role est "formateur", "administrateur" ou "moderateur"
+    * 
+    */
     public function getNbFormerCustomer()
     {
         $req = $this->bd->prepare('SELECT COUNT(*) FROM utilisateur WHERE role = :formateur OR role = :moderateur OR role = :admin');
@@ -508,7 +552,12 @@ class Model
         return $tab[0];
     }
 
-
+    /**
+    * @param string $sc
+    * @return array
+    * 
+    * Methode qui retourne les thèmes de la catégorie ou de la sous-catégorie en paramètre $sc
+    */
     public function getThemes($sc = 'tout'){
         if($sc == 'tout'){
             $req = $this->bd->prepare('SELECT DISTINCT nomt, nomc, idc FROM THEME natural join categorie where validet = true and validec = true order by idc');
@@ -520,6 +569,11 @@ class Model
 
     }
 
+    /**
+    * @param string $cat
+    * @return array
+    * Methode qui retourne les sous-catégories de la catégorie $cat en paramètre
+    */
     public function getSousCategories($cat){
         if($cat == 'tout'){
             $req = $this->bd->prepare('SELECT c1.nomC, c1.idc, c2.nomc as nomc_mere, c2.idc_mere FROM Categorie as c1 left outer join categorie as c2 on c2.idc = c1.idc_mere where c2.validec = true order by idc');
@@ -541,6 +595,14 @@ class Model
         return $req->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    /**
+    * @param string $cat
+    * @param string $scat
+    * @param string $th
+    *
+    * Méthode qui retourne un tableau avec les formateurs qui proposent 
+    * les thèmes et/ou sous-catégories et/ou catégories passés en paramètres
+    */
     public function getFormateurs($cat="", $scat="", $th=""){
         $req = $this->bd->prepare('select formateur.id_formateur, nom, prenom, volumehmoyensession, nbsessioneffectuee, commentaire, nomt, theme.idt from formateur
 inner join aexperiencepeda on formateur.id_formateur = aexperiencepeda.id_formateur
@@ -550,6 +612,14 @@ inner join utilisateur on formateur.id_formateur = utilisateur.id_utilisateur');
         return $req->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    /**
+    * @param string $theme
+    * @return array
+    *
+    * Méthode qui retourne un tableau contenant le niveau d'expérience 
+    * pour le ou les thèmes donnés en paramètres
+    * 
+    */
     public function getExpercienceByTheme($theme){
         if($theme == 'tout'){
             $req = $this->bd->prepare('select libellep, nomt, theme.idt, volumehmoyensession, nbsessioneffectuee, commentaire from aexperiencepeda inner join public on aexperiencepeda.idp = public.idp inner join theme on aexperiencepeda.idt = theme.idt order by idt limit 10');
@@ -561,7 +631,10 @@ inner join utilisateur on formateur.id_formateur = utilisateur.id_utilisateur');
     }
 
 
-
+    /**
+    * @param array $infos
+    * @return 
+    */
     public function VerifConnectUser($infos) {
 
         if (! $infos) {return false;}
