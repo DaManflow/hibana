@@ -8,8 +8,9 @@
 <p>   
     <?= e($message) ?>
 </p>
-
-<p> Voulez vous faire un nouveau message ? <a href="?controller=list_former_pagination_customer&action=former_pagination_message_customer">+ Nouveau message </a> </p>
+<br>
+<p> Voulez vous faire un nouveau message ? <br><br>
+    <a class="lienbtn" href="?controller=list_former_pagination_customer&action=former_pagination_message_customer"><i class="fa-solid fa-pen"></i> Nouveau message </a> </p>
 
 
 

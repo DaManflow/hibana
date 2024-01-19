@@ -12,7 +12,7 @@ class Controller_admin_list extends Controller{
                 $itemsPerPage = 25;
                 $offset = ($page - 1) * $itemsPerPage;
     
-                // Récupération des prix nobels pour la page actuelle
+                // Récupération des admins pour la page actuelle
                 $printab = $m->getAdminsWithLimit($offset, $itemsPerPage);
                 $pages = $m->getNbAdmin()/25;
                 if (is_float($pages)) {
@@ -34,7 +34,7 @@ class Controller_admin_list extends Controller{
                     $this->render("message", $data);
                     
                 } else {
-                    // Afficher la page correspondante des prix nobels
+                    // Afficher la page correspondante des admins
                     $data = [
                         'printab' => $printab,
                         'page' => $page,
@@ -80,7 +80,7 @@ class Controller_admin_list extends Controller{
 
 
     
-
+    // Affiche la page pour les admins qui affiche les formateurs avec leurs informations
     public function action_admin_information() {
 
         if (isset($_SESSION['role']) && $_SESSION['role'] == "formateur") {

@@ -12,7 +12,7 @@ class Controller_est_affranchi_false_list_moderator extends Controller{
                 $itemsPerPage = 25;
                 $offset = ($page - 1) * $itemsPerPage;
     
-                // Récupération des prix nobels pour la page actuelle
+                // Récupération des modérateurs non affranchi pour la page actuelle
                 $printab = $m->getEstAffranchiFalseWithLimit($offset, $itemsPerPage);
                 $pages = $m->getNbEstAffranchiFalse()/25;
                 if (is_float($pages)) {
@@ -37,7 +37,7 @@ class Controller_est_affranchi_false_list_moderator extends Controller{
                     $this->render("message", $data);
                     
                 } else {
-                    // Afficher la page correspondante des prix nobels
+                    // Afficher la page correspondante des bons modérateurs
                     $data = [
                         'printab' => $printab,
                         'page' => $page,

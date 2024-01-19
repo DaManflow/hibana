@@ -1,7 +1,7 @@
 <?php
 require_once "Controller.php";
 class Controller_customer_list extends Controller{
-    
+    // renvoi vers la page de la liste des clients du site
     public function action_customer_pagination() {
 
         $m = Model::getModel();
@@ -12,7 +12,7 @@ class Controller_customer_list extends Controller{
                 $itemsPerPage = 25;
                 $offset = ($page - 1) * $itemsPerPage;
     
-                // Récupération des prix nobels pour la page actuelle
+                // Récupération des formateurs pour la page actuelle
                 $printab = $m->getCustomersWithLimit($offset, $itemsPerPage);
                 $pages = $m->getNbCustomers()/25;
                 if (is_float($pages)) {
@@ -34,7 +34,7 @@ class Controller_customer_list extends Controller{
                     $this->render("message", $data);
                     
                 } else {
-                    // Afficher la page correspondante des prix nobels
+                    // Afficher la page correspondante des formateurs
                     $data = [
                         'printab' => $printab,
                         'page' => $page,

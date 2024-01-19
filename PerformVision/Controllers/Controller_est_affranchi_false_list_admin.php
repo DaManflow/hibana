@@ -12,7 +12,7 @@ class Controller_est_affranchi_false_list_admin extends Controller{
                 $itemsPerPage = 25;
                 $offset = ($page - 1) * $itemsPerPage;
     
-                // Récupération des prix nobels pour la page actuelle
+                // Récupération les utilisateurs non affranchi avec un limite pour la page actuelle
                 $printab = $m->getEstAffranchiFalseWithLimit($offset, $itemsPerPage);
                 $pages = $m->getNbEstAffranchiFalse()/25;
                 if (is_float($pages)) {
@@ -37,7 +37,7 @@ class Controller_est_affranchi_false_list_admin extends Controller{
                     $this->render("message", $data);
                     
                 } else {
-                    // Afficher la page correspondante des prix nobels
+                    // Afficher la page correspondante des utilisateurs non affranchi
                     $data = [
                         'printab' => $printab,
                         'page' => $page,
