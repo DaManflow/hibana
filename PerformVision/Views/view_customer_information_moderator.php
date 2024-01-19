@@ -14,7 +14,7 @@
     </tr>
     <tr>
     <?php
-    
+    include "view_header_moderator.php";
          foreach($infos as $cle => $val) {
             echo "</td>" . "<td>" . $val['nom'] . "</td>" . "<td>" .$val['prenom'] . "</td>" . "<td>" . $val['mail'] . "</td>" . "<td>" . $val['telephone'] . "</td>" . "<td>" . $val['societe'] . "</td>";
             if ($val['est_affranchi'] == false) {

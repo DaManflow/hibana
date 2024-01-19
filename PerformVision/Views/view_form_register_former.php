@@ -1,11 +1,19 @@
 <?php require "view_begin.php";
 
-$_SESSION['themes'] = $themes ; 
-$_SESSION['public'] = $public ; 
-$_SESSION['levels'] = $levels ;
+
+    $_SESSION['themes'] = $themes ; 
+
+
+    $_SESSION['public'] = $public ; 
+
+    $_SESSION['levels'] = $levels ; 
+
+
+include "view_header_user.php";
+
 ?>
 
-<h1> S'inscrire </h1>
+<h1> S'inscrire - Espace Formateur</h1>
 
 <form id="former-form" action="?controller=register_former&action=register_former" method="POST" enctype="multipart/form-data">
     

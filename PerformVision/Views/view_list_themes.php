@@ -1,5 +1,7 @@
 <?php require "view_begin.php";
 
+include "view_header_user.php";
+
 
 ?>
 

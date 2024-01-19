@@ -1,6 +1,10 @@
-<?php require "view_begin.php";?>
+<?php require "view_begin.php";
 
-<h1> S'incrire - Espace Client </h1>
+include "view_header_user.php";
+
+?>
+
+<h1> S'inscrire - Espace Client </h1>
 
 <form action="?controller=register_customer&action=register_customer" method="POST">
     <p> <label> <input required="" type="text" name="name" placeholder="Nom"/> </label> </p>

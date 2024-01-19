@@ -8,27 +8,11 @@ if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "formateur") {
     header("Location: ?controller=home_former&action=home_former");
 }
 
+include "view_header_customer.php";
+
 ?>
 
-<div class="debut">
-    <div class="partie-gauche">PerformVision Training & Consulting</div>
-    <div class="partie-droite">
-        <ul class="ul1">
-            <li class="conseils"><a href="" id="link">Conseils</a></li>
-            <li class="autres">Autres ▽
-                <ul class="dropdown">
-                    <ul><a href="#" id="link">Activité 1</a></ul>
-                    <ul><a href="#" id="link">Activité 2</a></ul>
-                    <ul><a href="#" id="link">Activité 3</a></ul>
-                </ul>
-            </li>
-            <a class="connect" href="?controller=message_customer&action=discussion">
-                <button><i class="fa-regular fa-message"></i><span class="aut">Mes discussions</span></button></a>
-            <a class="connect" href="?controller=profil_customer&action=profil_customer">
-                <button><i class="fa-regular fa-circle-user"></i><span class="aut">Mon Profil</span></button></a>
-        </ul>
-    </div>
-</div>
+
 
 <div class="titles">
     <h2 class="h2">Bienvenue chez</h2>

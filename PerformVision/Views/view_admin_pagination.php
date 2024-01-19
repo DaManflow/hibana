@@ -8,6 +8,7 @@
         
 
         if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "administrateur") {
+            include "view_header_admin.php";
             foreach($printab as $cle => $val) {
                 echo "<tr><td> <a href=?controller=admin_list&action=admin_information&id=" . $val['id_utilisateur'] . ">" . $val['nom'] . " " . $val['prenom'] . " " . $val['mail'] . "</a></td></tr>";
             }

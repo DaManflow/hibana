@@ -11,28 +11,11 @@ if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "client") {
 
 
 
-
+include "view_header_admin.php";
 
 
 ?>
-<div class="debut">
-    <div class="partie-gauche">PerformVision Training & Consulting</div>
-    <div class="partie-droite">
-        <ul class="ul1">
-        <li class="formations"><a href="?controller=member_choice_admin&action=member_choice">Membres</a></li>
-        <li class="conseils">Conseils</li>
-        <li class="autres">Autres        
-        <ul class="dropdown">
-            <li>Activité 1</li>
-            <li>Activité 2</li>
-            <li>Activité 3</li>
-        </ul>
-</li>
-<li class="connect"><a href="?controller=message_former&action=mes_discussions"><button><span class="aut">Mes discussions</span></button></a></li>
-        <li class="connect"><a href="?controller=profil_former&action=profil_former"><button><i class="fa-regular fa-circle-user"></i><span class="aut">Mon profil</span></button></a></li>
-</ul>
-    </div>
-</div>
+
 
 <div class="titles">
     <h2 class="h2">Bienvenue chez</h2>

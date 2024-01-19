@@ -8,12 +8,14 @@
         
 
         if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "administrateur") {
+            include "view_header_admin.php";
             foreach($printab as $cle => $val) {
                 echo "<tr><td> <a href=?controller=customer_list&action=customer_information_admin&id=" . $val['id_utilisateur'] . ">" . $val['nom'] . " " . $val['prenom'] . " " . $val['mail'] . "</a></td></tr>";
             }
         }
 
         if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "moderateur") {
+            include "view_header_moderator.php";
             foreach($printab as $cle => $val) {
                 echo "<tr><td> <a href=?controller=customer_list&action=customer_information_moderator&id=" . $val['id_utilisateur'] . ">" . $val['nom'] . " " . $val['prenom'] . " " . $val['mail'] . "</a></td></tr>";
             }

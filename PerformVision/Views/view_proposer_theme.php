@@ -1,4 +1,7 @@
-<?php require "view_begin.php"; ?>
+<?php require "view_begin.php"; 
+include "view_header_former.php";
+
+?>
 <p> Les thèmes existants : </p>
 <select name="theme" class="exp-select">
         <?php

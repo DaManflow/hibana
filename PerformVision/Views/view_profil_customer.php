@@ -7,6 +7,7 @@ if (!isset($_SESSION['idutilisateur'])) {
 if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "formateur") {
     header("Location: ?controller=home_former&action=home_former");
 }
+include "view_header_customer.php";
 
 ?>
 <style>

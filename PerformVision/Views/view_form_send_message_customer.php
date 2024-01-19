@@ -1,7 +1,10 @@
 <?php require "view_begin.php";
+
+include "view_header_customer.php";
+
 ?>
 
-<h1> Envoyer un message à <?= $infos[0]['nom'] . " " .  $infos[0]['prenom'] . " " . $infos[0]['mail'] ?></h1>
+<h1> Envoyer un message à <?= $infos[0]['nom'] . " " .  $infos[0]['prenom']?></h1>
 
 <form action="?controller=message_customer&action=send_message" method="POST">
     

@@ -6,15 +6,11 @@
         <?php
 
         if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "client") {
-            foreach($printab as $cle => $val) {
-                echo "<tr><td> <a href=?controller=former_list&action=former_information_customer&id=" . $val['id_utilisateur'] . ">" . $val['nom'] . " " . $val['prenom'] . " " . $val['mail'] . "</a></td></tr>";
-            }
+            header("Location: ?controller=home_customer&action=home_customer");
         }
 
         if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "formateur") {
-            foreach($printab as $cle => $val) {
-                echo "<tr><td> <a href=?controller=former_list&action=former_information_former&id=" . $val['id_utilisateur'] . ">" . $val['nom'] . " "  . $val['prenom'] . " " . $val['mail'] . "</a></td></tr>";
-            }
+            header("Location: ?controller=home_former&action=home_former");
         }
 
         if (!isset($_SESSION['idutilisateur'])) {
@@ -23,12 +19,15 @@
             }
         }
         if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "administrateur") {
+            include "view_header_admin.php";
+
             foreach($printab as $cle => $val) {
                 echo "<tr><td> <a href=?controller=former_list&action=former_information_admin&id=" . $val['id_utilisateur'] . ">" . $val['nom'] . " " . $val['prenom'] . " " . $val['mail'] . "</a></td></tr>";
             }
         }
 
         if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "moderateur") {
+            include "view_header_moderator.php";
             foreach($printab as $cle => $val) {
                 echo "<tr><td> <a href=?controller=former_list&action=former_information_moderator&id=" . $val['id_utilisateur'] . ">" . $val['nom'] . " " . $val['prenom'] . " " . $val['mail'] . "</a></td></tr>";
             }

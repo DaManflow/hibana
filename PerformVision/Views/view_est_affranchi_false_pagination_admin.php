@@ -1,4 +1,8 @@
-<?php require_once "view_begin.php";?>
+<?php require_once "view_begin.php";
+
+include "view_header_admin.php";
+
+?>
 
 
 <table>

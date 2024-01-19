@@ -1,25 +1,6 @@
 <?php
 require_once "Controller.php";
 class Controller_message_customer extends Controller{
-    public function action_discussion() {
-
-       
-
-        if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "formateur") {
-            header("Location: ?controller=home_former&action=home_former");
-        }
-
-        if (!isset($_SESSION['idutilisateur'])) {
-            header("Location: ?controller=home&action=home");
-        }
-
-
-        $this->render("discussion_customer");
-    }
-    public function action_default(){
-        $this->action_discussion();
-    }
-
     public function action_mes_discussions() {
 
 
@@ -45,7 +26,7 @@ class Controller_message_customer extends Controller{
                     
         
                 ];
-                $this->render("empty_discussion_customer",$data);
+                $this->render("message",$data);
         }
 
         else {
@@ -57,11 +38,10 @@ class Controller_message_customer extends Controller{
             
         }
 
+    public function action_default(){
+        $this->action_mes_discussions();
+    }
 
-
-
-        
-    
 
     public function action_envoyer_message_customer() {
 
@@ -128,7 +108,7 @@ class Controller_message_customer extends Controller{
 
             if (in_array("none",$rep)) {
 
-                header("Location: ?controller=message_customer&action=dicussion");
+                header("Location: ?controller=message_customer&action=mes_dicussions");
                 exit;
                 
             }

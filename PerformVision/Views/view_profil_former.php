@@ -8,6 +8,18 @@ if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "client") {
     header("Location: ?controller=home_customer&action=home_customer");
 }
 
+if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "moderateur") {
+    include "view_header_moderator.php";
+}
+if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "administrateur") {
+    include "view_header_admin.php";
+}
+if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "formateur") {
+    include "view_header_former.php";
+}
+
+
+
 ?>
 <style>
     .profil {

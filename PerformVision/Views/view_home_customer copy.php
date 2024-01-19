@@ -4,27 +4,35 @@ if (!isset($_SESSION['idutilisateur'])) {
     header("Location: ?controller=home&action=home");
 }
 
-if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "client") {
-    header("Location: ?controller=home_customer&action=home_customer");
+if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "formateur") {
+    header("Location: ?controller=home_former&action=home_former");
 }
-
-if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "administrateur") {
-    header("Location: ?controller=home_admin&action=home_admin");
-}
-
-if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "moderateur") {
-    header("Location: ?controller=home_moderator&action=home_moderator");
-}
-
-include "view_header_former.php";
 
 ?>
 
+<div class="debut">
+    <div class="partie-gauche"> <a href="#">PerformVision Training & Consulting</a></div>
+    <div class="partie-droite">
+        <ul class="ul1">
+            <li class="conseils"><a href="?controller=advices&action=advices" id="link">Conseils</a></li>
+            <li class="autres">Autres ▽
+                <ul class="dropdown">
+                    <ul><a href="#" id="link">Formateurs</a></ul>
+                </ul>
+            </li>
+            <a class="connect" href="?controller=message_customer&action=mes_discussions">
+                <button><i class="fa-regular fa-message"></i><span class="aut">Mes discussions</span></button></a>
+            <a class="connect" href="?controller=profil_customer&action=profil_customer">
+                <button><i class="fa-regular fa-circle-user"></i><span class="aut">Mon Profil</span></button></a>
+        </ul>
+    </div>
+</div>
 
 <div class="titles">
     <h2 class="h2">Bienvenue chez</h2>
     <h1 class="h1">PerformVision Training & Consulting</h1>
     </br>
+    <a href="?controller=list_theme&action=list_theme_customer"><button class="form-title">Rechercher un Formateur</button></a>
 </div>
 <div class="reste">
     <div class="centre">
@@ -78,4 +86,3 @@ include "view_header_former.php";
     </div>
 </footer>
 <?php require_once "view_end.php"; ?>
-

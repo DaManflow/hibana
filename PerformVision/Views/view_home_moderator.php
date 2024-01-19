@@ -8,33 +8,10 @@ if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "client") {
     header("Location: ?controller=home_customer&action=home_customer");
 }
 
-
-
-
-
-
+include "view_header_moderator.php";
 
 ?>
-<div class="debut">
-    <div class="partie-gauche">PerformVision Training & Consulting</div>
-    <div class="partie-droite">
-        <ul class="ul1">
-        <li class="formations"><a href="?controller=list_themes&action=list_themes">Thèmes</a></li>   
-        <li class="formations"><a href="?controller=member_choice_moderator&action=member_choice">Membres</a></li>
-        <li class="conseils">Conseils</li>
-        <li class="autres">Autres        
-        <ul class="dropdown">
-            <li>Activité 1</li>
-            <li>Activité 2</li>
-            <li>Activité 3</li>
-        </ul>
-</li>
-<li class="connect"><a href="?controller=message_former&action=mes_discussions"><button><span class="aut">Mes discussions</span></button></a></li>
-<li class="connect"><a href="?controller=discussion_list&action=discussion_list"><button><span class="aut">Modérer les discussions</span></button></a></li>
-        <li class="connect"><a href="?controller=profil_former&action=profil_former"><button><i class="fa-regular fa-circle-user"></i><span class="aut">Mon profil</span></button></a></li>
-</ul>
-    </div>
-</div>
+
 
 <div class="titles">
     <h2 class="h2">Bienvenue chez</h2>

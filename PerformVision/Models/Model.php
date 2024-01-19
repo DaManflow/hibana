@@ -536,25 +536,6 @@ class Model
 
 
     /**
-    * @return int
-    *
-    * Methode qui retourne le nombre d'utilisateurs de la table utilisateur
-    * dont le role est "formateur", "administrateur" ou "moderateur"
-    * 
-    */
-    public function getNbFormerCustomer()
-    {
-        $req = $this->bd->prepare('SELECT COUNT(*) FROM utilisateur WHERE role = :formateur OR role = :moderateur OR role = :admin');
-        $req->bindValue(':formateur', "formateur");
-        $req->bindValue(':moderateur', "moderateur");
-        $req->bindValue(':admin', "administrateur");
-        $req->execute();
-        $tab = $req->fetch(PDO::FETCH_NUM);
-        return $tab[0];
-    }
-
-
-    /**
     * @param string $sc
     * @return array
     * 

@@ -1,4 +1,8 @@
-<?php   require "view_begin.php";?>
+<?php   require "view_begin.php";
+
+include "view_header_admin.php";
+
+?>
 <style>
     .admin {
         display : flex ; 

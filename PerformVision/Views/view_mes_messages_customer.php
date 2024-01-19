@@ -5,6 +5,8 @@
 <?php 
 
 if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "client") {
+include "view_header_customer.php";
+
     foreach ($messages as $cle => $val) {
         echo "<tr><td>";
         

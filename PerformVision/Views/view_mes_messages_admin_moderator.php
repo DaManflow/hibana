@@ -4,7 +4,27 @@
 
 
 <?php 
-if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "administrateur" || $_SESSION['role'] == "moderateur") {
+
+
+
+
+if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "administrateur") {
+    include "view_header_admin.php";
+    foreach ($messages as $cle => $val) {
+        echo "<tr><td>";
+        
+        // Vérifiez si l'utilisateur actuel a envoyé le message
+        if ($val['id_utilisateur'] == $_SESSION['idutilisateur']) {
+            echo "Moi : " . $val['texte'] . "</td><td>" . " à " . $val['date_heure'] . "</td></tr></br>";
+        }
+        elseif ($val['id_utilisateur'] != $_SESSION['idutilisateur'] && $val['validem'] == 'true') {
+            echo "Message reçu : " . $val['texte'] . "</td><td>" . " à " . $val['date_heure'] . "</td></tr></br>";
+        }
+    }
+}
+
+if (isset($_SESSION['idutilisateur']) && $_SESSION['role'] == "moderateur") {
+    include "view_header_moderator.php";
     foreach ($messages as $cle => $val) {
         echo "<tr><td>";
         

@@ -18,6 +18,7 @@
     <?php
     
          foreach($infos as $cle => $val) {
+            include "view_header_admin.php";
             echo "<td>" . $val['id_utilisateur'] . "</td>" . "<td>" . $val['nom'] . "</td>" . "<td>" .$val['prenom'] . "</td>" . "<td>" . $val['mail'] . "</td>" . "<td>" . $val['telephone'] . "<td> <a href=" . dirname($val['cv']) . '/' . rawurlencode(basename($val['cv'])) . ">" . "CV" . "</a>" . "</td>" . "<td>" . "<a href=?controller=unpromote&action=unpromote&start=" . $val['id_utilisateur'] . ">" . "Rétrograder" . "</td>";
         }
             

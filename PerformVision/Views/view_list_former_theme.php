@@ -1,4 +1,10 @@
-<?php require_once "view_begin.php";?>
+<?php require_once "view_begin.php";
+
+include "view_header_customer.php";
+
+?>
+
+
 
 <h1>Liste des formateurs</h1>
 
