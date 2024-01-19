@@ -551,7 +551,7 @@ div.divchoice p {
 
 /*profil de lutilisateur*/
 .profil {
-    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif ;
+    font-family:Roboto, Cochin, Georgia, Times, 'Times New Roman', serif ;
     width : 50% ;
     margin: auto;
     text-align: center;
@@ -560,14 +560,14 @@ div.divchoice p {
     box-shadow: #000000 0 0 10px;
 }
 .profil ul {
-    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif ;
+    font-family:Roboto, Cochin, Georgia, Times, 'Times New Roman', serif ;
     list-style: none;
     margin : 0 ;
     padding: 0 ;
     line-height: 2.5;
 }
 .profil .button {
-    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif ;
+    font-family:Roboto, Cochin, Georgia, Times, 'Times New Roman', serif ;
     background-color: #000000;
     margin : 5% ;
     padding : 2% ;
