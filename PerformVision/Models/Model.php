@@ -1881,6 +1881,12 @@ $req->execute();
     }
 
 
+    /**
+    * @param array $tab
+    * @return void
+    * 
+    * Methode qui crée un nouveau thème dans la table theme à partir du tableau $tab passé en paramètre
+    */
     public function createTheme($tab){
         $req= $this->bd->prepare('INSERT INTO theme(nomT , valideT , idC) 
         VALUES (:nomTheme, :valideT , :idC)') ; 
@@ -1891,7 +1897,11 @@ $req->execute();
         
     }
 
-
+    /**
+    * @return array
+    * 
+    * Méthode qui renvoie un tableau contenant les informations sur tous les themes de la table theme qui sont validés
+    */
     public function seeThemesValides(){
         $req= $this->bd->prepare('SELECT idt , nomt , validet FROM theme WHERE validet=:true') ; 
         $req->bindValue(':true','true') ;
@@ -1902,6 +1912,11 @@ $req->execute();
     }
 
 
+    /**
+    * @return array
+    * 
+    * Méthode qui renvoie un tableau contenant les informations sur tous les themes de la table theme qui ne sont pas validés
+    */
     public function seeThemesNonValides(){
         $req= $this->bd->prepare('SELECT idt , nomt , validet FROM theme WHERE validet=:false') ; 
         $req->bindValue(':false','false') ;
@@ -1911,6 +1926,11 @@ $req->execute();
     }
 
 
+    /**
+    * @return void
+    * 
+    * Méthode qui permet de valider un theme de la table theme
+    */
     public function UpdateTheme(){
         $req= $this->bd->prepare('UPDATE theme SET validet=:true WHERE idt=:idt') ; 
         $req->bindValue(':idt',$_GET['idt']) ;
@@ -1919,6 +1939,11 @@ $req->execute();
     }
 
 
+    /**
+    * @return void
+    * 
+    * Méthode qui permet de supprimer un thème de la table theme
+    */
     public function DeleteTheme(){
 
         $req1 = $this->bd->prepare('DELETE FROM aexpertiseprofessionnelle WHERE idt=:idt') ; 
@@ -1933,6 +1958,13 @@ $req->execute();
     }
 
 
+    /**
+    * @param int $id_theme
+    * @return void
+    * 
+    * Méthode qui renvoie la liste des formateurs qui offrent le thème dont l'id_theme est passé en 
+    * paramètre, sous forme de tableau
+    */
     public function ListFormerTheme($id_theme) {
 
 
