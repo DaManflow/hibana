@@ -117,8 +117,9 @@ class Model
     }
 
     /**
-    * Méthode qui ajoute un nouveau formateur dans les tables utilisateur et formateur de la base de données à partir des           informations       
-    * contenues dans le paramètre $infos
+    * Méthode qui ajoute un nouveau formateur dans les tables 
+    * utilisateur et formateur de la base de données à partir des informations        
+    * contenues dans le paramètre $infos.
     * En cas d'erreur, aucune information n'est ajoutée dans la base de données
     */
     public function createFormer($infos) {
@@ -460,7 +461,14 @@ class Model
     }
 
     /**
-    * Méthode qui renvoie un tableau contenant les formateurs dont la ligne est comprise entre les paramètres $offset et $limit
+    * Méthode qui renvoie un tableau contenant les formateurs 
+    * dont le numéro de ligne est compris entre dans l'intervalle [$offset;$limit]
+    * Le tableau est de la forme :
+    * [
+    *   0 =>["id_utilisateur"=>1, "nom"=>"Nom1", "prenom"=>"Prenom1", "mail"=>"mail1@truc.fr"], 
+    *   1 =>["id_utilisateur"=>2, "nom"=>"Nom2", "prenom"=>"Prenom2", "mail"=>"mail2@truc.fr"],
+    *   ...
+    * ]
     */
     public function getFormersWithLimit($offset = 0, $limit = 25) {
 
@@ -476,7 +484,11 @@ class Model
 
     }
 
-
+    /**
+    * Méthode qui retourne les informations concernant le formateur dont l'id est passé en paramètre
+    * sous la forme d'un tableau 
+    * [ 0=>["id_utilisateur"=>id, "nom"=>"NomFormateurId", "prenom"=>"PrenomFormateurId", "mail"=>"mailId@truc.fr", "telephone"=>0123456789, "est-affranchi"=>"false", "cv"=>"cv.pdf"] ]
+    */
     public function getFormerInformations($id)
     {
         $requete = $this->bd->prepare('Select id_utilisateur, nom,prenom, mail, telephone, est_affranchi, cv from utilisateur JOIN formateur ON utilisateur.id_utilisateur = formateur.id_formateur WHERE utilisateur.id_utilisateur = :id');
@@ -485,6 +497,10 @@ class Model
         return $requete->fetchAll();
     }
 
+    /**
+    * Methode qui retourne le nombre d'utilisateurs de la table utilisateur (int)
+    * dont le role est "formateur" 
+    */
     public function getNbFormer()
     {
         $req = $this->bd->prepare('SELECT COUNT(*) FROM utilisateur WHERE role = :formateur');
@@ -494,6 +510,9 @@ class Model
         return $tab[0];
     }
 
+    /**
+    * 
+    */
     public function getNbFormerCustomer()
     {
         $req = $this->bd->prepare('SELECT COUNT(*) FROM utilisateur WHERE role = :formateur OR role = :moderateur OR role = :admin');
