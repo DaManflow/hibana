@@ -12,9 +12,11 @@ https://gitlab.sorbonne-paris-nord.fr/12203376/hibana/-/tree/main/PerformVision/
 
 mkdir : permission denied ou encore move_uploaded_files : permission denied.
 
-- Pour résoudre ce problème nous avons appliqué chmod 755 sur le dossier :
+- Pour résoudre ce problème nous avons appliqué chmod 755 sur le dossier : 
 
-`/PerformVision/Content/CV_former/`
+**CV_former** qui se trouve à `/PerformVision/Content/CV_former/`
+
+
 
 
 ## Git le Projet entier
