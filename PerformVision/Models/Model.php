@@ -475,8 +475,8 @@ class Model
     * dont le numéro de ligne est compris entre dans l'intervalle [$offset;$limit]
     * Le tableau est de la forme :
     * [
-    *   0 =>["id_utilisateur"=>1, "nom"=>"Nom1", "prenom"=>"Prenom1", "mail"=>"mail1@truc.fr"], 
-    *   1 =>["id_utilisateur"=>2, "nom"=>"Nom2", "prenom"=>"Prenom2", "mail"=>"mail2@truc.fr"],
+    *   0 =>["id_utilisateur"=>1, "nom"=>"Nom1", "prenom"=>"Prenom1", "mail"=>"mail1[at]truc.fr"], 
+    *   1 =>["id_utilisateur"=>2, "nom"=>"Nom2", "prenom"=>"Prenom2", "mail"=>"mail2[at]truc.fr"],
     *   ...
     * ]
     */
@@ -504,7 +504,7 @@ class Model
     * [ 0=>["id_utilisateur"=>id, 
     * "nom"=>"NomFormateurId", 
     * "prenom"=>"PrenomFormateurId", 
-    * "mail"=>"mailId@truc.fr", 
+    * "mail"=>"mailId[at]truc.fr", 
     * "telephone"=>0123456789, 
     * "est-affranchi"=>"false", 
     * "cv"=>"cv.pdf"] ]
@@ -556,7 +556,7 @@ class Model
     * @param string $sc
     * @return array
     * 
-    * Methode qui retourne les thèmes de la catégorie ou de la sous-catégorie en paramètre $sc
+    * Methode qui retourne les thèmes de la catégorie ou de la sous-catégorie en paramètre
     */
     public function getThemes($sc = 'tout'){
         if($sc == 'tout'){
@@ -633,7 +633,10 @@ inner join utilisateur on formateur.id_formateur = utilisateur.id_utilisateur');
 
     /**
     * @param array $infos
-    * @return 
+    * @return array | boolean | void
+    *
+    * Méthode qui démarre une session pour l'utilisateur dont les infos sont en paramètres
+    * ou la redémarre si une session était déjà en cours
     */
     public function VerifConnectUser($infos) {
 
@@ -748,7 +751,14 @@ inner join utilisateur on formateur.id_formateur = utilisateur.id_utilisateur');
         
     }
 
-
+    /**
+    * @param array $infos
+    * @return boolean | void | array
+    * 
+    * Methode qui ajoute un nouveau message venant d'un client, 
+    * dont les infos sont en paramètres,
+    * dans une nouvelle discussion ou une discussion préexistante
+    */
     public function add_discussion_message_customer($infos) {
 
         if (! $infos) {return false;}
@@ -811,6 +821,14 @@ inner join utilisateur on formateur.id_formateur = utilisateur.id_utilisateur');
         return $erreur_type;
     }
 
+    /**
+    * @param array $infos
+    * @return boolean | void | array
+    * 
+    * Methode qui ajoute un nouveau message venant d'un client affranchi de moderation, 
+    * dont les infos sont en paramètres,
+    * dans une nouvelle discussion ou une discussion préexistante
+    */
     public function add_discussion_message_customer_affranchi($infos) {
 
         if (! $infos) {return false;}
@@ -873,7 +891,14 @@ inner join utilisateur on formateur.id_formateur = utilisateur.id_utilisateur');
         return $erreur_type;
     }
 
-
+    /**
+    * @param array $infos
+    * @return boolean | void | array
+    * 
+    * Methode qui ajoute un nouveau message venant d'un formateur, 
+    * dont les infos sont en paramètres,
+    * dans une nouvelle discussion ou une discussion préexistante
+    */
     public function add_discussion_message_former($infos) {
 
         if (! $infos) {return false;}
@@ -936,7 +961,14 @@ inner join utilisateur on formateur.id_formateur = utilisateur.id_utilisateur');
         return $erreur_type;
     }
 
-
+    /**
+    * @param array $infos
+    * @return boolean | void | array
+    * 
+    * Methode qui ajoute un nouveau message venant d'un client affranchi de moderation, 
+    * dont les infos sont en paramètres,
+    * dans une nouvelle discussion ou une discussion préexistante
+    */
     public function add_discussion_message_former_affranchi($infos) {
 
         if (! $infos) {return false;}
@@ -999,7 +1031,11 @@ inner join utilisateur on formateur.id_formateur = utilisateur.id_utilisateur');
         return $erreur_type;
     }
     
-
+    /**
+    * @param array $infos
+    * @return boolean | void | array
+    * 
+    */
     public function add_discussion_message_former_admin_moderator($infos) {
 
         if (! $infos) {return false;}
@@ -1035,8 +1071,6 @@ inner join utilisateur on formateur.id_formateur = utilisateur.id_utilisateur');
 
             $req_verif_tab = $req_verif->fetch(PDO::FETCH_ASSOC);
 
-            
-
             $req2 = $this->bd->prepare('INSERT INTO message(id_discussion, id_utilisateur, texte,date_heure,valideM,lu) VALUES(:id_discussion, :id_utilisateur, :texte, :date_heure, :valideM, :lu)');
             $req2->bindValue(':id_discussion', $req_verif_tab['id_discussion']);
             $req2->bindValue(':id_utilisateur', $_SESSION['idutilisateur']);
@@ -1062,7 +1096,12 @@ inner join utilisateur on formateur.id_formateur = utilisateur.id_utilisateur');
         return $erreur_type;
     }
 
-
+    /**
+    * @return array 
+    *
+    * Methode qui retourne la liste des discussions du client qui se trouve dans la session
+    * 
+    */
     public function list_discussions_customers() {
 
         try {
@@ -1091,6 +1130,14 @@ inner join utilisateur on formateur.id_formateur = utilisateur.id_utilisateur');
 
     }
 
+    /**
+    * @param int $id_formateur
+    * @return array 
+    *
+    * Methode qui retourne la liste des discussions du client qui se trouve 
+    * dans la session avec le formateur dont l'id est en paramètre
+    * 
+    */
     public function list_messages_customers($id_formateur) {
 
         try {
@@ -1129,6 +1176,7 @@ inner join utilisateur on formateur.id_formateur = utilisateur.id_utilisateur');
         return $req->fetchAll(PDO::FETCH_ASSOC);
 
     }
+    
     public function list_discussions_formers(){
         try {
 
