@@ -1268,6 +1268,14 @@ inner join utilisateur on formateur.id_formateur = utilisateur.id_utilisateur');
     }
 
 
+    /**
+    * @param int $offset
+    * @param int $limit
+    * @return array
+    *
+    * Methode qui retourne les informations sur les moderateurs de la table moderateur 
+    * dont le numéro de ligne est compris entre $offset et $limit 
+    */
     public function getModeratorsWithLimit($offset = 0, $limit = 25) {
         $req = $this->bd->prepare('Select id_utilisateur,nom, prenom, mail from utilisateur WHERE role = :role ORDER BY id_utilisateur DESC LIMIT :limit OFFSET :offset');
         $req->bindValue(':role', "moderateur");
@@ -1277,6 +1285,12 @@ inner join utilisateur on formateur.id_formateur = utilisateur.id_utilisateur');
         return $req->fetchAll(PDO::FETCH_ASSOC);
     }
 
+
+    /**
+    * @return int
+    *
+    * Methode qui retourne le nombre de modérateurs qui sont dans la table utilisateur
+    */
     public function getNbModerator()
     {
         $req = $this->bd->prepare('SELECT COUNT(*) FROM utilisateur WHERE role = :moderateur');
@@ -1286,6 +1300,11 @@ inner join utilisateur on formateur.id_formateur = utilisateur.id_utilisateur');
         return $tab[0];
     }
 
+    /**
+    * @param int $id_formateur
+    * Methode qui change le role d'un formateur simple en modérateur, 
+    * et la valeur booléenne de est_affranchi à true dans la table utilisateur
+    */
     public function promote($id_formateur) {
         
         try {
@@ -1317,6 +1336,13 @@ inner join utilisateur on formateur.id_formateur = utilisateur.id_utilisateur');
 
     }
 
+
+    /**
+    * @param int $id_formateur
+    *
+    * Methode qui change le role d'un modérateur en formateur simple, 
+    * et la valeur booléenne de est_affranchi à false dans la table utilisateur
+    */
     public function unpromote($id_formateur) {
         
         try {
@@ -1348,6 +1374,13 @@ inner join utilisateur on formateur.id_formateur = utilisateur.id_utilisateur');
 
     }
 
+
+    /**
+    * @param int $id
+    * @return array
+    *
+    * Methode qui retourne les informations sur le client dont l'id est en paramètre 
+    */
     public function getCustomerInformations($id)
     {
         $requete = $this->bd->prepare('Select id_utilisateur, nom,prenom, mail, telephone, societe, est_affranchi from utilisateur JOIN client ON id_utilisateur = id_client WHERE id_utilisateur = :id');
@@ -1356,6 +1389,15 @@ inner join utilisateur on formateur.id_formateur = utilisateur.id_utilisateur');
         return $requete->fetchAll();
     }
 
+
+    /**
+    * @param int $offset
+    * @param int $limit
+    * @return array
+    *
+    * Methode qui retourne les informations sur les clients
+    * dont le numéro de ligne est compris entre $offset et $limit
+    */
     public function getCustomersWithLimit($offset = 0, $limit = 25) {
         $req = $this->bd->prepare('Select id_utilisateur,nom, prenom, mail from utilisateur WHERE role = :role ORDER BY id_utilisateur DESC LIMIT :limit OFFSET :offset');
         $req->bindValue(':role', "client");
@@ -1365,6 +1407,12 @@ inner join utilisateur on formateur.id_formateur = utilisateur.id_utilisateur');
         return $req->fetchAll(PDO::FETCH_ASSOC);
     }
 
+
+    /**
+    * @return int
+    *
+    * Methode qui retourne le nombre de clients qui sont dans la table utilisateur
+    */
     public function getNbCustomers()
     {
         $req = $this->bd->prepare('SELECT COUNT(*) FROM utilisateur WHERE role = :client');
@@ -1374,6 +1422,16 @@ inner join utilisateur on formateur.id_formateur = utilisateur.id_utilisateur');
         return $tab[0];
     }
 
+
+    /**
+    * @param int $offset
+    * @param int $limit
+    * @return array 
+    * 
+    * Méthode qui renvoie un tableau de booléens indiquant si 
+    * les $limit - $offset utilisateurs qui ne sont ni modérateurs, ni administrateurs,
+    * sont affranchis de modération
+    */
     public function getEstAffranchiTrueWithLimit($offset = 0, $limit = 25) {
         $req = $this->bd->prepare('Select id_utilisateur,nom, prenom, mail, role from utilisateur WHERE est_affranchi = :est_affranchi AND role != :admin AND role != :moderateur ORDER BY id_utilisateur DESC LIMIT :limit OFFSET :offset');
         $req->bindValue(':est_affranchi', "true");
@@ -1385,6 +1443,13 @@ inner join utilisateur on formateur.id_formateur = utilisateur.id_utilisateur');
         return $req->fetchAll(PDO::FETCH_ASSOC);
     }
 
+
+    /**
+    * @return int
+    * 
+    * Méthode qui renvoie le nombre de clients et de formateurs affranchis de modération, 
+    * mais qui ne sont ni modérateurs, ni administrateurs, dans la table utilisateur
+    */
     public function getNbEstAffranchiTrue()
     {
         $req = $this->bd->prepare('SELECT COUNT(*) FROM utilisateur WHERE est_affranchi = :est_affranchi AND role != :admin AND role != :moderateur');
@@ -1396,6 +1461,13 @@ inner join utilisateur on formateur.id_formateur = utilisateur.id_utilisateur');
         return $tab[0];
     }
 
+
+    /**
+    * @return array
+    * 
+    * Méthode qui renvoie $limit - $offset clients et/ou formateurs
+    * non affranchis de modération
+    */
     public function getEstAffranchiFalseWithLimit($offset = 0, $limit = 25) {
         $req = $this->bd->prepare('Select id_utilisateur,nom, prenom, mail, role from utilisateur WHERE est_affranchi = :est_affranchi ORDER BY id_utilisateur DESC LIMIT :limit OFFSET :offset');
         $req->bindValue(':est_affranchi', "false");
@@ -1405,6 +1477,12 @@ inner join utilisateur on formateur.id_formateur = utilisateur.id_utilisateur');
         return $req->fetchAll(PDO::FETCH_ASSOC);
     }
 
+
+    /**
+    * @return int
+    * 
+    * Méthode qui renvoie le nombre de clients et de formateurs non affranchis de modération
+    */
     public function getNbEstAffranchiFalse()
     {
         $req = $this->bd->prepare('SELECT COUNT(*) FROM utilisateur WHERE est_affranchi = :est_affranchi');
@@ -1414,6 +1492,14 @@ inner join utilisateur on formateur.id_formateur = utilisateur.id_utilisateur');
         return $tab[0];
     }
 
+
+    /**
+    * @param int $id_utilisateur
+    * @return void
+    * 
+    * Méthode qui affranchit l'utilisateur dont l'id_utilisateur est en paramètre
+    * de modération
+    */
     public function free($id_utilisateur) {
         
         try {
@@ -1451,7 +1537,13 @@ inner join utilisateur on formateur.id_formateur = utilisateur.id_utilisateur');
 
     }
 
-
+    /**
+    * @param int $id_utilisateur
+    * @return void
+    * 
+    * Méthode qui désaffranchit l'utilisateur dont l'id_utilisateur est en paramètre
+    * de modération
+    */
     public function unfree($id_utilisateur) {
         
         try {
@@ -1482,6 +1574,21 @@ inner join utilisateur on formateur.id_formateur = utilisateur.id_utilisateur');
 
     }
 
+
+    /**
+    * @param int $offset 
+    * @param int $limit
+    * @return array
+    * 
+    * Méthode qui renvoie un tableau contenant les formateurs simples 
+    * dont le numéro de ligne est compris entre dans l'intervalle [$offset;$limit]
+    * Le tableau est de la forme :
+    * [
+    *   0 =>["id_utilisateur"=>1, "nom"=>"Nom1", "prenom"=>"Prenom1", "mail"=>"mail1[at]truc.fr"], 
+    *   1 =>["id_utilisateur"=>2, "nom"=>"Nom2", "prenom"=>"Prenom2", "mail"=>"mail2[at]truc.fr"],
+    *   ...
+    * ]
+    */
     public function getFormersUniqueWithLimit($offset = 0, $limit = 25) {
 
         $req = $this->bd->prepare('Select id_utilisateur,nom, prenom, mail from utilisateur WHERE role = :formateur ORDER BY id_utilisateur DESC LIMIT :limit OFFSET :offset');
@@ -1494,6 +1601,26 @@ inner join utilisateur on formateur.id_formateur = utilisateur.id_utilisateur');
 
     }
 
+
+    /**
+    * @return array
+    * 
+    * Méthode qui renvoie un tableau contenant les informations sur toutes les discussions entre 
+    * les formateurs et les clients, contenues dans la table discussion. 
+    * Le tableau est de la forme :
+    * [
+    *   0 =>[
+    *    "id_discussion"=>1, 
+    *    "id_formateur"=>1, "formateur_nom"=>"Nom1", "formateur_prenom"=>"Prenom1", "formateur_mail"=>"mail1[at]truc.fr", 
+    *    "id_client"=>4, "client_nom"=>"Nom4", "client_prenom"=>"Prenom4", "client_mail"=>"mail4[at]truc.fr"
+    *    ],
+    *   1 =>[
+    *    "id_discussion"=>2, 
+    *    "id_formateur"=>3, "formateur_nom"=>"Nom3", "formateur_prenom"=>"Prenom3", "formateur_mail"=>"mail3[at]truc.fr", 
+    *    "id_client"=>4, "client_nom"=>"Nom4", "client_prenom"=>"Prenom4", "client_mail"=>"mail4[at]truc.fr"
+    *    ], ...
+    * ]
+    */
     public function discussionList() {
 
         $req = $this->bd->prepare('SELECT
@@ -1521,6 +1648,14 @@ inner join utilisateur on formateur.id_formateur = utilisateur.id_utilisateur');
 
     }
 
+
+    /**
+    * @param int $id_discussion
+    * @return array
+    * 
+    * Methode qui renvoie un tableau contenant les informations sur 
+    * tous les messages de la discussion dont l'id_discussion est passé en paramètre
+    */
     public function messageList($id_discussion) {
     
         $req = $this->bd->prepare('SELECT
@@ -1565,6 +1700,12 @@ inner join utilisateur on formateur.id_formateur = utilisateur.id_utilisateur');
     }
 
 
+    /**
+    * @param int $id_message
+    * @return void
+    * 
+    * Methode qui permet de valider le message dont l'id_message est passé en paramètre
+    */
     public function validemTrue($id_message) {
 
         try {
@@ -1594,6 +1735,13 @@ inner join utilisateur on formateur.id_formateur = utilisateur.id_utilisateur');
 
     }
 
+
+    /**
+    * @param int $id_message
+    * @return void
+    * 
+    * Methode qui permet d'invalider le message dont l'id_message est passé en paramètre
+    */
     public function validemFalse($id_message) {
 
         try {
@@ -1623,6 +1771,12 @@ inner join utilisateur on formateur.id_formateur = utilisateur.id_utilisateur');
 
     }
 
+
+    /**
+    * @return array
+    * 
+    * Methode qui renvoie un tableau dont les clés sont les id_theme et les valeurs sont des tableaux qui contiennent les informations sur les thèmes de la table theme
+    */
     public function seeThemes(){
         $req = $this->bd->prepare('SELECT 
     t.idT AS id_theme,
@@ -1652,6 +1806,12 @@ $req->execute();
     return $result;
 
     } 
+
+    /**
+    * @return array
+    *
+    * Méthode qui renvoie un tableau contenant les informations sur chaque niveaux de la table niveau
+    */
     public function seeLevel()
 {
     $req = $this->bd->prepare('SELECT * FROM niveau');
@@ -1667,118 +1827,141 @@ $req->execute();
 
     return $result;
 }
-public function seePublic()
-{
-    $req = $this->bd->prepare('SELECT * FROM public');
-    $req->execute();
-    $publics = $req->fetchAll(PDO::FETCH_ASSOC);
 
-    $result = array();
-    foreach ($publics as $public) {
-        $id = $public['idp'];
-        unset($public['idp']);
-        $result[$id] = $public;
+
+    /**
+    * @return array
+    *
+    * Méthode qui renvoie un tableau contenant les informations sur chaque niveau d'un public de la table public
+    */
+    public function seePublic()
+    {
+        $req = $this->bd->prepare('SELECT * FROM public');
+        $req->execute();
+        $publics = $req->fetchAll(PDO::FETCH_ASSOC);
+
+        $result = array();
+        foreach ($publics as $public) {
+            $id = $public['idp'];
+            unset($public['idp']);
+            $result[$id] = $public;
+        }
+
+        return $result;
     }
 
-    return $result;
-}
-public function seeCategories(){
-    $req = $this->bd->prepare('SELECT 
-        c.idC AS id_categorie,
-        c.nomC AS categorie,
-        c2.nomC AS categorie_mere
-    FROM 
-        categorie c
-    LEFT JOIN 
-        categorie c2 ON c.idC_mere = c2.idC
-    WHERE 
-        c.idC_mere IS NOT NULL;
-    ') ;
-    $req->execute();
-    $categories = $req->fetchAll(PDO::FETCH_ASSOC);
+    /**
+    * @return array
+    * 
+    * Methode qui renvoie un tableau dont les clés sont les id_categorie et les valeurs sont des tableaux qui contiennent les informations sur les catégories de la table categorie
+    */
+    public function seeCategories(){
+        $req = $this->bd->prepare('SELECT 
+            c.idC AS id_categorie,
+            c.nomC AS categorie,
+            c2.nomC AS categorie_mere
+        FROM 
+            categorie c
+        LEFT JOIN 
+            categorie c2 ON c.idC_mere = c2.idC
+        WHERE 
+            c.idC_mere IS NOT NULL;
+        ') ;
+        $req->execute();
+        $categories = $req->fetchAll(PDO::FETCH_ASSOC);
 
-    $result = array();
-    foreach ($categories as $categorie) {
-        $id_categorie = $categorie['id_categorie'];
-        unset($categorie['id_categorie']);
-        $result[$id_categorie] = $categorie;
+        $result = array();
+        foreach ($categories as $categorie) {
+            $id_categorie = $categorie['id_categorie'];
+            unset($categorie['id_categorie']);
+            $result[$id_categorie] = $categorie;
+        }
+
+        return $result;
     }
 
-    return $result;
-}
-public function createTheme($tab){
-    $req= $this->bd->prepare('INSERT INTO theme(nomT , valideT , idC) 
-    VALUES (:nomTheme, :valideT , :idC)') ; 
-    $req->bindValue(':nomTheme',$tab['theme_contenu']) ; 
-    $req->bindValue(':valideT','false') ; 
-    $req->bindValue(':idC',$tab['sous_categorie']) ; 
-    $req->execute() ; 
-    
-}
-public function seeThemesValides(){
-    $req= $this->bd->prepare('SELECT idt , nomt , validet FROM theme WHERE validet=:true') ; 
-    $req->bindValue(':true','true') ;
-    $req->execute();
 
-    return $req->fetchAll(PDO::FETCH_ASSOC);
-
-}
-public function seeThemesNonValides(){
-    $req= $this->bd->prepare('SELECT idt , nomt , validet FROM theme WHERE validet=:false') ; 
-    $req->bindValue(':false','false') ;
-    $req->execute();
-    return $req->fetchAll(PDO::FETCH_ASSOC);
-
-}
-public function UpdateTheme(){
-    $req= $this->bd->prepare('UPDATE theme SET validet=:true WHERE idt=:idt') ; 
-    $req->bindValue(':idt',$_GET['idt']) ;
-    $req->bindValue(':true','true') ;
-    $req->execute();
-}
-public function DeleteTheme(){
-
-    $req1 = $this->bd->prepare('DELETE FROM aexpertiseprofessionnelle WHERE idt=:idt') ; 
-    $req1->bindValue(':idt',$_GET['idt']) ;
-    $req1->execute();
-    $req2 = $this->bd->prepare('DELETE FROM aexperiencepeda WHERE idt=:idt') ; 
-    $req2->bindValue(':idt',$_GET['idt']) ;
-    $req2->execute();
-    $req3= $this->bd->prepare('DELETE FROM theme WHERE idt=:idt') ; 
-    $req3->bindValue(':idt',$_GET['idt']) ;
-    $req3->execute();
-}
+    public function createTheme($tab){
+        $req= $this->bd->prepare('INSERT INTO theme(nomT , valideT , idC) 
+        VALUES (:nomTheme, :valideT , :idC)') ; 
+        $req->bindValue(':nomTheme',$tab['theme_contenu']) ; 
+        $req->bindValue(':valideT','false') ; 
+        $req->bindValue(':idC',$tab['sous_categorie']) ; 
+        $req->execute() ; 
+        
+    }
 
 
-public function ListFormerTheme($id_theme) {
+    public function seeThemesValides(){
+        $req= $this->bd->prepare('SELECT idt , nomt , validet FROM theme WHERE validet=:true') ; 
+        $req->bindValue(':true','true') ;
+        $req->execute();
+
+        return $req->fetchAll(PDO::FETCH_ASSOC);
+
+    }
 
 
-    $req = $this->bd->prepare('
-    SELECT
-        utilisateur.id_utilisateur,
-        utilisateur.nom,
-        utilisateur.prenom
-    FROM
-        utilisateur
-    JOIN
-        formateur ON utilisateur.id_utilisateur = formateur.id_formateur
-    WHERE
-        formateur.id_formateur IN (
-            SELECT
-                aExpertiseProfessionnelle.id_formateur
-            FROM
-                aExpertiseProfessionnelle
-            WHERE
-                aExpertiseProfessionnelle.idt = :id_theme
-        )
-');
-    $req->bindValue(':id_theme', $id_theme);
-    $req->execute();
+    public function seeThemesNonValides(){
+        $req= $this->bd->prepare('SELECT idt , nomt , validet FROM theme WHERE validet=:false') ; 
+        $req->bindValue(':false','false') ;
+        $req->execute();
+        return $req->fetchAll(PDO::FETCH_ASSOC);
+
+    }
+
+
+    public function UpdateTheme(){
+        $req= $this->bd->prepare('UPDATE theme SET validet=:true WHERE idt=:idt') ; 
+        $req->bindValue(':idt',$_GET['idt']) ;
+        $req->bindValue(':true','true') ;
+        $req->execute();
+    }
+
+
+    public function DeleteTheme(){
+
+        $req1 = $this->bd->prepare('DELETE FROM aexpertiseprofessionnelle WHERE idt=:idt') ; 
+        $req1->bindValue(':idt',$_GET['idt']) ;
+        $req1->execute();
+        $req2 = $this->bd->prepare('DELETE FROM aexperiencepeda WHERE idt=:idt') ; 
+        $req2->bindValue(':idt',$_GET['idt']) ;
+        $req2->execute();
+        $req3= $this->bd->prepare('DELETE FROM theme WHERE idt=:idt') ; 
+        $req3->bindValue(':idt',$_GET['idt']) ;
+        $req3->execute();
+    }
+
+
+    public function ListFormerTheme($id_theme) {
+
+
+        $req = $this->bd->prepare('
+        SELECT
+            utilisateur.id_utilisateur,
+            utilisateur.nom,
+            utilisateur.prenom
+        FROM
+            utilisateur
+        JOIN
+            formateur ON utilisateur.id_utilisateur = formateur.id_formateur
+        WHERE
+            formateur.id_formateur IN (
+                SELECT
+                    aExpertiseProfessionnelle.id_formateur
+                FROM
+                    aExpertiseProfessionnelle
+                WHERE
+                    aExpertiseProfessionnelle.idt = :id_theme
+            )
+    ');
+        $req->bindValue(':id_theme', $id_theme);
+        $req->execute();
 
 
 
-    return $req->fetchAll(PDO::FETCH_ASSOC);
+        return $req->fetchAll(PDO::FETCH_ASSOC);
 
-}
+    }
 
 }
