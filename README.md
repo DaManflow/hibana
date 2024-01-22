@@ -17,9 +17,8 @@ mkdir : permission denied ou encore move_uploaded_files : permission denied.
 **CV_former** qui se trouve à `/PerformVision/Content/CV_former/`
 
 ## Pour accéder au site sur pedagoweb sur l'une des machines de l'IUT 
-```
+
 http://pedagoweb/~12206358/hibana2/PerformVision
-```
 
 
 ## Git le Projet entier
