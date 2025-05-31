@@ -22,7 +22,7 @@ http://pedagoweb/~12206358/hibana2/PerformVision
 
 ## Git le Projet entier
 ```
-git clone [https://github.com/DaManflow/hibana.git](https://github.com/DaManflow/hibana.git) hibana-main
+git clone https://github.com/DaManflow/hibana.git hibana-main
 ```
 # Hibana
 ## SAE 301 développement d'application 
