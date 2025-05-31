@@ -40,3 +40,20 @@ Hibana
 
 - Alexandre Meunier
 
+## License
+
+### English Version
+
+Copyright (c) 2025 Hibana
+
+All rights reserved.
+This code is made publicly visible for educational or demonstration purposes only.
+Any reproduction, distribution, modification, or commercial use is strictly prohibited without prior written permission.
+
+---
+
+### Version française
+
+Droits réservés - Ce code est mis à disposition à des fins éducatives ou de démonstration uniquement.
+Toute reproduction, distribution, modification ou utilisation commerciale est strictement interdite sans autorisation écrite préalable.
+
